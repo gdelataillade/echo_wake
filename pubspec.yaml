@@ -1,5 +1,5 @@
 name: echo_wake
-description: "A new Flutter project."
+description: "Personal alarm and timer app where your own voice becomes the wake-up call."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -8,14 +8,17 @@ environment:
   sdk: ^3.7.0
 
 dependencies:
+  cupertino_icons: ^1.0.8
+  equatable: ^2.0.7
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.8
+  flutter_bloc: ^9.1.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
+  flutter_lints: ^5.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
 
 flutter:
   uses-material-design: true
