@@ -10,16 +10,22 @@ class LoadRecordings extends RecordingsEvent {}
 
 class StartRecording extends RecordingsEvent {}
 
-class StopRecording extends RecordingsEvent {}
+class StopRecording extends RecordingsEvent {
+  final bool cancel;
 
-class SaveRecording extends RecordingsEvent {
-  final String name;
-  final String path;
-
-  SaveRecording({required this.name, required this.path});
+  StopRecording({this.cancel = false});
 
   @override
-  List<Object?> get props => [name, path];
+  List<Object?> get props => [cancel];
+}
+
+class SaveRecording extends RecordingsEvent {
+  final Recording recording;
+
+  SaveRecording(this.recording);
+
+  @override
+  List<Object?> get props => [recording];
 }
 
 class DeleteRecording extends RecordingsEvent {

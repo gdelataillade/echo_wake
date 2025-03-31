@@ -52,11 +52,11 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
         id: DateTime.now().millisecondsSinceEpoch ~/ 100000,
         dateTime: event.dateTime,
         assetAudioPath: event.recordingPath.split('Documents/').last,
-        loopAudio: true,
-        vibrate: true,
+        loopAudio: false,
+        vibrate: false,
         notificationSettings: NotificationSettings(
           title: 'Echo Wake',
-          body: 'Your alarm is playing !',
+          body: '🎙️ ${event.recordingName}',
         ),
         volumeSettings: VolumeSettings.fixed(volume: 1.0),
       );

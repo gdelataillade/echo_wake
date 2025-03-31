@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'alarm_list_screen.dart';
-import 'recordings_screen.dart';
+import 'alarm/alarm_screen.dart';
+import 'recordings/recording_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../presentation/blocs/navigation/navigation_bloc.dart';
 
@@ -13,8 +13,7 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           body:
-              [const AlarmListScreen(), const RecordingsScreen()][state
-                  .selectedTab],
+              [const AlarmScreen(), const RecordingScreen()][state.selectedTab],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.selectedTab,
             onTap: (index) {

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/alarm/alarm_bloc.dart';
 import 'package:intl/intl.dart';
-import '../screens/recordings_screen.dart';
+import 'recordings/recording_screen.dart';
 
-class AlarmListScreen extends StatelessWidget {
-  const AlarmListScreen({super.key});
+class AlarmScreen extends StatelessWidget {
+  const AlarmScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -187,7 +187,7 @@ class AlarmListScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                 builder:
-                                    (context) => const RecordingsScreen(
+                                    (context) => const RecordingScreen(
                                       selectionMode: true,
                                     ),
                               ),
@@ -261,6 +261,8 @@ class AlarmListScreen extends StatelessWidget {
                                             dateTime: selectedDate,
                                             recordingPath:
                                                 selectedRecording!.path,
+                                            recordingName:
+                                                selectedRecording!.name,
                                           ),
                                         );
                                         Navigator.pop(context);
@@ -394,6 +396,10 @@ class AlarmListScreen extends StatelessWidget {
                                   CreateAlarm(
                                     dateTime: selectedDate,
                                     recordingPath: alarm.assetAudioPath,
+                                    recordingName:
+                                        alarm.notificationSettings.body.split(
+                                          '"',
+                                        )[1],
                                   ),
                                 );
 
