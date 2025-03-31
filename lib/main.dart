@@ -1,13 +1,16 @@
 import 'package:echo_wake/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:alarm/alarm.dart';
 import '../../../domain/services/storage.dart';
 import '../../../presentation/blocs/navigation/navigation_bloc.dart';
+import '../../../presentation/blocs/alarm/alarm_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   final storage = await StorageService.getInstance();
+  await Alarm.init();
 
   runApp(
     MultiBlocProvider(
@@ -17,6 +20,7 @@ void main() async {
               (context) =>
                   NavigationBloc(storage: storage)..add(LoadNavigationState()),
         ),
+        BlocProvider(create: (context) => AlarmBloc()..add(LoadAlarms())),
       ],
       child: const MyApp(),
     ),
