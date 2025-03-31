@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:record/record.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:convert';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
+import '../../../domain/services/storage.dart';
 
 class RecordingsScreen extends StatefulWidget {
-  const RecordingsScreen({super.key});
+  final bool selectionMode;
+
+  const RecordingsScreen({super.key, this.selectionMode = false});
 
   @override
   State<RecordingsScreen> createState() => _RecordingsScreenState();
@@ -20,11 +22,12 @@ class _RecordingsScreenState extends State<RecordingsScreen> {
   List<Recording> _recordings = [];
   Timer? _timer;
   Duration _recordingDuration = Duration.zero;
+  late final StorageService _storage;
 
   @override
   void initState() {
     super.initState();
-    _loadRecordings();
+    _initializeStorage();
   }
 
   @override
@@ -58,9 +61,13 @@ class _RecordingsScreenState extends State<RecordingsScreen> {
         : '$minutes:$seconds';
   }
 
+  Future<void> _initializeStorage() async {
+    _storage = await StorageService.getInstance();
+    _loadRecordings();
+  }
+
   Future<void> _loadRecordings() async {
-    final prefs = await SharedPreferences.getInstance();
-    final recordingsJson = prefs.getStringList('recordings') ?? [];
+    final recordingsJson = _storage.getStringList('recordings') ?? [];
     setState(() {
       _recordings =
           recordingsJson
@@ -74,8 +81,16 @@ class _RecordingsScreenState extends State<RecordingsScreen> {
       if (await recorder.hasPermission()) {
         final dir = await getApplicationDocumentsDirectory();
         final path =
-            '${dir.path}/recording_${DateTime.now().millisecondsSinceEpoch}.m4a';
-        await recorder.start(const RecordConfig(), path: path);
+            '${dir.path}/recording_${DateTime.now().millisecondsSinceEpoch}.wav';
+        await recorder.start(
+          const RecordConfig(
+            encoder: AudioEncoder.wav,
+            sampleRate: 44100,
+            numChannels: 1,
+            bitRate: 128000,
+          ),
+          path: path,
+        );
         setState(() {
           _isRecording = true;
         });
@@ -150,20 +165,18 @@ class _RecordingsScreenState extends State<RecordingsScreen> {
   }
 
   Future<void> _saveRecording(Recording recording) async {
-    final prefs = await SharedPreferences.getInstance();
     _recordings.add(recording);
     final recordingsJson =
         _recordings.map((recording) => jsonEncode(recording.toJson())).toList();
-    await prefs.setStringList('recordings', recordingsJson);
+    await _storage.setStringList('recordings', recordingsJson);
     setState(() {});
   }
 
   Future<void> _deleteRecording(Recording recording) async {
-    final prefs = await SharedPreferences.getInstance();
     _recordings.removeWhere((r) => r.id == recording.id);
     final recordingsJson =
         _recordings.map((recording) => jsonEncode(recording.toJson())).toList();
-    await prefs.setStringList('recordings', recordingsJson);
+    await _storage.setStringList('recordings', recordingsJson);
     setState(() {});
   }
 
@@ -286,16 +299,30 @@ class _RecordingsScreenState extends State<RecordingsScreen> {
                                     );
                                   },
                                 ),
-                                IconButton(
-                                  icon: const Icon(Icons.edit),
-                                  onPressed: () => _showRenameDialog(recording),
-                                ),
-                                IconButton(
-                                  icon: const Icon(Icons.delete),
-                                  onPressed: () => _deleteRecording(recording),
-                                ),
+                                if (!widget.selectionMode) ...[
+                                  IconButton(
+                                    icon: const Icon(Icons.edit),
+                                    onPressed:
+                                        () => _showRenameDialog(recording),
+                                  ),
+                                  IconButton(
+                                    icon: const Icon(Icons.delete),
+                                    onPressed:
+                                        () => _deleteRecording(recording),
+                                  ),
+                                ],
+                                if (widget.selectionMode)
+                                  Icon(
+                                    Icons.chevron_right,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
                               ],
                             ),
+                            onTap:
+                                widget.selectionMode
+                                    ? () => Navigator.pop(context, recording)
+                                    : null,
                           ),
                         );
                       },
@@ -343,12 +370,11 @@ class _RecordingsScreenState extends State<RecordingsScreen> {
                     _recordings[index] = recording.copyWith(
                       name: nameController.text,
                     );
-                    final prefs = await SharedPreferences.getInstance();
                     final recordingsJson =
                         _recordings
                             .map((recording) => jsonEncode(recording.toJson()))
                             .toList();
-                    await prefs.setStringList('recordings', recordingsJson);
+                    await _storage.setStringList('recordings', recordingsJson);
                     setState(() {});
                   }
                   if (context.mounted) {

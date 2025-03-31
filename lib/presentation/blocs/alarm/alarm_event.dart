@@ -11,11 +11,12 @@ class LoadAlarms extends AlarmEvent {}
 
 class CreateAlarm extends AlarmEvent {
   final DateTime dateTime;
+  final String recordingPath;
 
-  const CreateAlarm({required this.dateTime});
+  const CreateAlarm({required this.dateTime, required this.recordingPath});
 
   @override
-  List<Object?> get props => [dateTime];
+  List<Object?> get props => [dateTime, recordingPath];
 }
 
 class DeleteAlarm extends AlarmEvent {

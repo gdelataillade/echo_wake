@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/alarm/alarm_bloc.dart';
 import 'package:intl/intl.dart';
+import '../screens/recordings_screen.dart';
 
 class AlarmListScreen extends StatelessWidget {
   const AlarmListScreen({super.key});
@@ -108,9 +109,10 @@ class AlarmListScreen extends StatelessWidget {
   }
 
   void _showAddAlarmSheet(BuildContext context) {
-    TimeOfDay selectedTime = TimeOfDay.now().replacing(
-      minute: TimeOfDay.now().minute + 1,
+    TimeOfDay selectedTime = TimeOfDay.fromDateTime(
+      DateTime.now().add(const Duration(minutes: 1)),
     );
+    Recording? selectedRecording;
 
     showModalBottomSheet(
       context: context,
@@ -172,6 +174,58 @@ class AlarmListScreen extends StatelessWidget {
                             ),
                           ),
                         ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Select alarm sound',
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        const SizedBox(height: 8),
+                        InkWell(
+                          onTap: () async {
+                            final recording = await Navigator.push<Recording>(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => const RecordingsScreen(
+                                      selectionMode: true,
+                                    ),
+                              ),
+                            );
+                            if (recording != null) {
+                              setState(() => selectedRecording = recording);
+                            }
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 16,
+                              horizontal: 24,
+                            ),
+                            decoration: BoxDecoration(
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.surfaceContainerHighest,
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.music_note,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                const SizedBox(width: 16),
+                                Expanded(
+                                  child: Text(
+                                    selectedRecording?.name ??
+                                        'Select a voice recording',
+                                    style:
+                                        Theme.of(context).textTheme.bodyLarge,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
                         const SizedBox(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
@@ -182,27 +236,34 @@ class AlarmListScreen extends StatelessWidget {
                             ),
                             const SizedBox(width: 8),
                             FilledButton(
-                              onPressed: () {
-                                final now = DateTime.now();
-                                DateTime selectedDate = DateTime(
-                                  now.year,
-                                  now.month,
-                                  now.day,
-                                  selectedTime.hour,
-                                  selectedTime.minute,
-                                );
+                              onPressed:
+                                  selectedRecording == null
+                                      ? null
+                                      : () {
+                                        final now = DateTime.now();
+                                        DateTime selectedDate = DateTime(
+                                          now.year,
+                                          now.month,
+                                          now.day,
+                                          selectedTime.hour,
+                                          selectedTime.minute,
+                                        );
 
-                                if (selectedDate.isBefore(now)) {
-                                  selectedDate = selectedDate.add(
-                                    const Duration(days: 1),
-                                  );
-                                }
+                                        if (selectedDate.isBefore(now)) {
+                                          selectedDate = selectedDate.add(
+                                            const Duration(days: 1),
+                                          );
+                                        }
 
-                                context.read<AlarmBloc>().add(
-                                  CreateAlarm(dateTime: selectedDate),
-                                );
-                                Navigator.pop(context);
-                              },
+                                        context.read<AlarmBloc>().add(
+                                          CreateAlarm(
+                                            dateTime: selectedDate,
+                                            recordingPath:
+                                                selectedRecording!.path,
+                                          ),
+                                        );
+                                        Navigator.pop(context);
+                                      },
                               child: const Text('Set alarm'),
                             ),
                           ],
@@ -329,7 +390,10 @@ class AlarmListScreen extends StatelessWidget {
                                   DeleteAlarm(alarm.id),
                                 );
                                 context.read<AlarmBloc>().add(
-                                  CreateAlarm(dateTime: selectedDate),
+                                  CreateAlarm(
+                                    dateTime: selectedDate,
+                                    recordingPath: alarm.assetAudioPath,
+                                  ),
                                 );
 
                                 Navigator.pop(context);
