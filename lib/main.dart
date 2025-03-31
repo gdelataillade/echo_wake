@@ -6,6 +6,8 @@ import 'package:permission_handler/permission_handler.dart';
 import '../../../domain/services/storage.dart';
 import '../../../presentation/blocs/navigation/navigation_bloc.dart';
 import '../../../presentation/blocs/alarm/alarm_bloc.dart';
+import '../../../presentation/blocs/recording/recordings_bloc.dart';
+import '../../../presentation/blocs/recording/recordings_event.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +27,11 @@ void main() async {
                   NavigationBloc(storage: storage)..add(LoadNavigationState()),
         ),
         BlocProvider(create: (context) => AlarmBloc()..add(LoadAlarms())),
+        BlocProvider(
+          create:
+              (context) =>
+                  RecordingsBloc(storage: storage)..add(LoadRecordings()),
+        ),
       ],
       child: const MyApp(),
     ),

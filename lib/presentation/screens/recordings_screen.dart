@@ -5,7 +5,6 @@ import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:async';
-import '../../../domain/services/storage.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecordingsScreen extends StatelessWidget {
@@ -15,13 +14,7 @@ class RecordingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create:
-          (context) =>
-              RecordingsBloc(storage: context.read<StorageService>())
-                ..add(LoadRecordings()),
-      child: RecordingsView(selectionMode: selectionMode),
-    );
+    return RecordingsView(selectionMode: selectionMode);
   }
 }
 
