@@ -93,7 +93,7 @@ class AlarmScreen extends StatelessWidget {
                           ).textTheme.bodySmall?.copyWith(
                             color: Theme.of(
                               context,
-                            ).colorScheme.onSurface.withOpacity(0.6),
+                            ).colorScheme.onSurface.withValues(alpha: .6),
                           ),
                         ),
                       ],

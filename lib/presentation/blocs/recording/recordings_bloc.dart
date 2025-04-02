@@ -65,7 +65,6 @@ class RecordingsBloc extends Bloc<RecordingsEvent, RecordingsState> {
 
       _durationTimer?.cancel();
       _durationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-        print('Updating duration: ${state.recordingDuration}');
         add(
           UpdateRecordingDuration(
             state.recordingDuration + const Duration(seconds: 1),
