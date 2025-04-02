@@ -3,6 +3,7 @@ import 'package:echo_wake/data/models/recording.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecordingsList extends StatefulWidget {
@@ -64,56 +65,104 @@ class _RecordingsListState extends State<RecordingsList> {
       itemBuilder: (context, index) {
         final recording = widget.recordings[index];
         final isPlaying = _playingRecordingId == recording.id;
-        return Card(
-          margin: const EdgeInsets.symmetric(vertical: 4),
-          child: ListTile(
-            title: Text(
-              recording.name,
-              style: Theme.of(context).textTheme.titleMedium,
+        return Dismissible(
+          key: Key(recording.id),
+          background: Container(
+            alignment: Alignment.centerRight,
+            padding: const EdgeInsets.only(right: 16),
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.error,
+              borderRadius: BorderRadius.circular(16),
             ),
-            subtitle: Text(
-              '${recording.duration.inMinutes}:${(recording.duration.inSeconds % 60).toString().padLeft(2, '0')}',
-              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                color: Theme.of(
-                  context,
-                ).colorScheme.onSurface.withValues(alpha: 0.6),
+            child: Icon(
+              Icons.delete,
+              color: Theme.of(context).colorScheme.onError,
+            ),
+          ),
+          direction: DismissDirection.endToStart,
+          onDismissed: (direction) {
+            _deleteRecording(context, recording);
+            HapticFeedback.mediumImpact();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Recording deleted'),
+                duration: Durations.long2,
               ),
-            ),
-            leading: CircleAvatar(
-              backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-              child: Icon(
-                Icons.audio_file,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
-              ),
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                IconButton(
-                  icon: Icon(isPlaying ? Icons.pause : Icons.play_arrow),
-                  onPressed: () => _togglePlayback(recording),
+            );
+          },
+          child: Card(
+            margin: const EdgeInsets.symmetric(vertical: 4),
+            child: ListTile(
+              title: GestureDetector(
+                onTap: () => _showRenameDialog(context, recording),
+                child: Text(
+                  recording.name,
+                  style: Theme.of(context).textTheme.titleMedium,
                 ),
-                if (!widget.selectionMode) ...[
-                  IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: () => _showRenameDialog(context, recording),
+              ),
+              subtitle: GestureDetector(
+                onTap: () => _showRenameDialog(context, recording),
+                child: Text(
+                  '${recording.duration.inMinutes}:${(recording.duration.inSeconds % 60).toString().padLeft(2, '0')}',
+                  style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.onSurface.withValues(alpha: 0.6),
                   ),
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () => _deleteRecording(context, recording),
+                ),
+              ),
+              leading: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                child: IconButton(
+                  onPressed: () => _togglePlayback(recording),
+                  icon: Icon(
+                    Icons.audio_file,
+                    color: Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
+                ),
+              ),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Theme.of(
+                        context,
+                      ).colorScheme.primaryContainer.withOpacity(0.5),
+                    ),
+                    child: IconButton(
+                      icon: Icon(
+                        isPlaying ? Icons.pause : Icons.play_arrow,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onPressed: () => _togglePlayback(recording),
+                    ),
+                  ),
+                  if (widget.selectionMode) ...[
+                    const SizedBox(width: 8),
+                    Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      child: IconButton(
+                        icon: Icon(
+                          Icons.chevron_right,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                        onPressed: () => Navigator.pop(context, recording),
+                      ),
+                    ),
+                  ],
                 ],
-                if (widget.selectionMode)
-                  Icon(
-                    Icons.chevron_right,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-              ],
+              ),
+              onTap:
+                  widget.selectionMode
+                      ? () => Navigator.pop(context, recording)
+                      : null,
             ),
-            onTap:
-                widget.selectionMode
-                    ? () => Navigator.pop(context, recording)
-                    : null,
           ),
         );
       },

@@ -28,22 +28,45 @@ class RecordingsView extends StatelessWidget {
     return BlocBuilder<RecordingsBloc, RecordingsState>(
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(title: const Text('Voice Recordings'), elevation: 0),
-          body: Column(
-            children: [
-              if (state.status == RecordingStatus.recording)
-                RecordingIndicator(duration: state.recordingDuration),
-              Expanded(
-                child:
-                    state.recordings.isEmpty
-                        ? const EmptyRecordingsView()
-                        : RecordingsList(
-                          recordings: state.recordings,
-                          selectionMode: selectionMode,
+          appBar: AppBar(
+            title: const Text('Voice Recordings'),
+            elevation: 0,
+            backgroundColor: Theme.of(context).colorScheme.surface,
+            centerTitle: true,
+          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                if (state.status == RecordingStatus.recording)
+                  RecordingIndicator(duration: state.recordingDuration),
+                Expanded(
+                  child:
+                      state.recordings.isEmpty
+                          ? const EmptyRecordingsView()
+                          : Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: RecordingsList(
+                              recordings: state.recordings,
+                              selectionMode: selectionMode,
+                            ),
+                          ),
+                ),
+                if (state.status != RecordingStatus.recording)
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.surface,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          blurRadius: 8,
+                          offset: const Offset(0, -2),
                         ),
-              ),
-              if (state.status != RecordingStatus.recording) RecordButton(),
-            ],
+                      ],
+                    ),
+                    child: const RecordButton(),
+                  ),
+              ],
+            ),
           ),
         );
       },
