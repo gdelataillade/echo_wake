@@ -11,6 +11,8 @@ class LoadAlarms extends AlarmEvent {}
 
 class CreateAlarm extends AlarmEvent {
   final DateTime dateTime;
+  final bool loopAudio;
+  final double? volume;
   final String recordingPath;
   final String recordingName;
 
@@ -18,19 +20,12 @@ class CreateAlarm extends AlarmEvent {
     required this.dateTime,
     required this.recordingPath,
     required this.recordingName,
+    this.loopAudio = false,
+    this.volume,
   });
 
   @override
   List<Object?> get props => [dateTime, recordingPath, recordingName];
-}
-
-class DeleteAlarm extends AlarmEvent {
-  final int id;
-
-  const DeleteAlarm(this.id);
-
-  @override
-  List<Object?> get props => [id];
 }
 
 class StopAlarm extends AlarmEvent {

@@ -1,30 +1,59 @@
+import 'package:alarm/model/alarm_settings.dart';
 import 'package:echo_wake/data/models/recording.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_bloc.dart';
+import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/screens/recordings/recording_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class AddAlarmSheet extends StatefulWidget {
-  const AddAlarmSheet({super.key});
+class AlarmSheet extends StatefulWidget {
+  final AlarmSettings? existingAlarm; // null means we're creating a new alarm
+
+  const AlarmSheet({super.key, this.existingAlarm});
 
   @override
-  State<AddAlarmSheet> createState() => _AddAlarmSheetState();
+  State<AlarmSheet> createState() => _AlarmSheetState();
 }
 
-class _AddAlarmSheetState extends State<AddAlarmSheet> {
+class _AlarmSheetState extends State<AlarmSheet> {
   late TimeOfDay selectedTime;
   Recording? selectedRecording;
+  bool isLoopEnabled = false;
+  bool isCustomVolumeEnabled = false;
+  double alarmVolume = 1.0;
 
   @override
   void initState() {
     super.initState();
-    selectedTime = TimeOfDay.fromDateTime(
-      DateTime.now().add(const Duration(minutes: 1)),
-    );
+
+    if (widget.existingAlarm != null) {
+      // Editing mode - initialize with existing alarm values
+      selectedTime = TimeOfDay(
+        hour: widget.existingAlarm!.dateTime.hour,
+        minute: widget.existingAlarm!.dateTime.minute,
+      );
+      // Find the recording by path from RecordingsBloc state
+      final recordings = context.read<RecordingsBloc>().state.recordings;
+      try {
+        selectedRecording = recordings.firstWhere(
+          (recording) =>
+              recording.path.contains(widget.existingAlarm!.assetAudioPath),
+        );
+      } catch (e) {
+        selectedRecording = null;
+      }
+    } else {
+      // Creation mode - initialize with default values
+      selectedTime = TimeOfDay.fromDateTime(
+        DateTime.now().add(const Duration(minutes: 1)),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final bool isEditMode = widget.existingAlarm != null;
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -35,9 +64,27 @@ class _AddAlarmSheetState extends State<AddAlarmSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              'Set alarm time',
-              style: Theme.of(context).textTheme.titleLarge,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  isEditMode ? 'Edit alarm' : 'Set alarm time',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                if (isEditMode)
+                  IconButton(
+                    onPressed: () {
+                      context.read<AlarmBloc>().add(
+                        StopAlarm(widget.existingAlarm!.id),
+                      );
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(
+                      Icons.delete_outline,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                  ),
+              ],
             ),
             const SizedBox(height: 24),
             InkWell(
@@ -122,7 +169,60 @@ class _AddAlarmSheetState extends State<AddAlarmSheet> {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Loop audio',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Switch(
+                  value: isLoopEnabled,
+                  onChanged: (value) => setState(() => isLoopEnabled = value),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Custom volume',
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
+                Switch(
+                  value: isCustomVolumeEnabled,
+                  onChanged:
+                      (value) => setState(() => isCustomVolumeEnabled = value),
+                ),
+              ],
+            ),
+            if (isCustomVolumeEnabled) ...[
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Icon(
+                    Icons.volume_down,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  Expanded(
+                    child: Slider(
+                      value: alarmVolume,
+                      min: 0.0,
+                      max: 1.0,
+                      onChanged: (value) => setState(() => alarmVolume = value),
+                    ),
+                  ),
+                  Icon(
+                    Icons.volume_up,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ],
+              ),
+            ],
+            const SizedBox(height: 16),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -135,7 +235,7 @@ class _AddAlarmSheetState extends State<AddAlarmSheet> {
                   onPressed:
                       selectedRecording == null
                           ? null
-                          : () {
+                          : () async {
                             final now = DateTime.now();
                             DateTime selectedDate = DateTime(
                               now.year,
@@ -151,16 +251,30 @@ class _AddAlarmSheetState extends State<AddAlarmSheet> {
                               );
                             }
 
+                            if (isEditMode) {
+                              // Delete the old alarm first
+                              context.read<AlarmBloc>().add(
+                                StopAlarm(widget.existingAlarm!.id),
+                              );
+                              Future.delayed(
+                                const Duration(milliseconds: 1000),
+                              );
+                            }
+
+                            // Create new alarm
                             context.read<AlarmBloc>().add(
                               CreateAlarm(
                                 dateTime: selectedDate,
                                 recordingPath: selectedRecording!.path,
                                 recordingName: selectedRecording!.name,
+                                loopAudio: isLoopEnabled,
+                                volume:
+                                    isCustomVolumeEnabled ? alarmVolume : null,
                               ),
                             );
                             Navigator.pop(context);
                           },
-                  child: const Text('Set alarm'),
+                  child: Text(isEditMode ? 'Save changes' : 'Set alarm'),
                 ),
               ],
             ),

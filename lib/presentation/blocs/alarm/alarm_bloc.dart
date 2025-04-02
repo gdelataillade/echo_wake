@@ -12,7 +12,6 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
   AlarmBloc() : super(AlarmInitial()) {
     on<LoadAlarms>(_onLoadAlarms);
     on<CreateAlarm>(_onCreateAlarm);
-    on<DeleteAlarm>(_onDeleteAlarm);
     on<StopAlarm>(_onStopAlarm);
 
     // Listen to alarm updates
@@ -52,31 +51,19 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
         id: DateTime.now().millisecondsSinceEpoch ~/ 100000,
         dateTime: event.dateTime,
         assetAudioPath: event.recordingPath.split('Documents/').last,
-        loopAudio: false,
+        loopAudio: event.loopAudio,
         vibrate: false,
         notificationSettings: NotificationSettings(
           title: 'Echo Wake',
           body: '🎙️ ${event.recordingName}',
+          stopButton: 'Stop',
         ),
-        volumeSettings: VolumeSettings.fixed(volume: 1.0),
+        volumeSettings: VolumeSettings.fixed(volume: event.volume),
       );
 
       debugPrint('Setting alarm with settings: $alarmSettings');
       await Alarm.set(alarmSettings: alarmSettings);
       debugPrint('Alarm set successfully');
-      add(LoadAlarms());
-    } catch (e) {
-      emit(AlarmError(e.toString()));
-    }
-  }
-
-  Future<void> _onDeleteAlarm(
-    DeleteAlarm event,
-    Emitter<AlarmState> emit,
-  ) async {
-    try {
-      emit(AlarmLoading());
-      await Alarm.stop(event.id);
       add(LoadAlarms());
     } catch (e) {
       emit(AlarmError(e.toString()));

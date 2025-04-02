@@ -1,7 +1,7 @@
 import 'package:alarm/model/alarm_settings.dart';
-import 'package:echo_wake/presentation/screens/alarm/widgets/add_alarm_sheet.dart';
-import 'package:echo_wake/presentation/screens/alarm/widgets/edit_alarm_sheet.dart';
+import 'package:echo_wake/presentation/screens/alarm/widgets/alarm_sheet.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../blocs/alarm/alarm_bloc.dart';
 import 'package:intl/intl.dart';
@@ -11,16 +11,40 @@ class AlarmScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Alarms'), elevation: 0),
+      backgroundColor: colorScheme.surface,
+      appBar: AppBar(
+        title: const Text('Alarms'),
+        elevation: 0,
+        backgroundColor: colorScheme.surface,
+        centerTitle: true,
+      ),
       body: BlocBuilder<AlarmBloc, AlarmState>(
         builder: (context, state) {
           if (state is AlarmLoading) {
-            return const Center(child: CircularProgressIndicator());
+            return Center(
+              child: CircularProgressIndicator(color: colorScheme.primary),
+            );
           }
 
           if (state is AlarmError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.error_outline, size: 48, color: colorScheme.error),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Error: ${state.message}',
+                    style: Theme.of(
+                      context,
+                    ).textTheme.titleMedium?.copyWith(color: colorScheme.error),
+                  ),
+                ],
+              ),
+            );
           }
 
           if (state is AlarmLoaded) {
@@ -29,18 +53,27 @@ class AlarmScreen extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.alarm_off, size: 64, color: Colors.grey[400]),
-                    const SizedBox(height: 16),
+                    Icon(
+                      Icons.alarm_off_rounded,
+                      size: 80,
+                      color: colorScheme.primary.withOpacity(0.5),
+                    ),
+                    const SizedBox(height: 24),
                     Text(
                       'No alarms set',
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Tap + to add an alarm',
                       style: Theme.of(
                         context,
-                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
+                      ).textTheme.headlineSmall?.copyWith(
+                        color: colorScheme.onSurface,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      'Tap + to add an alarm',
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                        color: colorScheme.onSurface.withOpacity(0.6),
+                      ),
                     ),
                   ],
                 ),
@@ -48,67 +81,106 @@ class AlarmScreen extends StatelessWidget {
             }
 
             return ListView.separated(
-              padding: const EdgeInsets.symmetric(vertical: 8),
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
               itemCount: state.alarms.length,
-              separatorBuilder: (context, index) => const Divider(height: 1),
+              separatorBuilder: (context, index) => const SizedBox(height: 12),
               itemBuilder: (context, index) {
                 final alarmSettings = state.alarms[index];
                 return Dismissible(
                   key: Key(alarmSettings.id.toString()),
                   background: Container(
-                    color: Theme.of(context).colorScheme.error,
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    decoration: BoxDecoration(
+                      color: colorScheme.error,
+                      borderRadius: BorderRadius.circular(16),
+                    ),
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.only(right: 24),
-                    child: const Icon(Icons.delete, color: Colors.white),
+                    child: Icon(
+                      Icons.delete_rounded,
+                      color: colorScheme.onError,
+                    ),
                   ),
                   direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
-                    context.read<AlarmBloc>().add(
-                      DeleteAlarm(alarmSettings.id),
+                    context.read<AlarmBloc>().add(StopAlarm(alarmSettings.id));
+                    HapticFeedback.mediumImpact();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Alarm deleted'),
+                        duration: Durations.long2,
+                      ),
                     );
                   },
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.alarm,
-                      color: Theme.of(context).colorScheme.primary,
-                      size: 28,
+                  child: Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    title: Text(
-                      DateFormat('h:mm a').format(alarmSettings.dateTime),
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                    subtitle: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          DateFormat(
-                            'EEEE, MMMM d',
-                          ).format(alarmSettings.dateTime),
-                          style: Theme.of(context).textTheme.bodyMedium,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(16),
+                      onTap: () => _showEditAlarmSheet(context, alarmSettings),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16),
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: colorScheme.primaryContainer,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: Icon(
+                                Icons.alarm_rounded,
+                                color: colorScheme.primary,
+                                size: 28,
+                              ),
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    DateFormat(
+                                      'h:mm a',
+                                    ).format(alarmSettings.dateTime),
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.headlineSmall?.copyWith(
+                                      fontWeight: FontWeight.bold,
+                                      color: colorScheme.onSurface,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    '📅${DateFormat('EEEE, MMMM d').format(alarmSettings.dateTime)}',
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodyMedium?.copyWith(
+                                      color: colorScheme.onSurface.withOpacity(
+                                        0.7,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    alarmSettings.notificationSettings.body,
+                                    style: Theme.of(
+                                      context,
+                                    ).textTheme.bodySmall?.copyWith(
+                                      color: colorScheme.onSurface.withOpacity(
+                                        0.5,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                        Text(
-                          alarmSettings.notificationSettings.body,
-                          style: Theme.of(
-                            context,
-                          ).textTheme.bodySmall?.copyWith(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onSurface.withValues(alpha: .6),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                    trailing: Switch.adaptive(
-                      value: true,
-                      onChanged: (value) {
-                        if (!value) {
-                          context.read<AlarmBloc>().add(
-                            StopAlarm(alarmSettings.id),
-                          );
-                        }
-                      },
-                    ),
-                    onTap: () => _showEditAlarmSheet(context, alarmSettings),
                   ),
                 );
               },
@@ -120,8 +192,10 @@ class AlarmScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showAddAlarmSheet(context),
-        icon: const Icon(Icons.add),
+        icon: const Icon(Icons.add_rounded),
         label: const Text('Add alarm'),
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
   }
@@ -130,7 +204,7 @@ class AlarmScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => AddAlarmSheet(),
+      builder: (context) => AlarmSheet(),
     );
   }
 
@@ -138,7 +212,7 @@ class AlarmScreen extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => EditAlarmSheet(alarm: alarm),
+      builder: (context) => AlarmSheet(existingAlarm: alarm),
     );
   }
 }
