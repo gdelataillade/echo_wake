@@ -1,26 +1,33 @@
+import 'package:path_provider/path_provider.dart';
+
 class Recording {
   final String id;
   final String name;
-  final String path;
+  final String filename;
   final Duration duration;
 
   Recording({
     required this.id,
     required this.name,
-    required this.path,
+    required this.filename,
     required this.duration,
   });
+
+  Future<String> getFullPath() async {
+    final appDir = await getApplicationDocumentsDirectory();
+    return '${appDir.path}/$filename';
+  }
 
   Recording copyWith({
     String? id,
     String? name,
-    String? path,
+    String? filename,
     Duration? duration,
   }) {
     return Recording(
       id: id ?? this.id,
       name: name ?? this.name,
-      path: path ?? this.path,
+      filename: filename ?? this.filename,
       duration: duration ?? this.duration,
     );
   }
@@ -29,7 +36,7 @@ class Recording {
     return {
       'id': id,
       'name': name,
-      'path': path,
+      'filename': filename,
       'duration': duration.inMilliseconds,
     };
   }
@@ -38,7 +45,7 @@ class Recording {
     return Recording(
       id: json['id'],
       name: json['name'],
-      path: json['path'],
+      filename: json['filename'],
       duration: Duration(milliseconds: json['duration']),
     );
   }

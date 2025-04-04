@@ -56,7 +56,7 @@ class AlarmScreen extends StatelessWidget {
                     Icon(
                       Icons.alarm_off_rounded,
                       size: 80,
-                      color: colorScheme.primary.withOpacity(0.5),
+                      color: colorScheme.primary.withValues(alpha: 0.5),
                     ),
                     const SizedBox(height: 24),
                     Text(
@@ -72,7 +72,7 @@ class AlarmScreen extends StatelessWidget {
                     Text(
                       'Tap + to add an alarm',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: colorScheme.onSurface.withOpacity(0.6),
+                        color: colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
                     ),
                   ],
@@ -158,8 +158,8 @@ class AlarmScreen extends StatelessWidget {
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodyMedium?.copyWith(
-                                      color: colorScheme.onSurface.withOpacity(
-                                        0.7,
+                                      color: colorScheme.onSurface.withValues(
+                                        alpha: 0.7,
                                       ),
                                     ),
                                   ),
@@ -169,8 +169,8 @@ class AlarmScreen extends StatelessWidget {
                                     style: Theme.of(
                                       context,
                                     ).textTheme.bodySmall?.copyWith(
-                                      color: colorScheme.onSurface.withOpacity(
-                                        0.5,
+                                      color: colorScheme.onSurface.withValues(
+                                        alpha: 0.5,
                                       ),
                                     ),
                                   ),

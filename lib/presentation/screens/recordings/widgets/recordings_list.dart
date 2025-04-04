@@ -50,7 +50,8 @@ class _RecordingsListState extends State<RecordingsList> {
       if (_playingRecordingId != null) {
         await _audioPlayer.stop();
       }
-      await _audioPlayer.play(DeviceFileSource(recording.path));
+      final fullPath = await recording.getFullPath();
+      await _audioPlayer.play(DeviceFileSource(fullPath));
       setState(() {
         _playingRecordingId = recording.id;
       });
@@ -130,7 +131,7 @@ class _RecordingsListState extends State<RecordingsList> {
                       shape: BoxShape.circle,
                       color: Theme.of(
                         context,
-                      ).colorScheme.primaryContainer.withOpacity(0.5),
+                      ).colorScheme.primaryContainer.withValues(alpha: 0.5),
                     ),
                     child: IconButton(
                       icon: Icon(

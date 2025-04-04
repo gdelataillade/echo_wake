@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:alarm/alarm.dart';
 import 'dart:io';
+import 'package:path_provider/path_provider.dart';
 
 part 'alarm_event.dart';
 part 'alarm_state.dart';
@@ -37,15 +38,15 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
       emit(AlarmLoading());
 
       // Check if file exists
-      final file = File(event.recordingPath);
+      final appDir = await getApplicationDocumentsDirectory();
+      final fullPath = '${appDir.path}/${event.recordingPath}';
+      final file = File(fullPath);
       if (!await file.exists()) {
-        debugPrint(
-          'Error: Audio file does not exist at path: ${event.recordingPath}',
-        );
+        debugPrint('Error: Audio file does not exist at path: $fullPath');
         emit(AlarmError('Audio file not found'));
         return;
       }
-      debugPrint('Audio file exists at path: ${event.recordingPath}');
+      debugPrint('Audio file exists at path: $fullPath');
 
       final alarmSettings = AlarmSettings(
         id: DateTime.now().millisecondsSinceEpoch ~/ 100000,
@@ -61,7 +62,7 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
         volumeSettings: VolumeSettings.fixed(volume: event.volume),
       );
 
-      debugPrint('Setting alarm with settings: $alarmSettings');
+      debugPrint('Setting alarm with settings: ${alarmSettings.toJson()}');
       await Alarm.set(alarmSettings: alarmSettings);
       debugPrint('Alarm set successfully');
       add(LoadAlarms());

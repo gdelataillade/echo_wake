@@ -95,7 +95,7 @@ class RecordingsBloc extends Bloc<RecordingsEvent, RecordingsState> {
             Recording(
               id: DateTime.now().millisecondsSinceEpoch.toString(),
               name: DateTime.now().toString().split('.')[0],
-              path: path,
+              filename: path.split('Documents/').last,
               duration: state.recordingDuration,
             ),
           ),
@@ -125,7 +125,7 @@ class RecordingsBloc extends Bloc<RecordingsEvent, RecordingsState> {
       final newRecording = Recording(
         id: DateTime.now().millisecondsSinceEpoch.toString(),
         name: event.recording.name,
-        path: event.recording.path,
+        filename: event.recording.filename,
         duration: event.recording.duration,
       );
 
