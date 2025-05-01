@@ -37,8 +37,8 @@ class RecordingsCubit extends Cubit<RecordingsState> {
   Future<void> startRecording() async {
     if (await _recorder.hasPermission()) {
       final dir = await getApplicationDocumentsDirectory();
-      final path =
-          '${dir.path}/recording_${DateTime.now().millisecondsSinceEpoch}.wav';
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final path = '${dir.path}/recording_$timestamp.wav';
 
       await _recorder.start(
         const RecordConfig(
@@ -74,12 +74,14 @@ class RecordingsCubit extends Cubit<RecordingsState> {
       _durationTimer?.cancel();
       final path = await _recorder.stop();
       if (path != null && !cancel) {
+        // Extract timestamp from the path
+        final timestamp = path.split('recording_').last.split('.wav').first;
         // If not canceling, save the recording
         saveRecording(
           Recording(
-            id: DateTime.now().millisecondsSinceEpoch.toString(),
+            id: timestamp,
             name: DateTime.now().toString().split('.')[0],
-            filename: path.split('Documents/').last,
+            filename: 'recording_$timestamp.wav',
             duration: state.recordingDuration,
           ),
         );

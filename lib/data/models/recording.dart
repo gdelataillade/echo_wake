@@ -15,7 +15,8 @@ class Recording {
 
   Future<String> getFullPath() async {
     final appDir = await getApplicationDocumentsDirectory();
-    return '${appDir.path}/$filename';
+    final fullPath = '${appDir.path}/$filename';
+    return fullPath;
   }
 
   Recording copyWith({

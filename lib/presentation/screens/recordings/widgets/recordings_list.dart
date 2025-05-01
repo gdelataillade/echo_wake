@@ -50,10 +50,21 @@ class _RecordingsListState extends State<RecordingsList> {
         await _audioPlayer.stop();
       }
       final fullPath = await recording.getFullPath();
-      await _audioPlayer.play(DeviceFileSource(fullPath));
-      setState(() {
-        _playingRecordingId = recording.id;
-      });
+      try {
+        await _audioPlayer.play(DeviceFileSource(fullPath));
+        setState(() {
+          _playingRecordingId = recording.id;
+        });
+      } catch (e) {
+        if (mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Failed to play recording: ${e.toString()}'),
+              backgroundColor: Theme.of(context).colorScheme.error,
+            ),
+          );
+        }
+      }
     }
   }
 
