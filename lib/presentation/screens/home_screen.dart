@@ -9,7 +9,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NavigationBloc, NavigationState>(
+    return BlocBuilder<NavigationCubit, NavigationState>(
       builder: (context, state) {
         return Scaffold(
           body:
@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.selectedTab,
             onTap: (index) {
-              context.read<NavigationBloc>().add(UpdateSelectedTab(index));
+              context.read<NavigationCubit>().updateSelectedTab(index);
             },
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.alarm), label: 'Alarms'),

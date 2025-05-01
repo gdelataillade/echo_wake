@@ -25,7 +25,7 @@ class RecordingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<RecordingsBloc, RecordingsState>(
+    return BlocBuilder<RecordingsCubit, RecordingsState>(
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(

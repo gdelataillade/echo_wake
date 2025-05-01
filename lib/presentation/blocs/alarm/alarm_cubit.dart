@@ -1,26 +1,21 @@
 import 'package:alarm/model/volume_settings.dart';
+import 'package:echo_wake/presentation/blocs/alarm/alarm_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:alarm/alarm.dart';
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 
-part 'alarm_event.dart';
-part 'alarm_state.dart';
-
-class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
-  AlarmBloc() : super(AlarmInitial()) {
-    on<LoadAlarms>(_onLoadAlarms);
-    on<CreateAlarm>(_onCreateAlarm);
-    on<StopAlarm>(_onStopAlarm);
+class AlarmCubit extends Cubit<AlarmState> {
+  AlarmCubit() : super(AlarmInitial()) {
+    loadAlarms();
 
     // Listen to alarm updates
-    Alarm.scheduled.listen((_) => add(LoadAlarms()));
-    Alarm.ringing.listen((_) => add(LoadAlarms()));
+    Alarm.scheduled.listen((_) => loadAlarms());
+    Alarm.ringing.listen((_) => loadAlarms());
   }
 
-  Future<void> _onLoadAlarms(LoadAlarms event, Emitter<AlarmState> emit) async {
+  Future<void> loadAlarms() async {
     try {
       emit(AlarmLoading());
       final alarms = await Alarm.getAlarms();
@@ -30,16 +25,19 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
     }
   }
 
-  Future<void> _onCreateAlarm(
-    CreateAlarm event,
-    Emitter<AlarmState> emit,
-  ) async {
+  Future<void> createAlarm({
+    required DateTime dateTime,
+    required String recordingPath,
+    required String recordingName,
+    bool loopAudio = false,
+    double? volume,
+  }) async {
     try {
       emit(AlarmLoading());
 
       // Check if file exists
       final appDir = await getApplicationDocumentsDirectory();
-      final fullPath = '${appDir.path}/${event.recordingPath}';
+      final fullPath = '${appDir.path}/$recordingPath';
       final file = File(fullPath);
       if (!await file.exists()) {
         debugPrint('Error: Audio file does not exist at path: $fullPath');
@@ -50,32 +48,32 @@ class AlarmBloc extends Bloc<AlarmEvent, AlarmState> {
 
       final alarmSettings = AlarmSettings(
         id: DateTime.now().millisecondsSinceEpoch ~/ 100000,
-        dateTime: event.dateTime,
-        assetAudioPath: event.recordingPath.split('Documents/').last,
-        loopAudio: event.loopAudio,
+        dateTime: dateTime,
+        assetAudioPath: recordingPath.split('Documents/').last,
+        loopAudio: loopAudio,
         vibrate: false,
         notificationSettings: NotificationSettings(
           title: 'Echo Wake',
-          body: '🎙️ ${event.recordingName}',
+          body: '🎙️ $recordingName',
           stopButton: 'Stop',
         ),
-        volumeSettings: VolumeSettings.fixed(volume: event.volume),
+        volumeSettings: VolumeSettings.fixed(volume: volume),
       );
 
       debugPrint('Setting alarm with settings: ${alarmSettings.toJson()}');
       await Alarm.set(alarmSettings: alarmSettings);
       debugPrint('Alarm set successfully');
-      add(LoadAlarms());
+      loadAlarms();
     } catch (e) {
       emit(AlarmError(e.toString()));
     }
   }
 
-  Future<void> _onStopAlarm(StopAlarm event, Emitter<AlarmState> emit) async {
+  Future<void> stopAlarm(int id) async {
     try {
       emit(AlarmLoading());
-      await Alarm.stop(event.id);
-      add(LoadAlarms());
+      await Alarm.stop(id);
+      loadAlarms();
     } catch (e) {
       emit(AlarmError(e.toString()));
     }

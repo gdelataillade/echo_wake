@@ -1,4 +1,5 @@
-part of 'alarm_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:alarm/alarm.dart';
 
 abstract class AlarmState extends Equatable {
   const AlarmState();

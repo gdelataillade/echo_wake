@@ -1,6 +1,6 @@
 import 'package:alarm/model/alarm_settings.dart';
 import 'package:echo_wake/data/models/recording.dart';
-import 'package:echo_wake/presentation/blocs/alarm/alarm_bloc.dart';
+import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
 import 'package:echo_wake/presentation/screens/recordings/recording_screen.dart';
@@ -23,6 +23,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
   bool isCustomVolumeEnabled = false;
   double alarmVolume = 1.0;
   bool isLoading = false;
+
   @override
   void initState() {
     super.initState();
@@ -46,7 +47,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
   Widget build(BuildContext context) {
     final bool isEditMode = widget.existingAlarm != null;
 
-    return BlocBuilder<RecordingsBloc, RecordingsState>(
+    return BlocBuilder<RecordingsCubit, RecordingsState>(
       builder: (context, state) {
         if (isEditMode &&
             selectedRecording == null &&
@@ -83,8 +84,8 @@ class _AlarmSheetState extends State<AlarmSheet> {
                     if (isEditMode)
                       IconButton(
                         onPressed: () {
-                          context.read<AlarmBloc>().add(
-                            StopAlarm(widget.existingAlarm!.id),
+                          context.read<AlarmCubit>().stopAlarm(
+                            widget.existingAlarm!.id,
                           );
                           Navigator.pop(context);
                         },
@@ -138,107 +139,127 @@ class _AlarmSheetState extends State<AlarmSheet> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
-                InkWell(
-                  onTap: () async {
-                    final recording = await Navigator.push<Recording>(
-                      context,
-                      MaterialPageRoute(
-                        builder:
-                            (context) =>
-                                const RecordingScreen(selectionMode: true),
-                      ),
-                    );
-                    if (recording != null) {
-                      setState(() {
-                        selectedRecording = recording;
-                      });
-                    }
-                  },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 24,
-                    ),
-                    decoration: BoxDecoration(
-                      color:
-                          Theme.of(context).colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.music_note,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 16),
-                        Expanded(
-                          child: Text(
-                            selectedRecording?.name ??
-                                'Select a voice recording',
-                            style: Theme.of(context).textTheme.bodyLarge,
-                          ),
-                        ),
-                      ],
-                    ),
+                Container(
+                  height: 200,
+                  decoration: BoxDecoration(
+                    color:
+                        Theme.of(context).colorScheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(12),
                   ),
+                  child:
+                      state.recordings.isEmpty
+                          ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.mic_off,
+                                  size: 48,
+                                  color: Theme.of(context).colorScheme.primary,
+                                ),
+                                const SizedBox(height: 16),
+                                Text(
+                                  'No recordings yet',
+                                  style:
+                                      Theme.of(context).textTheme.titleMedium,
+                                ),
+                                const SizedBox(height: 8),
+                                TextButton.icon(
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder:
+                                            (context) =>
+                                                const RecordingScreen(),
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.mic),
+                                  label: const Text('Record a sound'),
+                                ),
+                              ],
+                            ),
+                          )
+                          : ListView.builder(
+                            padding: const EdgeInsets.all(8),
+                            itemCount: state.recordings.length,
+                            itemBuilder: (context, index) {
+                              final recording = state.recordings[index];
+                              final isSelected =
+                                  selectedRecording?.id == recording.id;
+
+                              return ListTile(
+                                leading: Icon(
+                                  Icons.mic,
+                                  color:
+                                      isSelected
+                                          ? Theme.of(
+                                            context,
+                                          ).colorScheme.primary
+                                          : null,
+                                ),
+                                title: Text(recording.name),
+                                subtitle: Text(
+                                  _formatDuration(recording.duration),
+                                ),
+                                trailing:
+                                    isSelected
+                                        ? Icon(
+                                          Icons.check_circle,
+                                          color:
+                                              Theme.of(
+                                                context,
+                                              ).colorScheme.primary,
+                                        )
+                                        : null,
+                                onTap: () {
+                                  setState(() {
+                                    selectedRecording = recording;
+                                  });
+                                },
+                              );
+                            },
+                          ),
                 ),
                 const SizedBox(height: 16),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Loop audio',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    Switch(
-                      value: isLoopEnabled,
-                      onChanged:
-                          (value) => setState(() => isLoopEnabled = value),
-                    ),
-                  ],
+                SwitchListTile(
+                  title: const Text('Loop sound'),
+                  subtitle: const Text(
+                    'Play the sound repeatedly until the alarm is stopped',
+                  ),
+                  value: isLoopEnabled,
+                  onChanged: (value) {
+                    setState(() {
+                      isLoopEnabled = value;
+                    });
+                  },
                 ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Custom volume',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    Switch(
-                      value: isCustomVolumeEnabled,
-                      onChanged:
-                          (value) =>
-                              setState(() => isCustomVolumeEnabled = value),
-                    ),
-                  ],
+                const SizedBox(height: 16),
+                SwitchListTile(
+                  title: const Text('Custom volume'),
+                  subtitle: const Text('Set a specific volume for this alarm'),
+                  value: isCustomVolumeEnabled,
+                  onChanged: (value) {
+                    setState(() {
+                      isCustomVolumeEnabled = value;
+                    });
+                  },
                 ),
                 if (isCustomVolumeEnabled) ...[
                   const SizedBox(height: 8),
-                  Row(
-                    children: [
-                      Icon(
-                        Icons.volume_down,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      Expanded(
-                        child: Slider(
-                          value: alarmVolume,
-                          min: 0.0,
-                          max: 1.0,
-                          onChanged:
-                              (value) => setState(() => alarmVolume = value),
-                        ),
-                      ),
-                      Icon(
-                        Icons.volume_up,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                    ],
+                  Slider(
+                    value: alarmVolume,
+                    onChanged: (value) {
+                      setState(() {
+                        alarmVolume = value;
+                      });
+                    },
+                    divisions: 10,
+                    label: '${(alarmVolume * 100).round()}%',
                   ),
                 ],
-                const SizedBox(height: 16),
-                Spacer(),
+                const Spacer(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
@@ -247,73 +268,57 @@ class _AlarmSheetState extends State<AlarmSheet> {
                       child: const Text('Cancel'),
                     ),
                     const SizedBox(width: 8),
-                    SizedBox(
-                      width: 150,
-                      child: FilledButton(
-                        onPressed:
-                            selectedRecording == null
-                                ? null
-                                : () async {
-                                  final now = DateTime.now();
-                                  DateTime selectedDate = DateTime(
-                                    now.year,
-                                    now.month,
-                                    now.day,
-                                    selectedTime.hour,
-                                    selectedTime.minute,
-                                  );
+                    FilledButton(
+                      onPressed:
+                          selectedRecording == null
+                              ? null
+                              : () async {
+                                setState(() {
+                                  isLoading = true;
+                                });
 
-                                  if (selectedDate.isBefore(now)) {
-                                    selectedDate = selectedDate.add(
-                                      const Duration(days: 1),
-                                    );
-                                  }
+                                final now = DateTime.now();
+                                final dateTime = DateTime(
+                                  now.year,
+                                  now.month,
+                                  now.day,
+                                  selectedTime.hour,
+                                  selectedTime.minute,
+                                );
 
-                                  if (isEditMode) {
-                                    setState(() => isLoading = true);
+                                if (dateTime.isBefore(now)) {
+                                  dateTime.add(const Duration(days: 1));
+                                }
 
-                                    // Delete the old alarm first
-                                    context.read<AlarmBloc>().add(
-                                      StopAlarm(widget.existingAlarm!.id),
-                                    );
-                                    // Wait for the alarm to be deleted
-                                    await Future.delayed(
-                                      const Duration(milliseconds: 200),
-                                    );
+                                await context.read<AlarmCubit>().createAlarm(
+                                  dateTime: dateTime,
+                                  recordingPath: selectedRecording!.filename,
+                                  recordingName: selectedRecording!.name,
+                                  loopAudio: isLoopEnabled,
+                                  volume:
+                                      isCustomVolumeEnabled
+                                          ? alarmVolume
+                                          : null,
+                                );
 
-                                    if (!context.mounted) return;
-                                    setState(() => isLoading = false);
-                                  }
-
-                                  // Create new alarm
-                                  context.read<AlarmBloc>().add(
-                                    CreateAlarm(
-                                      dateTime: selectedDate,
-                                      recordingPath:
-                                          selectedRecording!.filename,
-                                      recordingName: selectedRecording!.name,
-                                      loopAudio: isLoopEnabled,
-                                      volume:
-                                          isCustomVolumeEnabled
-                                              ? alarmVolume
-                                              : null,
-                                    ),
-                                  );
+                                if (context.mounted) {
                                   Navigator.pop(context);
-                                },
-                        child:
-                            isLoading
-                                ? SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: CircularProgressIndicator(
-                                    color:
-                                        Theme.of(context).colorScheme.onPrimary,
-                                  ),
-                                )
-                                : Text(
-                                  isEditMode ? 'Save changes' : 'Set alarm',
-                                ),
+                                }
+                              },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (isLoading)
+                            SizedBox(
+                              width: 24,
+                              height: 24,
+                              child: CircularProgressIndicator(
+                                color: Theme.of(context).colorScheme.onPrimary,
+                              ),
+                            )
+                          else
+                            Text(isEditMode ? 'Save changes' : 'Set alarm'),
+                        ],
                       ),
                     ),
                   ],
@@ -325,5 +330,15 @@ class _AlarmSheetState extends State<AlarmSheet> {
         );
       },
     );
+  }
+
+  String _formatDuration(Duration duration) {
+    String twoDigits(int n) => n.toString().padLeft(2, '0');
+    final hours = twoDigits(duration.inHours);
+    final minutes = twoDigits(duration.inMinutes.remainder(60));
+    final seconds = twoDigits(duration.inSeconds.remainder(60));
+    return duration.inHours > 0
+        ? '$hours:$minutes:$seconds'
+        : '$minutes:$seconds';
   }
 }

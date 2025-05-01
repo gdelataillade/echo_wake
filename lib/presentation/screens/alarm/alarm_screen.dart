@@ -1,9 +1,10 @@
 import 'package:alarm/model/alarm_settings.dart';
+import 'package:echo_wake/presentation/blocs/alarm/alarm_state.dart';
 import 'package:echo_wake/presentation/screens/alarm/widgets/alarm_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../blocs/alarm/alarm_bloc.dart';
+import '../../blocs/alarm/alarm_cubit.dart';
 import 'package:intl/intl.dart';
 
 class AlarmScreen extends StatelessWidget {
@@ -21,7 +22,7 @@ class AlarmScreen extends StatelessWidget {
         backgroundColor: colorScheme.surface,
         centerTitle: true,
       ),
-      body: BlocBuilder<AlarmBloc, AlarmState>(
+      body: BlocBuilder<AlarmCubit, AlarmState>(
         builder: (context, state) {
           if (state is AlarmLoading) {
             return Center(
@@ -103,7 +104,7 @@ class AlarmScreen extends StatelessWidget {
                   ),
                   direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
-                    context.read<AlarmBloc>().add(StopAlarm(alarmSettings.id));
+                    context.read<AlarmCubit>().stopAlarm(alarmSettings.id);
                     HapticFeedback.mediumImpact();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

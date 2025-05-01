@@ -1,7 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:echo_wake/data/models/recording.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
-import 'package:echo_wake/presentation/blocs/recording/recordings_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -195,16 +194,8 @@ class _RecordingsListState extends State<RecordingsList> {
                     (r) => r.id == recording.id,
                   );
                   if (index != -1) {
-                    final updatedRecording = recording.copyWith(
-                      name: nameController.text,
-                    );
-                    final bloc = context.read<RecordingsBloc>();
-                    bloc.add(
-                      UpdateRecordingName(
-                        updatedRecording,
-                        nameController.text,
-                      ),
-                    );
+                    final bloc = context.read<RecordingsCubit>();
+                    bloc.updateRecordingName(nameController.text);
                   }
                   if (context.mounted) {
                     Navigator.pop(context);
@@ -221,7 +212,7 @@ class _RecordingsListState extends State<RecordingsList> {
     BuildContext context,
     Recording recording,
   ) async {
-    final bloc = context.read<RecordingsBloc>();
-    bloc.add(DeleteRecording(recording));
+    final bloc = context.read<RecordingsCubit>();
+    bloc.deleteRecording(recording);
   }
 }

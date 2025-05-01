@@ -1,5 +1,4 @@
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
-import 'package:echo_wake/presentation/blocs/recording/recordings_event.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,24 +11,34 @@ class RecordingIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(16),
-      color: Theme.of(context).colorScheme.primaryContainer,
+      color: Theme.of(context).colorScheme.errorContainer,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
                 Icons.mic,
-                color: Theme.of(context).colorScheme.onPrimaryContainer,
+                color: Theme.of(context).colorScheme.onErrorContainer,
               ),
               const SizedBox(width: 8),
               Text(
-                _formatDuration(duration),
-                style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                  color: Theme.of(context).colorScheme.onPrimaryContainer,
+                'Recording...',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onErrorContainer,
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 8),
+          Text(
+            _formatDuration(duration),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.onErrorContainer,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
           ),
           const SizedBox(height: 16),
           Row(
@@ -37,8 +46,8 @@ class RecordingIndicator extends StatelessWidget {
             children: [
               FilledButton.icon(
                 onPressed:
-                    () => context.read<RecordingsBloc>().add(
-                      StopRecording(cancel: true),
+                    () => context.read<RecordingsCubit>().stopRecording(
+                      cancel: true,
                     ),
                 icon: const Icon(Icons.close),
                 label: const Text('Cancel'),
@@ -49,8 +58,8 @@ class RecordingIndicator extends StatelessWidget {
               ),
               FilledButton.icon(
                 onPressed:
-                    () => context.read<RecordingsBloc>().add(
-                      StopRecording(cancel: false),
+                    () => context.read<RecordingsCubit>().stopRecording(
+                      cancel: false,
                     ),
                 icon: const Icon(Icons.stop),
                 label: const Text('Stop'),

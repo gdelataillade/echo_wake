@@ -1,3 +1,4 @@
+import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
 import 'package:echo_wake/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,9 +6,7 @@ import 'package:alarm/alarm.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../domain/services/storage.dart';
 import '../../../presentation/blocs/navigation/navigation_bloc.dart';
-import '../../../presentation/blocs/alarm/alarm_bloc.dart';
 import '../../../presentation/blocs/recording/recordings_bloc.dart';
-import '../../../presentation/blocs/recording/recordings_event.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -21,17 +20,9 @@ void main() async {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create:
-              (context) =>
-                  NavigationBloc(storage: storage)..add(LoadNavigationState()),
-        ),
-        BlocProvider(create: (context) => AlarmBloc()..add(LoadAlarms())),
-        BlocProvider(
-          create:
-              (context) =>
-                  RecordingsBloc(storage: storage)..add(LoadRecordings()),
-        ),
+        BlocProvider(create: (context) => NavigationCubit(storage: storage)),
+        BlocProvider(create: (context) => AlarmCubit()),
+        BlocProvider(create: (context) => RecordingsCubit(storage: storage)),
       ],
       child: const MyApp(),
     ),
