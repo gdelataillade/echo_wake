@@ -206,7 +206,7 @@ class _RecordingsListState extends State<RecordingsList> {
                   );
                   if (index != -1) {
                     final bloc = context.read<RecordingsCubit>();
-                    bloc.updateRecordingName(nameController.text);
+                    bloc.updateRecordingName(recording.id, nameController.text);
                   }
                   if (context.mounted) {
                     Navigator.pop(context);

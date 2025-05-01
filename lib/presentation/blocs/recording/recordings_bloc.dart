@@ -162,13 +162,11 @@ class RecordingsCubit extends Cubit<RecordingsState> {
     }
   }
 
-  void updateRecordingName(String name) {
-    // Since we don't have a recordingName field in the state,
-    // we should update the recording's name in the list
+  void updateRecordingName(String recordingId, String newName) {
     final updatedRecordings =
         state.recordings.map((recording) {
-          if (recording.id == state.recordings.first.id) {
-            return recording.copyWith(name: name);
+          if (recording.id == recordingId) {
+            return recording.copyWith(name: newName);
           }
           return recording;
         }).toList();
