@@ -10,14 +10,27 @@ class RecordButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16),
-      child: FilledButton.icon(
-        onPressed: () {
-          HapticFeedback.lightImpact();
-          context.read<RecordingsCubit>().startRecording();
-        },
-        icon: const Icon(Icons.mic),
-        label: const Text('Start Recording'),
-        style: FilledButton.styleFrom(minimumSize: const Size.fromHeight(56)),
+      child: Column(
+        children: [
+          TextButton(
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              context.read<RecordingsCubit>().importAudioFile();
+            },
+            child: const Text('Import audio file'),
+          ),
+          FilledButton.icon(
+            onPressed: () {
+              HapticFeedback.lightImpact();
+              context.read<RecordingsCubit>().startRecording();
+            },
+            icon: const Icon(Icons.mic),
+            label: const Text('Start Recording'),
+            style: FilledButton.styleFrom(
+              minimumSize: const Size.fromHeight(56),
+            ),
+          ),
+        ],
       ),
     );
   }

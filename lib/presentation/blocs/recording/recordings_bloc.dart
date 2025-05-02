@@ -1,6 +1,10 @@
+import 'dart:io';
+
 import 'package:echo_wake/data/models/recording.dart';
 import 'package:echo_wake/domain/services/storage.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
+import 'package:echo_wake/services/audio_player_service.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:record/record.dart';
 import 'dart:convert';
@@ -169,5 +173,41 @@ class RecordingsCubit extends Cubit<RecordingsState> {
           return recording;
         }).toList();
     emit(state.copyWith(recordings: updatedRecordings));
+  }
+
+  Future<void> importAudioFile() async {
+    final result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['wav', 'mp3', 'm4a', 'aac', 'ogg'],
+    );
+    if (result != null) {
+      final sourceFile = File(result.files.first.path!);
+      final duration = await AudioPlayerService().getDuration(sourceFile);
+
+      // Get app's documents directory and create a unique filename
+      final dir = await getApplicationDocumentsDirectory();
+      final timestamp = DateTime.now().millisecondsSinceEpoch;
+      final extension = sourceFile.path.split('.').last;
+      final newFilename = 'recording_$timestamp.$extension';
+      final newPath = '${dir.path}/$newFilename';
+
+      // Copy the file to app's local storage
+      await sourceFile.copy(newPath);
+
+      final recording = Recording(
+        id: timestamp.toString(),
+        name: sourceFile.path.split('/').last.split('.').first,
+        filename: newFilename,
+        duration: duration,
+      );
+      await saveRecording(recording);
+    } else {
+      emit(
+        state.copyWith(
+          status: RecordingStatus.error,
+          errorMessage: 'No file selected',
+        ),
+      );
+    }
   }
 }

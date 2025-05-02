@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:echo_wake/data/models/recording.dart';
 import 'dart:async';
@@ -43,6 +45,13 @@ class AudioPlayerService {
     await _audioPlayer.stop();
     _isPlaying = false;
     _playerStateController.add(null);
+  }
+
+  Future<Duration> getDuration(File file) async {
+    final source = DeviceFileSource(file.path);
+    _audioPlayer.setSource(source);
+    final duration = await _audioPlayer.getDuration();
+    return duration ?? Duration.zero;
   }
 
   void dispose() {
