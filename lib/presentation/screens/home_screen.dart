@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'alarm/alarm_screen.dart';
 import 'recordings/recording_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,6 +18,7 @@ class HomeScreen extends StatelessWidget {
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.selectedTab,
             onTap: (index) {
+              HapticFeedback.lightImpact();
               context.read<NavigationCubit>().updateSelectedTab(index);
             },
             items: const [

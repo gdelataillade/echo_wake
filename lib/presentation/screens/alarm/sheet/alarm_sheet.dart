@@ -6,6 +6,7 @@ import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/empty.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/alarm_recording_list.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/time_picker.dart';
+import 'package:echo_wake/services/audio_player_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -165,6 +166,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                           : AlarmSheetRecordingList(
                             recordings: state.recordings,
                             selectedRecording: selectedRecording,
+                            audioPlayerService: AudioPlayerService(),
                             onSelected: (recording) {
                               setState(() => selectedRecording = recording);
                             },

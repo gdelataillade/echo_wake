@@ -1,19 +1,29 @@
 import 'package:echo_wake/data/models/recording.dart';
+import 'package:echo_wake/presentation/widgets/audio_player_button.dart';
+import 'package:echo_wake/services/audio_player_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class AlarmSheetRecordingList extends StatelessWidget {
+class AlarmSheetRecordingList extends StatefulWidget {
   final List<Recording> recordings;
   final Function(Recording) onSelected;
   final Recording? selectedRecording;
+  final AudioPlayerService audioPlayerService;
 
   const AlarmSheetRecordingList({
     super.key,
     required this.recordings,
     required this.onSelected,
+    required this.audioPlayerService,
     this.selectedRecording,
   });
 
+  @override
+  State<AlarmSheetRecordingList> createState() =>
+      _AlarmSheetRecordingListState();
+}
+
+class _AlarmSheetRecordingListState extends State<AlarmSheetRecordingList> {
   String _formatDuration(Duration duration) {
     String twoDigits(int n) => n.toString().padLeft(2, '0');
     final hours = twoDigits(duration.inHours);
@@ -28,34 +38,36 @@ class AlarmSheetRecordingList extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       padding: const EdgeInsets.all(8),
-      itemCount: recordings.length,
+      itemCount: widget.recordings.length,
       itemBuilder: (context, index) {
-        final recording = recordings[index];
-        final isSelected = selectedRecording?.id == recording.id;
+        final recording = widget.recordings[index];
+        final isSelected = widget.selectedRecording?.id == recording.id;
 
-        return ListTile(
-          leading: Icon(
-            Icons.mic,
-            color: isSelected ? Theme.of(context).colorScheme.primary : null,
-          ),
-          title: Text(
-            recording.name,
-            style: TextStyle(
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-            ),
-          ),
-          subtitle: Text(_formatDuration(recording.duration)),
-          trailing:
-              isSelected
-                  ? Icon(
-                    Icons.check_circle,
-                    color: Theme.of(context).colorScheme.primary,
-                  )
-                  : null,
+        return GestureDetector(
           onTap: () {
             HapticFeedback.lightImpact();
-            onSelected(recording);
+            widget.onSelected(recording);
           },
+          child: Container(
+            decoration: BoxDecoration(
+              color:
+                  isSelected
+                      ? Theme.of(
+                        context,
+                      ).colorScheme.primary.withValues(alpha: 0.1)
+                      : null,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: ListTile(
+              title: Text(recording.name),
+              subtitle: Text(_formatDuration(recording.duration)),
+              trailing: AudioPlayerButton(
+                recording: recording,
+                audioPlayerService: widget.audioPlayerService,
+                onPlaybackStateChanged: () => setState(() {}),
+              ),
+            ),
+          ),
         );
       },
     );
