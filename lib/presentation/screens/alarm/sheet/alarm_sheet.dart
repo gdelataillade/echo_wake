@@ -69,6 +69,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
 
     await context.read<AlarmCubit>().createAlarm(
       dateTime: dateTime,
+      recordingId: selectedRecording!.id,
       recordingPath: selectedRecording!.filename,
       recordingName: selectedRecording!.name,
       loopAudio: isLoopEnabled,

@@ -26,6 +26,7 @@ class AlarmCubit extends Cubit<AlarmState> {
   }
 
   Future<void> createAlarm({
+    required String recordingId,
     required DateTime dateTime,
     required String recordingPath,
     required String recordingName,
@@ -58,6 +59,7 @@ class AlarmCubit extends Cubit<AlarmState> {
           stopButton: 'Stop',
         ),
         volumeSettings: VolumeSettings.fixed(volume: volume),
+        payload: recordingId,
       );
 
       debugPrint('Setting alarm with settings: ${alarmSettings.toJson()}');

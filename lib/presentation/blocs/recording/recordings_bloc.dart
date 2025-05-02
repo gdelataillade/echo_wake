@@ -210,4 +210,9 @@ class RecordingsCubit extends Cubit<RecordingsState> {
       );
     }
   }
+
+  Future<Recording> getRecordingById(String id) async {
+    final recordings = state.recordings;
+    return recordings.firstWhere((recording) => recording.id == id);
+  }
 }
