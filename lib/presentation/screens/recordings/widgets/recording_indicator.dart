@@ -1,5 +1,6 @@
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecordingIndicator extends StatelessWidget {
@@ -45,10 +46,10 @@ class RecordingIndicator extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               FilledButton.icon(
-                onPressed:
-                    () => context.read<RecordingsCubit>().stopRecording(
-                      cancel: true,
-                    ),
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  context.read<RecordingsCubit>().stopRecording(cancel: true);
+                },
                 icon: const Icon(Icons.close),
                 label: const Text('Cancel'),
                 style: FilledButton.styleFrom(
@@ -57,10 +58,10 @@ class RecordingIndicator extends StatelessWidget {
                 ),
               ),
               FilledButton.icon(
-                onPressed:
-                    () => context.read<RecordingsCubit>().stopRecording(
-                      cancel: false,
-                    ),
+                onPressed: () {
+                  HapticFeedback.lightImpact();
+                  context.read<RecordingsCubit>().stopRecording(cancel: false);
+                },
                 icon: const Icon(Icons.stop),
                 label: const Text('Stop'),
                 style: FilledButton.styleFrom(

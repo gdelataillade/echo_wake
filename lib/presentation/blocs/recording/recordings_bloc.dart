@@ -140,9 +140,7 @@ class RecordingsCubit extends Cubit<RecordingsState> {
   Future<void> deleteRecording(Recording recording) async {
     try {
       final updatedRecordings =
-          state.recordings
-              .where((recording) => recording.id != recording.id)
-              .toList();
+          state.recordings.where((r) => r.id != recording.id).toList();
 
       // Save to persistent storage
       final recordingsJson =

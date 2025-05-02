@@ -3,8 +3,11 @@ import 'package:echo_wake/data/models/recording.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
-import 'package:echo_wake/presentation/screens/recordings/recording_screen.dart';
+import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/empty.dart';
+import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/alarm_recording_list.dart';
+import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlarmSheet extends StatefulWidget {
@@ -41,6 +44,37 @@ class _AlarmSheetState extends State<AlarmSheet> {
         DateTime.now().add(const Duration(minutes: 1)),
       );
     }
+  }
+
+  Future<void> submit() async {
+    HapticFeedback.lightImpact();
+
+    setState(() {
+      isLoading = true;
+    });
+
+    final now = DateTime.now();
+    final dateTime = DateTime(
+      now.year,
+      now.month,
+      now.day,
+      selectedTime.hour,
+      selectedTime.minute,
+    );
+
+    if (dateTime.isBefore(now)) {
+      dateTime.add(const Duration(days: 1));
+    }
+
+    await context.read<AlarmCubit>().createAlarm(
+      dateTime: dateTime,
+      recordingPath: selectedRecording!.filename,
+      recordingName: selectedRecording!.name,
+      loopAudio: isLoopEnabled,
+      volume: isCustomVolumeEnabled ? alarmVolume : null,
+    );
+
+    if (mounted) Navigator.pop(context);
   }
 
   @override
@@ -99,6 +133,8 @@ class _AlarmSheetState extends State<AlarmSheet> {
                 const SizedBox(height: 24),
                 InkWell(
                   onTap: () async {
+                    HapticFeedback.lightImpact();
+
                     final time = await showTimePicker(
                       context: context,
                       initialTime: selectedTime,
@@ -108,30 +144,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                       setState(() => selectedTime = time);
                     }
                   },
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 16,
-                      horizontal: 24,
-                    ),
-                    decoration: BoxDecoration(
-                      color:
-                          Theme.of(context).colorScheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.access_time,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                        const SizedBox(width: 16),
-                        Text(
-                          selectedTime.format(context),
-                          style: Theme.of(context).textTheme.headlineSmall,
-                        ),
-                      ],
-                    ),
-                  ),
+                  child: AlarmSheetTimePicker(selectedTime: selectedTime),
                 ),
                 const SizedBox(height: 16),
                 Text(
@@ -148,77 +161,12 @@ class _AlarmSheetState extends State<AlarmSheet> {
                   ),
                   child:
                       state.recordings.isEmpty
-                          ? Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.mic_off,
-                                  size: 48,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                const SizedBox(height: 16),
-                                Text(
-                                  'No recordings yet',
-                                  style:
-                                      Theme.of(context).textTheme.titleMedium,
-                                ),
-                                const SizedBox(height: 8),
-                                TextButton.icon(
-                                  onPressed: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder:
-                                            (context) =>
-                                                const RecordingScreen(),
-                                      ),
-                                    );
-                                  },
-                                  icon: const Icon(Icons.mic),
-                                  label: const Text('Record a sound'),
-                                ),
-                              ],
-                            ),
-                          )
-                          : ListView.builder(
-                            padding: const EdgeInsets.all(8),
-                            itemCount: state.recordings.length,
-                            itemBuilder: (context, index) {
-                              final recording = state.recordings[index];
-                              final isSelected =
-                                  selectedRecording?.id == recording.id;
-
-                              return ListTile(
-                                leading: Icon(
-                                  Icons.mic,
-                                  color:
-                                      isSelected
-                                          ? Theme.of(
-                                            context,
-                                          ).colorScheme.primary
-                                          : null,
-                                ),
-                                title: Text(recording.name),
-                                subtitle: Text(
-                                  _formatDuration(recording.duration),
-                                ),
-                                trailing:
-                                    isSelected
-                                        ? Icon(
-                                          Icons.check_circle,
-                                          color:
-                                              Theme.of(
-                                                context,
-                                              ).colorScheme.primary,
-                                        )
-                                        : null,
-                                onTap: () {
-                                  setState(() {
-                                    selectedRecording = recording;
-                                  });
-                                },
-                              );
+                          ? const AlarmSheetEmpty()
+                          : AlarmSheetRecordingList(
+                            recordings: state.recordings,
+                            selectedRecording: selectedRecording,
+                            onSelected: (recording) {
+                              setState(() => selectedRecording = recording);
                             },
                           ),
                 ),
@@ -241,6 +189,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                   subtitle: const Text('Set a specific volume for this alarm'),
                   value: isCustomVolumeEnabled,
                   onChanged: (value) {
+                    HapticFeedback.lightImpact();
                     setState(() {
                       isCustomVolumeEnabled = value;
                     });
@@ -251,6 +200,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                   Slider(
                     value: alarmVolume,
                     onChanged: (value) {
+                      HapticFeedback.lightImpact();
                       setState(() {
                         alarmVolume = value;
                       });
@@ -269,42 +219,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                     ),
                     const SizedBox(width: 8),
                     FilledButton(
-                      onPressed:
-                          selectedRecording == null
-                              ? null
-                              : () async {
-                                setState(() {
-                                  isLoading = true;
-                                });
-
-                                final now = DateTime.now();
-                                final dateTime = DateTime(
-                                  now.year,
-                                  now.month,
-                                  now.day,
-                                  selectedTime.hour,
-                                  selectedTime.minute,
-                                );
-
-                                if (dateTime.isBefore(now)) {
-                                  dateTime.add(const Duration(days: 1));
-                                }
-
-                                await context.read<AlarmCubit>().createAlarm(
-                                  dateTime: dateTime,
-                                  recordingPath: selectedRecording!.filename,
-                                  recordingName: selectedRecording!.name,
-                                  loopAudio: isLoopEnabled,
-                                  volume:
-                                      isCustomVolumeEnabled
-                                          ? alarmVolume
-                                          : null,
-                                );
-
-                                if (context.mounted) {
-                                  Navigator.pop(context);
-                                }
-                              },
+                      onPressed: selectedRecording == null ? null : submit,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
@@ -330,15 +245,5 @@ class _AlarmSheetState extends State<AlarmSheet> {
         );
       },
     );
-  }
-
-  String _formatDuration(Duration duration) {
-    String twoDigits(int n) => n.toString().padLeft(2, '0');
-    final hours = twoDigits(duration.inHours);
-    final minutes = twoDigits(duration.inMinutes.remainder(60));
-    final seconds = twoDigits(duration.inSeconds.remainder(60));
-    return duration.inHours > 0
-        ? '$hours:$minutes:$seconds'
-        : '$minutes:$seconds';
   }
 }

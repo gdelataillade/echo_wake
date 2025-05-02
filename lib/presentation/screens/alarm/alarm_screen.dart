@@ -1,6 +1,7 @@
 import 'package:alarm/model/alarm_settings.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_state.dart';
-import 'package:echo_wake/presentation/screens/alarm/widgets/alarm_sheet.dart';
+import 'package:echo_wake/presentation/screens/alarm/widgets/alarm_error.dart';
+import 'package:echo_wake/presentation/screens/alarm/sheet/alarm_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,21 +32,7 @@ class AlarmScreen extends StatelessWidget {
           }
 
           if (state is AlarmError) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.error_outline, size: 48, color: colorScheme.error),
-                  const SizedBox(height: 16),
-                  Text(
-                    'Error: ${state.message}',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.titleMedium?.copyWith(color: colorScheme.error),
-                  ),
-                ],
-              ),
-            );
+            return AlarmErrorScreen(message: state.message);
           }
 
           if (state is AlarmLoaded) {
@@ -202,6 +189,8 @@ class AlarmScreen extends StatelessWidget {
   }
 
   void _showAddAlarmSheet(BuildContext context) {
+    HapticFeedback.lightImpact();
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -210,6 +199,8 @@ class AlarmScreen extends StatelessWidget {
   }
 
   void _showEditAlarmSheet(BuildContext context, AlarmSettings alarm) {
+    HapticFeedback.lightImpact();
+
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
