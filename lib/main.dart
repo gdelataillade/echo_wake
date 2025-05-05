@@ -1,3 +1,4 @@
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
 import 'package:echo_wake/presentation/screens/home_screen.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,8 @@ import '../../../presentation/blocs/recording/recordings_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await LocaleSettings.useDeviceLocale();
 
   // Request notification permissions
   await Permission.notification.request();

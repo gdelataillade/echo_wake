@@ -1,0 +1,22 @@
+{
+  "alarms": "Alarmas",
+  "recordings": "Grabaciones",
+  "noAlarms": "No hay alarmas configuradas",
+  "tapPlusToAddAlarm": "Toca + para añadir una alarma",
+  "alarmDeleted": "Alarma eliminada",
+  "addAlarm": "Añadir alarma",
+  "editAlarm": "Editar alarma",
+  "stopAlarm": "Detener alarma",
+  "error": "Error",
+  "setAlarmTime": "Establecer hora de la alarma",
+  "selectAlarmSound": "Seleccionar sonido de alarma",
+  "playSoundRepeatedlyUntilAlarmStopped": "Reproducir el sonido repetidamente hasta que se detenga la alarma",
+  "customVolume": "Volumen personalizado",
+  "setSpecificVolumeForThisAlarm": "Establecer un volumen específico para esta alarma",
+  "loopSound": "Repetir sonido",
+  "saveChanges": "Guardar cambios",
+  "cancel": "Cancelar",
+  "setAlarm": "Establecer alarma",
+  "recordASound": "Grabar un sonido",
+  "noRecordingsYet": "Aún no hay grabaciones"
+} 

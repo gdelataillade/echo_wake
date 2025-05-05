@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:alarm/alarm.dart';
 import 'package:alarm/utils/alarm_set.dart';
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/screens/ring_screen.dart';
@@ -31,7 +32,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> ringingAlarmsChanged(AlarmSet alarms) async {
     if (alarms.alarms.isEmpty) return;
     final ringingAlarm = alarms.alarms.first;
-    print(ringingAlarm.toString());
 
     if (ringingAlarm.payload == null) return;
 
@@ -64,11 +64,11 @@ class _HomeScreenState extends State<HomeScreen> {
               HapticFeedback.lightImpact();
               context.read<NavigationCubit>().updateSelectedTab(index);
             },
-            items: const [
-              BottomNavigationBarItem(icon: Icon(Icons.alarm), label: 'Alarms'),
+            items: [
+              BottomNavigationBarItem(icon: Icon(Icons.alarm), label: t.alarms),
               BottomNavigationBarItem(
                 icon: Icon(Icons.mic),
-                label: 'Recordings',
+                label: t.recordings,
               ),
             ],
           ),

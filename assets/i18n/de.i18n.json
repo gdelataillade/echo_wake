@@ -1,0 +1,22 @@
+{
+  "alarms": "Wecker",
+  "recordings": "Aufnahmen",
+  "noAlarms": "Keine Wecker eingestellt",
+  "tapPlusToAddAlarm": "Tippen Sie auf +, um einen Wecker hinzuzufügen",
+  "alarmDeleted": "Wecker gelöscht",
+  "addAlarm": "Wecker hinzufügen",
+  "editAlarm": "Wecker bearbeiten",
+  "stopAlarm": "Wecker stoppen",
+  "error": "Fehler",
+  "setAlarmTime": "Weckzeit einstellen",
+  "selectAlarmSound": "Weckton auswählen",
+  "playSoundRepeatedlyUntilAlarmStopped": "Ton wiederholt abspielen, bis der Wecker gestoppt wird",
+  "customVolume": "Individuelle Lautstärke",
+  "setSpecificVolumeForThisAlarm": "Spezifische Lautstärke für diesen Wecker einstellen",
+  "loopSound": "Ton wiederholen",
+  "saveChanges": "Änderungen speichern",
+  "cancel": "Abbrechen",
+  "setAlarm": "Wecker einstellen",
+  "recordASound": "Ton aufnehmen",
+  "noRecordingsYet": "Noch keine Aufnahmen"
+} 

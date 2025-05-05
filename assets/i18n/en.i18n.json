@@ -1,0 +1,22 @@
+{
+  "alarms": "Alarms",
+  "recordings": "Recordings",
+  "noAlarms": "No alarms set",
+  "tapPlusToAddAlarm": "Tap + to add an alarm",
+  "alarmDeleted": "Alarm deleted",
+  "addAlarm": "Add alarm",
+  "editAlarm": "Edit alarm",
+  "stopAlarm": "Stop alarm",
+  "error": "Error",
+  "setAlarmTime": "Set alarm time",
+  "selectAlarmSound": "Select alarm sound",
+  "playSoundRepeatedlyUntilAlarmStopped": "Play the sound repeatedly until the alarm is stopped",
+  "customVolume": "Custom volume",
+  "setSpecificVolumeForThisAlarm": "Set a specific volume for this alarm",
+  "loopSound": "Loop sound",
+  "saveChanges": "Save changes",
+  "cancel": "Cancel",
+  "setAlarm": "Set alarm",
+  "recordASound": "Record a sound",
+  "noRecordingsYet": "No recordings yet"
+}

@@ -1,5 +1,6 @@
 import 'package:alarm/model/alarm_settings.dart';
 import 'package:echo_wake/data/models/recording.dart';
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
@@ -114,7 +115,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      isEditMode ? 'Edit alarm' : 'Set alarm time',
+                      isEditMode ? t.editAlarm : t.setAlarmTime,
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     if (isEditMode)
@@ -150,7 +151,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  'Select alarm sound',
+                  t.selectAlarmSound,
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(height: 8),
@@ -175,10 +176,8 @@ class _AlarmSheetState extends State<AlarmSheet> {
                 ),
                 const SizedBox(height: 16),
                 SwitchListTile(
-                  title: const Text('Loop sound'),
-                  subtitle: const Text(
-                    'Play the sound repeatedly until the alarm is stopped',
-                  ),
+                  title: Text(t.loopSound),
+                  subtitle: Text(t.playSoundRepeatedlyUntilAlarmStopped),
                   value: isLoopEnabled,
                   onChanged: (value) {
                     setState(() {
@@ -188,8 +187,8 @@ class _AlarmSheetState extends State<AlarmSheet> {
                 ),
                 const SizedBox(height: 16),
                 SwitchListTile(
-                  title: const Text('Custom volume'),
-                  subtitle: const Text('Set a specific volume for this alarm'),
+                  title: Text(t.customVolume),
+                  subtitle: Text(t.setSpecificVolumeForThisAlarm),
                   value: isCustomVolumeEnabled,
                   onChanged: (value) {
                     HapticFeedback.lightImpact();
@@ -218,7 +217,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                   children: [
                     TextButton(
                       onPressed: () => Navigator.pop(context),
-                      child: const Text('Cancel'),
+                      child: Text(t.cancel),
                     ),
                     const SizedBox(width: 8),
                     FilledButton(
@@ -235,7 +234,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                               ),
                             )
                           else
-                            Text(isEditMode ? 'Save changes' : 'Set alarm'),
+                            Text(isEditMode ? t.saveChanges : t.setAlarm),
                         ],
                       ),
                     ),

@@ -1,0 +1,22 @@
+{
+  "alarms": "Sveglie",
+  "recordings": "Registrazioni",
+  "noAlarms": "Nessuna sveglia impostata",
+  "tapPlusToAddAlarm": "Tocca + per aggiungere una sveglia",
+  "alarmDeleted": "Sveglia eliminata",
+  "addAlarm": "Aggiungi sveglia",
+  "editAlarm": "Modifica sveglia",
+  "stopAlarm": "Ferma sveglia",
+  "error": "Errore",
+  "setAlarmTime": "Imposta ora sveglia",
+  "selectAlarmSound": "Seleziona suoneria",
+  "playSoundRepeatedlyUntilAlarmStopped": "Riproduci il suono ripetutamente fino all'arresto della sveglia",
+  "customVolume": "Volume personalizzato",
+  "setSpecificVolumeForThisAlarm": "Imposta un volume specifico per questa sveglia",
+  "loopSound": "Ripeti suono",
+  "saveChanges": "Salva modifiche",
+  "cancel": "Annulla",
+  "setAlarm": "Imposta sveglia",
+  "recordASound": "Registra un suono",
+  "noRecordingsYet": "Nessuna registrazione"
+} 

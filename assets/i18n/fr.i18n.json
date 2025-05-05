@@ -1,0 +1,22 @@
+{
+  "alarms": "Réveils",
+  "recordings": "Enregistrements",
+  "noAlarms": "Aucun réveil configuré",
+  "tapPlusToAddAlarm": "Appuyez sur + pour ajouter un réveil",
+  "alarmDeleted": "Réveil supprimé",
+  "addAlarm": "Ajouter un réveil",
+  "editAlarm": "Modifier le réveil",
+  "stopAlarm": "Arrêter le réveil",
+  "error": "Erreur",
+  "setAlarmTime": "Définir l'heure du réveil",
+  "selectAlarmSound": "Sélectionner la sonnerie",
+  "playSoundRepeatedlyUntilAlarmStopped": "Jouer la sonnerie en boucle jusqu'à l'arrêt du réveil",
+  "customVolume": "Volume personnalisé",
+  "setSpecificVolumeForThisAlarm": "Définir un volume spécifique pour ce réveil",
+  "loopSound": "Sonnerie en boucle",
+  "saveChanges": "Enregistrer les modifications",
+  "cancel": "Annuler",
+  "setAlarm": "Définir le réveil",
+  "recordASound": "Enregistrer une sonnerie",
+  "noRecordingsYet": "Aucun enregistrement"
+} 

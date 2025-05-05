@@ -1,4 +1,5 @@
 import 'package:alarm/model/alarm_settings.dart';
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_state.dart';
 import 'package:echo_wake/presentation/screens/alarm/widgets/alarm_error.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/alarm_sheet.dart';
@@ -18,7 +19,7 @@ class AlarmScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: colorScheme.surface,
       appBar: AppBar(
-        title: const Text('Alarms'),
+        title: Text(t.alarms),
         elevation: 0,
         backgroundColor: colorScheme.surface,
         centerTitle: true,
@@ -48,7 +49,7 @@ class AlarmScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                     Text(
-                      'No alarms set',
+                      t.noAlarms,
                       style: Theme.of(
                         context,
                       ).textTheme.headlineSmall?.copyWith(
@@ -58,7 +59,7 @@ class AlarmScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 12),
                     Text(
-                      'Tap + to add an alarm',
+                      t.tapPlusToAddAlarm,
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                         color: colorScheme.onSurface.withValues(alpha: 0.6),
                       ),
@@ -94,9 +95,9 @@ class AlarmScreen extends StatelessWidget {
                     context.read<AlarmCubit>().stopAlarm(alarmSettings.id);
                     HapticFeedback.mediumImpact();
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Alarm deleted'),
-                        duration: Durations.long2,
+                      SnackBar(
+                        content: Text(t.alarmDeleted),
+                        duration: const Duration(seconds: 2),
                       ),
                     );
                   },
@@ -175,13 +176,13 @@ class AlarmScreen extends StatelessWidget {
             );
           }
 
-          return const Center(child: Text('No alarms set'));
+          return Center(child: Text(t.noAlarms));
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showAddAlarmSheet(context),
         icon: const Icon(Icons.add_rounded),
-        label: const Text('Add alarm'),
+        label: Text(t.addAlarm),
         elevation: 4,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),

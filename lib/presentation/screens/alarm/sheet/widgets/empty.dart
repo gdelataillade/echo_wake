@@ -1,3 +1,4 @@
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/screens/recordings/recording_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,7 @@ class _AlarmSheetEmptyState extends State<AlarmSheetEmpty> {
           ),
           const SizedBox(height: 16),
           Text(
-            'No recordings yet',
+            t.noRecordingsYet,
             style: Theme.of(context).textTheme.titleMedium,
           ),
           const SizedBox(height: 8),
@@ -36,7 +37,7 @@ class _AlarmSheetEmptyState extends State<AlarmSheetEmpty> {
               );
             },
             icon: const Icon(Icons.mic),
-            label: const Text('Record a sound'),
+            label: Text(t.recordASound),
           ),
         ],
       ),

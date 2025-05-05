@@ -1,3 +1,4 @@
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class AlarmErrorScreen extends StatelessWidget {
@@ -16,7 +17,7 @@ class AlarmErrorScreen extends StatelessWidget {
           Icon(Icons.error_outline, size: 48, color: colorScheme.error),
           const SizedBox(height: 16),
           Text(
-            'Error: $message',
+            '${t.error}: $message',
             style: Theme.of(
               context,
             ).textTheme.titleMedium?.copyWith(color: colorScheme.error),
