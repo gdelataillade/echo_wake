@@ -4,6 +4,7 @@ import 'package:echo_wake/presentation/screens/recordings/widgets/empty_recordin
 import 'package:echo_wake/presentation/screens/recordings/widgets/record_button.dart';
 import 'package:echo_wake/presentation/screens/recordings/widgets/recording_indicator.dart';
 import 'package:echo_wake/presentation/screens/recordings/widgets/recordings_list.dart';
+import 'package:echo_wake/presentation/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,6 +34,19 @@ class RecordingsView extends StatelessWidget {
             elevation: 0,
             backgroundColor: Theme.of(context).colorScheme.surface,
             centerTitle: true,
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SettingsScreen(),
+                    ),
+                  );
+                },
+                icon: const Icon(Icons.settings_rounded),
+              ),
+            ],
           ),
           body: SafeArea(
             child: Column(

@@ -1,8 +1,8 @@
+import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/data/models/recording.dart';
 import 'package:echo_wake/presentation/widgets/audio_player_button.dart';
 import 'package:echo_wake/services/audio_player_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 class AlarmSheetRecordingList extends StatefulWidget {
   final List<Recording> recordings;
@@ -45,7 +45,7 @@ class _AlarmSheetRecordingListState extends State<AlarmSheetRecordingList> {
 
         return GestureDetector(
           onTap: () {
-            HapticFeedback.lightImpact();
+            Helper.hapticFeedback();
             widget.onSelected(recording);
           },
           child: Container(

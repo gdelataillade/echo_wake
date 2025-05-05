@@ -18,5 +18,13 @@
   "cancel": "Annulla",
   "setAlarm": "Imposta sveglia",
   "recordASound": "Registra un suono",
-  "noRecordingsYet": "Nessuna registrazione"
+  "noRecordingsYet": "Nessuna registrazione",
+  "settings": "Impostazioni",
+  "language": "Lingua",
+  "reportBugOrFeature": "Segnala un bug o chiedi una funzione",
+  "privacyDescription": "Nessun dato viene raccolto. Tutto rimane sul tuo dispositivo. Nessun server. 100% offline.",
+  "builtWithLove": "Costruito con ❤️ da Gautier de Lataillade",
+  "hapticFeedback": "Haptic feedback",
+  "hapticFeedbackDescription": "Vibrazione leggera al tocco dei pulsanti",
+  "privacy": "Privacy"
 } 

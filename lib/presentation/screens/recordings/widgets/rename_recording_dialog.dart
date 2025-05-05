@@ -1,7 +1,7 @@
+import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/data/models/recording.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RenameRecordingDialog extends StatelessWidget {
@@ -40,7 +40,7 @@ class RenameRecordingDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () async {
-            HapticFeedback.lightImpact();
+            Helper.hapticFeedback();
 
             final newName = nameController.text.trim();
 

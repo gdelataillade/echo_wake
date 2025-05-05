@@ -59,6 +59,14 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get setAlarm => 'Set alarm';
 	String get recordASound => 'Record a sound';
 	String get noRecordingsYet => 'No recordings yet';
+	String get settings => 'Settings';
+	String get language => 'Language';
+	String get reportBugOrFeature => 'Report a bug or ask for a feature';
+	String get privacyDescription => 'No data is collected. Everything absolutely stays on your device. No back-end. 100% offline.';
+	String get builtWithLove => 'Built with ❤️ by Gautier de Lataillade';
+	String get hapticFeedback => 'Haptic feedback';
+	String get hapticFeedbackDescription => 'Light vibration when tapping on buttons';
+	String get privacy => 'Privacy';
 }
 
 /// Flat map(s) containing all translations.
@@ -86,6 +94,14 @@ extension on Translations {
 			case 'setAlarm': return 'Set alarm';
 			case 'recordASound': return 'Record a sound';
 			case 'noRecordingsYet': return 'No recordings yet';
+			case 'settings': return 'Settings';
+			case 'language': return 'Language';
+			case 'reportBugOrFeature': return 'Report a bug or ask for a feature';
+			case 'privacyDescription': return 'No data is collected. Everything absolutely stays on your device. No back-end. 100% offline.';
+			case 'builtWithLove': return 'Built with ❤️ by Gautier de Lataillade';
+			case 'hapticFeedback': return 'Haptic feedback';
+			case 'hapticFeedbackDescription': return 'Light vibration when tapping on buttons';
+			case 'privacy': return 'Privacy';
 			default: return null;
 		}
 	}

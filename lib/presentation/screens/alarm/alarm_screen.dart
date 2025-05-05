@@ -1,8 +1,10 @@
 import 'package:alarm/model/alarm_settings.dart';
+import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_state.dart';
 import 'package:echo_wake/presentation/screens/alarm/widgets/alarm_error.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/alarm_sheet.dart';
+import 'package:echo_wake/presentation/screens/settings/settings_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,6 +25,17 @@ class AlarmScreen extends StatelessWidget {
         elevation: 0,
         backgroundColor: colorScheme.surface,
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SettingsScreen()),
+              );
+            },
+            icon: const Icon(Icons.settings_rounded),
+          ),
+        ],
       ),
       body: BlocBuilder<AlarmCubit, AlarmState>(
         builder: (context, state) {
@@ -190,7 +203,7 @@ class AlarmScreen extends StatelessWidget {
   }
 
   void _showAddAlarmSheet(BuildContext context) {
-    HapticFeedback.lightImpact();
+    Helper.hapticFeedback();
 
     showModalBottomSheet(
       context: context,
@@ -200,7 +213,7 @@ class AlarmScreen extends StatelessWidget {
   }
 
   void _showEditAlarmSheet(BuildContext context, AlarmSettings alarm) {
-    HapticFeedback.lightImpact();
+    Helper.hapticFeedback();
 
     showModalBottomSheet(
       context: context,

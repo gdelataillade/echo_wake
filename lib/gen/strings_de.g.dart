@@ -56,6 +56,14 @@ class TranslationsDe implements Translations {
 	@override String get setAlarm => 'Wecker einstellen';
 	@override String get recordASound => 'Ton aufnehmen';
 	@override String get noRecordingsYet => 'Noch keine Aufnahmen';
+	@override String get settings => 'Einstellungen';
+	@override String get language => 'Sprache';
+	@override String get reportBugOrFeature => 'Fehler melden oder Funktion anfragen';
+	@override String get privacyDescription => 'Keine Daten werden gesammelt. Alles bleibt auf Ihrem Gerät. Kein Backend. 100% offline.';
+	@override String get builtWithLove => 'Mit ❤️ von Gautier de Lataillade';
+	@override String get hapticFeedback => 'Haptic feedback';
+	@override String get hapticFeedbackDescription => 'Leichte Vibration beim Tippen auf Schaltflächen';
+	@override String get privacy => 'Datenschutz';
 }
 
 /// Flat map(s) containing all translations.
@@ -83,6 +91,14 @@ extension on TranslationsDe {
 			case 'setAlarm': return 'Wecker einstellen';
 			case 'recordASound': return 'Ton aufnehmen';
 			case 'noRecordingsYet': return 'Noch keine Aufnahmen';
+			case 'settings': return 'Einstellungen';
+			case 'language': return 'Sprache';
+			case 'reportBugOrFeature': return 'Fehler melden oder Funktion anfragen';
+			case 'privacyDescription': return 'Keine Daten werden gesammelt. Alles bleibt auf Ihrem Gerät. Kein Backend. 100% offline.';
+			case 'builtWithLove': return 'Mit ❤️ von Gautier de Lataillade';
+			case 'hapticFeedback': return 'Haptic feedback';
+			case 'hapticFeedbackDescription': return 'Leichte Vibration beim Tippen auf Schaltflächen';
+			case 'privacy': return 'Datenschutz';
 			default: return null;
 		}
 	}

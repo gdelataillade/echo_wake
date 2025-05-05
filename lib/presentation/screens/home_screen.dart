@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:alarm/alarm.dart';
 import 'package:alarm/utils/alarm_set.dart';
+import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/screens/ring_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'alarm/alarm_screen.dart';
 import 'recordings/recording_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.selectedTab,
             onTap: (index) {
-              HapticFeedback.lightImpact();
+              Helper.hapticFeedback();
               context.read<NavigationCubit>().updateSelectedTab(index);
             },
             items: [

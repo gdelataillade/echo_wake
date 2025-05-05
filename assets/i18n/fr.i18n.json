@@ -18,5 +18,13 @@
   "cancel": "Annuler",
   "setAlarm": "Définir le réveil",
   "recordASound": "Enregistrer une sonnerie",
-  "noRecordingsYet": "Aucun enregistrement"
-} 
+  "noRecordingsYet": "Aucun enregistrement",
+  "settings": "Paramètres",
+  "language": "Langue",
+  "reportBugOrFeature": "Signaler un bug ou demander une fonctionnalité",
+  "privacyDescription": "Aucune donnée collectée, tout reste sur votre appareil. 100% hors ligne.",
+  "builtWithLove": "Fait avec ❤️ par Gautier de Lataillade",
+  "hapticFeedback": "Haptic feedback",
+  "hapticFeedbackDescription": "Légère vibration lors de l'appui sur les boutons",
+  "privacy": "Confidentialité"
+}

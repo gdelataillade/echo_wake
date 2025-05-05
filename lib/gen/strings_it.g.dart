@@ -56,6 +56,14 @@ class TranslationsIt implements Translations {
 	@override String get setAlarm => 'Imposta sveglia';
 	@override String get recordASound => 'Registra un suono';
 	@override String get noRecordingsYet => 'Nessuna registrazione';
+	@override String get settings => 'Impostazioni';
+	@override String get language => 'Lingua';
+	@override String get reportBugOrFeature => 'Segnala un bug o chiedi una funzione';
+	@override String get privacyDescription => 'Nessun dato viene raccolto. Tutto rimane sul tuo dispositivo. Nessun server. 100% offline.';
+	@override String get builtWithLove => 'Costruito con ❤️ da Gautier de Lataillade';
+	@override String get hapticFeedback => 'Haptic feedback';
+	@override String get hapticFeedbackDescription => 'Vibrazione leggera al tocco dei pulsanti';
+	@override String get privacy => 'Privacy';
 }
 
 /// Flat map(s) containing all translations.
@@ -83,6 +91,14 @@ extension on TranslationsIt {
 			case 'setAlarm': return 'Imposta sveglia';
 			case 'recordASound': return 'Registra un suono';
 			case 'noRecordingsYet': return 'Nessuna registrazione';
+			case 'settings': return 'Impostazioni';
+			case 'language': return 'Lingua';
+			case 'reportBugOrFeature': return 'Segnala un bug o chiedi una funzione';
+			case 'privacyDescription': return 'Nessun dato viene raccolto. Tutto rimane sul tuo dispositivo. Nessun server. 100% offline.';
+			case 'builtWithLove': return 'Costruito con ❤️ da Gautier de Lataillade';
+			case 'hapticFeedback': return 'Haptic feedback';
+			case 'hapticFeedbackDescription': return 'Vibrazione leggera al tocco dei pulsanti';
+			case 'privacy': return 'Privacy';
 			default: return null;
 		}
 	}

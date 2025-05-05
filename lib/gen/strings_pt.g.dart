@@ -56,6 +56,14 @@ class TranslationsPt implements Translations {
 	@override String get setAlarm => 'Definir alarme';
 	@override String get recordASound => 'Gravar um som';
 	@override String get noRecordingsYet => 'Nenhuma gravação ainda';
+	@override String get settings => 'Configurações';
+	@override String get language => 'Idioma';
+	@override String get reportBugOrFeature => 'Reportar um bug ou solicitar uma funcionalidade';
+	@override String get privacyDescription => 'Nenhuma informação é coletada. Tudo fica no seu dispositivo. Nenhum servidor. 100% offline.';
+	@override String get builtWithLove => 'Feito com ❤️ por Gautier de Lataillade';
+	@override String get hapticFeedback => 'Haptic feedback';
+	@override String get hapticFeedbackDescription => 'Leve vibração ao tocar nos botões';
+	@override String get privacy => 'Privacidade';
 }
 
 /// Flat map(s) containing all translations.
@@ -83,6 +91,14 @@ extension on TranslationsPt {
 			case 'setAlarm': return 'Definir alarme';
 			case 'recordASound': return 'Gravar um som';
 			case 'noRecordingsYet': return 'Nenhuma gravação ainda';
+			case 'settings': return 'Configurações';
+			case 'language': return 'Idioma';
+			case 'reportBugOrFeature': return 'Reportar um bug ou solicitar uma funcionalidade';
+			case 'privacyDescription': return 'Nenhuma informação é coletada. Tudo fica no seu dispositivo. Nenhum servidor. 100% offline.';
+			case 'builtWithLove': return 'Feito com ❤️ por Gautier de Lataillade';
+			case 'hapticFeedback': return 'Haptic feedback';
+			case 'hapticFeedbackDescription': return 'Leve vibração ao tocar nos botões';
+			case 'privacy': return 'Privacidade';
 			default: return null;
 		}
 	}

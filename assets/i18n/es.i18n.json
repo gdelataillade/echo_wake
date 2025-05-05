@@ -18,5 +18,13 @@
   "cancel": "Cancelar",
   "setAlarm": "Establecer alarma",
   "recordASound": "Grabar un sonido",
-  "noRecordingsYet": "Aún no hay grabaciones"
+  "noRecordingsYet": "Aún no hay grabaciones",
+  "settings": "Configuración",
+  "language": "Idioma",
+  "reportBugOrFeature": "Reportar un bug o solicitar una funcionalidad",
+  "privacyDescription": "No se recopilan datos. Todo permanece en tu dispositivo. No hay servidor. 100% offline.",
+  "builtWithLove": "Hecho con ❤️ por Gautier de Lataillade",
+  "hapticFeedback": "Haptic feedback",
+  "hapticFeedbackDescription": "Leve vibración al tocar los botones",
+  "privacy": "Privacidad"
 } 

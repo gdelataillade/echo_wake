@@ -1,4 +1,5 @@
 import 'package:alarm/model/alarm_settings.dart';
+import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/data/models/recording.dart';
 import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
@@ -9,7 +10,6 @@ import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/alarm_recordi
 import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/time_picker.dart';
 import 'package:echo_wake/services/audio_player_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AlarmSheet extends StatefulWidget {
@@ -49,7 +49,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
   }
 
   Future<void> submit() async {
-    HapticFeedback.lightImpact();
+    Helper.hapticFeedback();
 
     setState(() {
       isLoading = true;
@@ -136,7 +136,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                 const SizedBox(height: 24),
                 InkWell(
                   onTap: () async {
-                    HapticFeedback.lightImpact();
+                    Helper.hapticFeedback();
 
                     final time = await showTimePicker(
                       context: context,
@@ -191,7 +191,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                   subtitle: Text(t.setSpecificVolumeForThisAlarm),
                   value: isCustomVolumeEnabled,
                   onChanged: (value) {
-                    HapticFeedback.lightImpact();
+                    Helper.hapticFeedback();
                     setState(() {
                       isCustomVolumeEnabled = value;
                     });
@@ -202,7 +202,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                   Slider(
                     value: alarmVolume,
                     onChanged: (value) {
-                      HapticFeedback.lightImpact();
+                      Helper.hapticFeedback();
                       setState(() {
                         alarmVolume = value;
                       });

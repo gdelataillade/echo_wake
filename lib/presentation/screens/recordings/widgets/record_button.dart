@@ -1,6 +1,6 @@
+import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecordButton extends StatelessWidget {
@@ -15,7 +15,7 @@ class RecordButton extends StatelessWidget {
           Expanded(
             child: FilledButton.icon(
               onPressed: () {
-                HapticFeedback.lightImpact();
+                Helper.hapticFeedback();
                 context.read<RecordingsCubit>().startRecording();
               },
               icon: const Icon(Icons.mic, size: 20),
@@ -35,7 +35,7 @@ class RecordButton extends StatelessWidget {
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
               ),
               onPressed: () {
-                HapticFeedback.lightImpact();
+                Helper.hapticFeedback();
                 context.read<RecordingsCubit>().importAudioFile();
               },
               icon: const Icon(Icons.upload_file_outlined),

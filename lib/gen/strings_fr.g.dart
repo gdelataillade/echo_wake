@@ -56,6 +56,14 @@ class TranslationsFr implements Translations {
 	@override String get setAlarm => 'Définir le réveil';
 	@override String get recordASound => 'Enregistrer une sonnerie';
 	@override String get noRecordingsYet => 'Aucun enregistrement';
+	@override String get settings => 'Paramètres';
+	@override String get language => 'Langue';
+	@override String get reportBugOrFeature => 'Signaler un bug ou demander une fonctionnalité';
+	@override String get privacyDescription => 'Aucune donnée collectée, tout reste sur votre appareil. 100% hors ligne.';
+	@override String get builtWithLove => 'Fait avec ❤️ par Gautier de Lataillade';
+	@override String get hapticFeedback => 'Haptic feedback';
+	@override String get hapticFeedbackDescription => 'Légère vibration lors de l\'appui sur les boutons';
+	@override String get privacy => 'Confidentialité';
 }
 
 /// Flat map(s) containing all translations.
@@ -83,6 +91,14 @@ extension on TranslationsFr {
 			case 'setAlarm': return 'Définir le réveil';
 			case 'recordASound': return 'Enregistrer une sonnerie';
 			case 'noRecordingsYet': return 'Aucun enregistrement';
+			case 'settings': return 'Paramètres';
+			case 'language': return 'Langue';
+			case 'reportBugOrFeature': return 'Signaler un bug ou demander une fonctionnalité';
+			case 'privacyDescription': return 'Aucune donnée collectée, tout reste sur votre appareil. 100% hors ligne.';
+			case 'builtWithLove': return 'Fait avec ❤️ par Gautier de Lataillade';
+			case 'hapticFeedback': return 'Haptic feedback';
+			case 'hapticFeedbackDescription': return 'Légère vibration lors de l\'appui sur les boutons';
+			case 'privacy': return 'Confidentialité';
 			default: return null;
 		}
 	}
