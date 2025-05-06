@@ -64,6 +64,44 @@ class TranslationsEs implements Translations {
 	@override String get hapticFeedback => 'Haptic feedback';
 	@override String get hapticFeedbackDescription => 'Leve vibración al tocar los botones';
 	@override String get privacy => 'Privacidad';
+	@override late final _TranslationsOnboarding1Es onboarding1 = _TranslationsOnboarding1Es._(_root);
+	@override late final _TranslationsOnboarding2Es onboarding2 = _TranslationsOnboarding2Es._(_root);
+	@override late final _TranslationsOnboarding3Es onboarding3 = _TranslationsOnboarding3Es._(_root);
+	@override String get skip => 'Omitir';
+	@override String get getStarted => 'Comenzar';
+}
+
+// Path: onboarding1
+class _TranslationsOnboarding1Es implements TranslationsOnboarding1En {
+	_TranslationsOnboarding1Es._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Graba tu impulso matutino';
+	@override String get description => 'Tu voz, tu energía, tu mensaje para despertar.';
+}
+
+// Path: onboarding2
+class _TranslationsOnboarding2Es implements TranslationsOnboarding2En {
+	_TranslationsOnboarding2Es._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Programa tu alarma';
+	@override String get description => 'Y asígnale tu grabación motivadora.';
+}
+
+// Path: onboarding3
+class _TranslationsOnboarding3Es implements TranslationsOnboarding3En {
+	_TranslationsOnboarding3Es._(this._root);
+
+	final TranslationsEs _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Despiértate';
+	@override String get description => 'Empieza el día con tus propias palabras.';
 }
 
 /// Flat map(s) containing all translations.
@@ -99,6 +137,14 @@ extension on TranslationsEs {
 			case 'hapticFeedback': return 'Haptic feedback';
 			case 'hapticFeedbackDescription': return 'Leve vibración al tocar los botones';
 			case 'privacy': return 'Privacidad';
+			case 'onboarding1.title': return 'Graba tu impulso matutino';
+			case 'onboarding1.description': return 'Tu voz, tu energía, tu mensaje para despertar.';
+			case 'onboarding2.title': return 'Programa tu alarma';
+			case 'onboarding2.description': return 'Y asígnale tu grabación motivadora.';
+			case 'onboarding3.title': return 'Despiértate';
+			case 'onboarding3.description': return 'Empieza el día con tus propias palabras.';
+			case 'skip': return 'Omitir';
+			case 'getStarted': return 'Comenzar';
 			default: return null;
 		}
 	}

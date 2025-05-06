@@ -26,5 +26,19 @@
   "builtWithLove": "Costruito con ❤️ da Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Vibrazione leggera al tocco dei pulsanti",
-  "privacy": "Privacy"
+  "privacy": "Privacy",
+  "onboarding1": {
+    "title": "Registra la tua carica del mattino",
+    "description": "La tua voce, la tua energia, il tuo messaggio per svegliarti."
+  },
+  "onboarding2": {
+    "title": "Imposta la sveglia",
+    "description": "E abbinala alla tua registrazione motivante."
+  },
+  "onboarding3": {
+    "title": "Svegliati",
+    "description": "Inizia la giornata con le tue parole."
+  },
+  "skip": "Salta",
+  "getStarted": "Inizia"
 } 

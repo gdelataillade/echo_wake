@@ -26,5 +26,19 @@
   "builtWithLove": "Mit ❤️ von Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Leichte Vibration beim Tippen auf Schaltflächen",
-  "privacy": "Datenschutz"
+  "privacy": "Datenschutz",
+  "onboarding1": {
+    "title": "Nehmen Sie Ihren Morgen-Boost auf",
+    "description": "Ihre Stimme, Ihre Energie, Ihre Nachricht zum Aufwachen."
+  },
+  "onboarding2": {
+    "title": "Stellen Sie Ihren Wecker",
+    "description": "Und verbinden Sie ihn mit Ihrer motivierenden Aufnahme."
+  },
+  "onboarding3": {
+    "title": "Wachen Sie auf",
+    "description": "Starten Sie Ihren Tag mit Ihren eigenen Worten."
+  },
+  "skip": "Überspringen",
+  "getStarted": "Los geht's"
 }

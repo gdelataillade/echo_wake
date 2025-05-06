@@ -26,5 +26,19 @@
   "builtWithLove": "Fait avec ❤️ par Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Légère vibration lors de l'appui sur les boutons",
-  "privacy": "Confidentialité"
+  "privacy": "Confidentialité",
+  "onboarding1": {
+    "title": "Enregistrez votre boost du matin",
+    "description": "Votre voix, votre énergie, votre message pour vous réveiller."
+  },
+  "onboarding2": {
+    "title": "Programmez votre réveil",
+    "description": "Et associez-le à votre enregistrement motivant."
+  },
+  "onboarding3": {
+    "title": "Réveillez-vous",
+    "description": "Commencez votre journée avec vos propres mots."
+  },
+  "skip": "Passer",
+  "getStarted": "Commencer"
 }

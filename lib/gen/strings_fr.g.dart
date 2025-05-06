@@ -64,6 +64,44 @@ class TranslationsFr implements Translations {
 	@override String get hapticFeedback => 'Haptic feedback';
 	@override String get hapticFeedbackDescription => 'Légère vibration lors de l\'appui sur les boutons';
 	@override String get privacy => 'Confidentialité';
+	@override late final _TranslationsOnboarding1Fr onboarding1 = _TranslationsOnboarding1Fr._(_root);
+	@override late final _TranslationsOnboarding2Fr onboarding2 = _TranslationsOnboarding2Fr._(_root);
+	@override late final _TranslationsOnboarding3Fr onboarding3 = _TranslationsOnboarding3Fr._(_root);
+	@override String get skip => 'Passer';
+	@override String get getStarted => 'Commencer';
+}
+
+// Path: onboarding1
+class _TranslationsOnboarding1Fr implements TranslationsOnboarding1En {
+	_TranslationsOnboarding1Fr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Enregistrez votre boost du matin';
+	@override String get description => 'Votre voix, votre énergie, votre message pour vous réveiller.';
+}
+
+// Path: onboarding2
+class _TranslationsOnboarding2Fr implements TranslationsOnboarding2En {
+	_TranslationsOnboarding2Fr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Programmez votre réveil';
+	@override String get description => 'Et associez-le à votre enregistrement motivant.';
+}
+
+// Path: onboarding3
+class _TranslationsOnboarding3Fr implements TranslationsOnboarding3En {
+	_TranslationsOnboarding3Fr._(this._root);
+
+	final TranslationsFr _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Réveillez-vous';
+	@override String get description => 'Commencez votre journée avec vos propres mots.';
 }
 
 /// Flat map(s) containing all translations.
@@ -99,6 +137,14 @@ extension on TranslationsFr {
 			case 'hapticFeedback': return 'Haptic feedback';
 			case 'hapticFeedbackDescription': return 'Légère vibration lors de l\'appui sur les boutons';
 			case 'privacy': return 'Confidentialité';
+			case 'onboarding1.title': return 'Enregistrez votre boost du matin';
+			case 'onboarding1.description': return 'Votre voix, votre énergie, votre message pour vous réveiller.';
+			case 'onboarding2.title': return 'Programmez votre réveil';
+			case 'onboarding2.description': return 'Et associez-le à votre enregistrement motivant.';
+			case 'onboarding3.title': return 'Réveillez-vous';
+			case 'onboarding3.description': return 'Commencez votre journée avec vos propres mots.';
+			case 'skip': return 'Passer';
+			case 'getStarted': return 'Commencer';
 			default: return null;
 		}
 	}

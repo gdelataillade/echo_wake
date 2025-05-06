@@ -26,5 +26,19 @@
   "builtWithLove": "Feito com ❤️ por Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Leve vibração ao tocar nos botões",
-  "privacy": "Privacidade"
+  "privacy": "Privacidade",
+  "onboarding1": {
+    "title": "Grave seu impulso matinal",
+    "description": "Sua voz, sua energia, sua mensagem para acordar."
+  },
+  "onboarding2": {
+    "title": "Defina o alarme",
+    "description": "E associe sua gravação motivacional."
+  },
+  "onboarding3": {
+    "title": "Acorde",
+    "description": "Comece o dia com as suas próprias palavras."
+  },
+  "skip": "Pular",
+  "getStarted": "Começar"
 } 

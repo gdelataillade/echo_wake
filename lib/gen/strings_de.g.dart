@@ -64,6 +64,44 @@ class TranslationsDe implements Translations {
 	@override String get hapticFeedback => 'Haptic feedback';
 	@override String get hapticFeedbackDescription => 'Leichte Vibration beim Tippen auf Schaltflächen';
 	@override String get privacy => 'Datenschutz';
+	@override late final _TranslationsOnboarding1De onboarding1 = _TranslationsOnboarding1De._(_root);
+	@override late final _TranslationsOnboarding2De onboarding2 = _TranslationsOnboarding2De._(_root);
+	@override late final _TranslationsOnboarding3De onboarding3 = _TranslationsOnboarding3De._(_root);
+	@override String get skip => 'Überspringen';
+	@override String get getStarted => 'Los geht\'s';
+}
+
+// Path: onboarding1
+class _TranslationsOnboarding1De implements TranslationsOnboarding1En {
+	_TranslationsOnboarding1De._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Nehmen Sie Ihren Morgen-Boost auf';
+	@override String get description => 'Ihre Stimme, Ihre Energie, Ihre Nachricht zum Aufwachen.';
+}
+
+// Path: onboarding2
+class _TranslationsOnboarding2De implements TranslationsOnboarding2En {
+	_TranslationsOnboarding2De._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Stellen Sie Ihren Wecker';
+	@override String get description => 'Und verbinden Sie ihn mit Ihrer motivierenden Aufnahme.';
+}
+
+// Path: onboarding3
+class _TranslationsOnboarding3De implements TranslationsOnboarding3En {
+	_TranslationsOnboarding3De._(this._root);
+
+	final TranslationsDe _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Wachen Sie auf';
+	@override String get description => 'Starten Sie Ihren Tag mit Ihren eigenen Worten.';
 }
 
 /// Flat map(s) containing all translations.
@@ -99,6 +137,14 @@ extension on TranslationsDe {
 			case 'hapticFeedback': return 'Haptic feedback';
 			case 'hapticFeedbackDescription': return 'Leichte Vibration beim Tippen auf Schaltflächen';
 			case 'privacy': return 'Datenschutz';
+			case 'onboarding1.title': return 'Nehmen Sie Ihren Morgen-Boost auf';
+			case 'onboarding1.description': return 'Ihre Stimme, Ihre Energie, Ihre Nachricht zum Aufwachen.';
+			case 'onboarding2.title': return 'Stellen Sie Ihren Wecker';
+			case 'onboarding2.description': return 'Und verbinden Sie ihn mit Ihrer motivierenden Aufnahme.';
+			case 'onboarding3.title': return 'Wachen Sie auf';
+			case 'onboarding3.description': return 'Starten Sie Ihren Tag mit Ihren eigenen Worten.';
+			case 'skip': return 'Überspringen';
+			case 'getStarted': return 'Los geht\'s';
 			default: return null;
 		}
 	}

@@ -67,6 +67,44 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get hapticFeedback => 'Haptic feedback';
 	String get hapticFeedbackDescription => 'Light vibration when tapping on buttons';
 	String get privacy => 'Privacy';
+	late final TranslationsOnboarding1En onboarding1 = TranslationsOnboarding1En._(_root);
+	late final TranslationsOnboarding2En onboarding2 = TranslationsOnboarding2En._(_root);
+	late final TranslationsOnboarding3En onboarding3 = TranslationsOnboarding3En._(_root);
+	String get skip => 'Skip';
+	String get getStarted => 'Get Started';
+}
+
+// Path: onboarding1
+class TranslationsOnboarding1En {
+	TranslationsOnboarding1En._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Record your morning boost';
+	String get description => 'Your voice, your energy, your message to wake up to.';
+}
+
+// Path: onboarding2
+class TranslationsOnboarding2En {
+	TranslationsOnboarding2En._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Set your alarm';
+	String get description => 'And link it to your motivating recording.';
+}
+
+// Path: onboarding3
+class TranslationsOnboarding3En {
+	TranslationsOnboarding3En._(this._root);
+
+	final Translations _root; // ignore: unused_field
+
+	// Translations
+	String get title => 'Wake up';
+	String get description => 'Start your day with your own words.';
 }
 
 /// Flat map(s) containing all translations.
@@ -102,6 +140,14 @@ extension on Translations {
 			case 'hapticFeedback': return 'Haptic feedback';
 			case 'hapticFeedbackDescription': return 'Light vibration when tapping on buttons';
 			case 'privacy': return 'Privacy';
+			case 'onboarding1.title': return 'Record your morning boost';
+			case 'onboarding1.description': return 'Your voice, your energy, your message to wake up to.';
+			case 'onboarding2.title': return 'Set your alarm';
+			case 'onboarding2.description': return 'And link it to your motivating recording.';
+			case 'onboarding3.title': return 'Wake up';
+			case 'onboarding3.description': return 'Start your day with your own words.';
+			case 'skip': return 'Skip';
+			case 'getStarted': return 'Get Started';
 			default: return null;
 		}
 	}

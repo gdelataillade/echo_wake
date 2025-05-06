@@ -64,6 +64,44 @@ class TranslationsIt implements Translations {
 	@override String get hapticFeedback => 'Haptic feedback';
 	@override String get hapticFeedbackDescription => 'Vibrazione leggera al tocco dei pulsanti';
 	@override String get privacy => 'Privacy';
+	@override late final _TranslationsOnboarding1It onboarding1 = _TranslationsOnboarding1It._(_root);
+	@override late final _TranslationsOnboarding2It onboarding2 = _TranslationsOnboarding2It._(_root);
+	@override late final _TranslationsOnboarding3It onboarding3 = _TranslationsOnboarding3It._(_root);
+	@override String get skip => 'Salta';
+	@override String get getStarted => 'Inizia';
+}
+
+// Path: onboarding1
+class _TranslationsOnboarding1It implements TranslationsOnboarding1En {
+	_TranslationsOnboarding1It._(this._root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Registra la tua carica del mattino';
+	@override String get description => 'La tua voce, la tua energia, il tuo messaggio per svegliarti.';
+}
+
+// Path: onboarding2
+class _TranslationsOnboarding2It implements TranslationsOnboarding2En {
+	_TranslationsOnboarding2It._(this._root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Imposta la sveglia';
+	@override String get description => 'E abbinala alla tua registrazione motivante.';
+}
+
+// Path: onboarding3
+class _TranslationsOnboarding3It implements TranslationsOnboarding3En {
+	_TranslationsOnboarding3It._(this._root);
+
+	final TranslationsIt _root; // ignore: unused_field
+
+	// Translations
+	@override String get title => 'Svegliati';
+	@override String get description => 'Inizia la giornata con le tue parole.';
 }
 
 /// Flat map(s) containing all translations.
@@ -99,6 +137,14 @@ extension on TranslationsIt {
 			case 'hapticFeedback': return 'Haptic feedback';
 			case 'hapticFeedbackDescription': return 'Vibrazione leggera al tocco dei pulsanti';
 			case 'privacy': return 'Privacy';
+			case 'onboarding1.title': return 'Registra la tua carica del mattino';
+			case 'onboarding1.description': return 'La tua voce, la tua energia, il tuo messaggio per svegliarti.';
+			case 'onboarding2.title': return 'Imposta la sveglia';
+			case 'onboarding2.description': return 'E abbinala alla tua registrazione motivante.';
+			case 'onboarding3.title': return 'Svegliati';
+			case 'onboarding3.description': return 'Inizia la giornata con le tue parole.';
+			case 'skip': return 'Salta';
+			case 'getStarted': return 'Inizia';
 			default: return null;
 		}
 	}

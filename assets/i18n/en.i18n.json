@@ -26,5 +26,19 @@
   "builtWithLove": "Built with ❤️ by Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Light vibration when tapping on buttons",
-  "privacy": "Privacy"
+  "privacy": "Privacy",
+  "onboarding1": {
+    "title": "Record your morning boost",
+    "description": "Your voice, your energy, your message to wake up to."
+  },
+  "onboarding2": {
+    "title": "Set your alarm",
+    "description": "And link it to your motivating recording."
+  },
+  "onboarding3": {
+    "title": "Wake up",
+    "description": "Start your day with your own words."
+  },
+  "skip": "Skip",
+  "getStarted": "Get Started"
 }
