@@ -5,45 +5,41 @@ import 'package:echo_wake/data/models/recording.dart';
 import 'dart:async';
 
 class AudioPlayerService {
-  final AudioPlayer _audioPlayer = AudioPlayer();
-  final _playerStateController = StreamController<void>.broadcast();
-  Recording? _currentRecording;
-  bool _isPlaying = false;
+  final _audioPlayer = AudioPlayer();
+  final _playerStateController = StreamController<Recording?>.broadcast();
 
-  Recording? get currentRecording => _currentRecording;
-  bool get isPlaying => _isPlaying;
-  Stream<void> get onPlayerStateChanged => _playerStateController.stream;
+  Stream<Recording?> get onPlayerStateChanged => _playerStateController.stream;
+  Recording? get currentlyPlayingRecording => _currentRecording;
+
+  Recording? _currentRecording;
 
   AudioPlayerService() {
-    _audioPlayer.onPlayerComplete.listen((_) {
-      _isPlaying = false;
-      _playerStateController.add(null);
+    _audioPlayer.onPlayerStateChanged.listen((state) {
+      if (state == PlayerState.completed) {
+        _currentRecording = null;
+        _playerStateController.add(null);
+      } else if (state == PlayerState.playing) {
+        _playerStateController.add(_currentRecording);
+      } else if (state == PlayerState.paused) {
+        _playerStateController.add(_currentRecording);
+      } else if (state == PlayerState.stopped) {
+        _currentRecording = null;
+        _playerStateController.add(null);
+      }
     });
   }
 
   Future<void> playRecording(Recording recording) async {
-    if (_currentRecording?.id == recording.id) {
-      if (_isPlaying) {
-        await _audioPlayer.pause();
-        await _audioPlayer.seek(Duration.zero);
-        _isPlaying = false;
-      } else {
-        await _audioPlayer.resume();
-        _isPlaying = true;
-      }
-    } else {
-      await _audioPlayer.stop();
-      final fullPath = await recording.getFullPath();
-      await _audioPlayer.play(DeviceFileSource(fullPath));
-      _currentRecording = recording;
-      _isPlaying = true;
-    }
-    _playerStateController.add(null);
+    await _audioPlayer.stop();
+    final fullPath = await recording.getFullPath();
+    _currentRecording = recording;
+    _audioPlayer.play(DeviceFileSource(fullPath));
+    _playerStateController.add(recording);
   }
 
   Future<void> stop() async {
     await _audioPlayer.stop();
-    _isPlaying = false;
+    _currentRecording = null;
     _playerStateController.add(null);
   }
 

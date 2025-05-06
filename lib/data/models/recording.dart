@@ -13,6 +13,14 @@ class Recording {
     required this.duration,
   });
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Recording && runtimeType == other.runtimeType && id == other.id;
+
+  @override
+  int get hashCode => id.hashCode;
+
   Future<String> getFullPath() async {
     final appDir = await getApplicationDocumentsDirectory();
     final fullPath = '${appDir.path}/$filename';

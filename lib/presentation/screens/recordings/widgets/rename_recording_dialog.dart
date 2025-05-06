@@ -44,7 +44,6 @@ class RenameRecordingDialog extends StatelessWidget {
 
             final newName = nameController.text.trim();
 
-            // Check if name is empty
             if (newName.isEmpty) {
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -57,7 +56,6 @@ class RenameRecordingDialog extends StatelessWidget {
               return;
             }
 
-            // Check for duplicate names
             final isDuplicate = recordings.any(
               (r) => r.id != recording.id && r.name == newName,
             );
@@ -77,7 +75,7 @@ class RenameRecordingDialog extends StatelessWidget {
             final index = recordings.indexWhere((r) => r.id == recording.id);
             if (index != -1) {
               final bloc = context.read<RecordingsCubit>();
-              bloc.updateRecordingName(recording.id, newName);
+              bloc.updateRecordingName(recording, newName);
             }
             if (context.mounted) {
               Navigator.pop(context);

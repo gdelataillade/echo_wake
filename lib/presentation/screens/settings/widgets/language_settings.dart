@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:country_flags/country_flags.dart';
-import '../../../../gen/strings.g.dart';
 
 class LanguageSettings extends StatelessWidget {
   final String selectedLanguage;

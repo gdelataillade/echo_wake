@@ -164,14 +164,19 @@ class RecordingsCubit extends Cubit<RecordingsState> {
     }
   }
 
-  void updateRecordingName(String recordingId, String newName) {
+  Future<void> updateRecordingName(Recording recording, String newName) async {
     final updatedRecordings =
-        state.recordings.map((recording) {
-          if (recording.id == recordingId) {
-            return recording.copyWith(name: newName);
+        state.recordings.map((r) {
+          if (r.id == recording.id) {
+            return r.copyWith(name: newName);
           }
-          return recording;
+          return r;
         }).toList();
+
+    final recordingsJson =
+        updatedRecordings.map((r) => jsonEncode(r.toJson())).toList();
+    await _storage.setStringList('recordings', recordingsJson);
+
     emit(state.copyWith(recordings: updatedRecordings));
   }
 

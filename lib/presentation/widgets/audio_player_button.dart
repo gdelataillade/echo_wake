@@ -20,38 +20,35 @@ class AudioPlayerButton extends StatefulWidget {
 
 class _AudioPlayerButtonState extends State<AudioPlayerButton> {
   @override
-  void initState() {
-    super.initState();
-    widget.audioPlayerService.onPlayerStateChanged.listen((_) {
-      if (mounted) {
-        setState(() {});
-      }
-    });
-  }
-
-  bool get isPlaying =>
-      widget.audioPlayerService.isPlaying &&
-      widget.audioPlayerService.currentRecording?.id == widget.recording.id;
-
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Theme.of(
-          context,
-        ).colorScheme.primaryContainer.withValues(alpha: 0.5),
-      ),
-      child: IconButton(
-        icon: Icon(
-          isPlaying ? Icons.stop : Icons.play_arrow,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        onPressed: () async {
-          await widget.audioPlayerService.playRecording(widget.recording);
-          widget.onPlaybackStateChanged?.call();
-        },
-      ),
+    return StreamBuilder<Recording?>(
+      stream: widget.audioPlayerService.onPlayerStateChanged,
+      builder: (context, snapshot) {
+        final isPlaying = snapshot.data == widget.recording;
+
+        return Container(
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: Theme.of(
+              context,
+            ).colorScheme.primaryContainer.withValues(alpha: 0.5),
+          ),
+          child: IconButton(
+            icon: Icon(
+              isPlaying ? Icons.stop : Icons.play_arrow,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            onPressed: () async {
+              if (isPlaying) {
+                await widget.audioPlayerService.stop();
+              } else {
+                await widget.audioPlayerService.playRecording(widget.recording);
+              }
+              widget.onPlaybackStateChanged?.call();
+            },
+          ),
+        );
+      },
     );
   }
 }
