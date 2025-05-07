@@ -79,6 +79,14 @@ class TranslationsEs implements Translations {
 	@override String get startRecording => 'Iniciar grabación';
 	@override String get voiceRecordings => 'Grabaciones';
 	@override String get continueButton => 'Continuar';
+	@override String get manageAppPermissions => 'Gestionar permisos de la app';
+	@override String get notificationAndMicrophone => 'Notificaciones y micrófono';
+	@override String get renameRecording => 'Renombrar grabación';
+	@override String get newName => 'Nuevo nombre';
+	@override String get recordingNameCannotBeEmpty => 'El nombre de la grabación no puede estar vacío';
+	@override String get aRecordingWithThisNameAlreadyExists => 'Ya existe una grabación con este nombre';
+	@override String get save => 'Guardar';
+	@override String get warningNotificationOnKillDescription => 'Tus alarmes pueden no sonar si la app está cerrada. Toca aquí para abrir la app.';
 }
 
 // Path: onboarding1
@@ -165,6 +173,14 @@ extension on TranslationsEs {
 			case 'startRecording': return 'Iniciar grabación';
 			case 'voiceRecordings': return 'Grabaciones';
 			case 'continueButton': return 'Continuar';
+			case 'manageAppPermissions': return 'Gestionar permisos de la app';
+			case 'notificationAndMicrophone': return 'Notificaciones y micrófono';
+			case 'renameRecording': return 'Renombrar grabación';
+			case 'newName': return 'Nuevo nombre';
+			case 'recordingNameCannotBeEmpty': return 'El nombre de la grabación no puede estar vacío';
+			case 'aRecordingWithThisNameAlreadyExists': return 'Ya existe una grabación con este nombre';
+			case 'save': return 'Guardar';
+			case 'warningNotificationOnKillDescription': return 'Tus alarmes pueden no sonar si la app está cerrada. Toca aquí para abrir la app.';
 			default: return null;
 		}
 	}

@@ -55,10 +55,7 @@ class RecordingScreen extends StatelessWidget {
                           ? EmptyRecordingsView()
                           : Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: RecordingsList(
-                              recordings: state.recordings,
-                              selectionMode: selectionMode,
-                            ),
+                            child: RecordingsList(selectionMode: selectionMode),
                           ),
                 ),
                 if (state.status != RecordingStatus.recording)

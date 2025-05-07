@@ -82,6 +82,14 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get startRecording => 'Start Recording';
 	String get voiceRecordings => 'Voice Recordings';
 	String get continueButton => 'Continue';
+	String get manageAppPermissions => 'Manage app permissions';
+	String get notificationAndMicrophone => 'Notification and microphone';
+	String get renameRecording => 'Rename Recording';
+	String get newName => 'New Name';
+	String get recordingNameCannotBeEmpty => 'Recording name cannot be empty';
+	String get aRecordingWithThisNameAlreadyExists => 'A recording with this name already exists';
+	String get save => 'Save';
+	String get warningNotificationOnKillDescription => 'Your alarms may not ring if the app is killed. Tap here to reopen the app.';
 }
 
 // Path: onboarding1
@@ -168,6 +176,14 @@ extension on Translations {
 			case 'startRecording': return 'Start Recording';
 			case 'voiceRecordings': return 'Voice Recordings';
 			case 'continueButton': return 'Continue';
+			case 'manageAppPermissions': return 'Manage app permissions';
+			case 'notificationAndMicrophone': return 'Notification and microphone';
+			case 'renameRecording': return 'Rename Recording';
+			case 'newName': return 'New Name';
+			case 'recordingNameCannotBeEmpty': return 'Recording name cannot be empty';
+			case 'aRecordingWithThisNameAlreadyExists': return 'A recording with this name already exists';
+			case 'save': return 'Save';
+			case 'warningNotificationOnKillDescription': return 'Your alarms may not ring if the app is killed. Tap here to reopen the app.';
 			default: return null;
 		}
 	}

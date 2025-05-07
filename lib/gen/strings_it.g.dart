@@ -79,6 +79,14 @@ class TranslationsIt implements Translations {
 	@override String get startRecording => 'Registra';
 	@override String get voiceRecordings => 'Registrazioni';
 	@override String get continueButton => 'Continua';
+	@override String get manageAppPermissions => 'Gestisci permessi dell\'app';
+	@override String get notificationAndMicrophone => 'Notifiche e microfono';
+	@override String get renameRecording => 'Rinomina registrazione';
+	@override String get newName => 'Nuovo nome';
+	@override String get recordingNameCannotBeEmpty => 'Il nome della registrazione non può essere vuoto';
+	@override String get aRecordingWithThisNameAlreadyExists => 'Una registrazione con questo nome esiste già';
+	@override String get save => 'Salva';
+	@override String get warningNotificationOnKillDescription => 'Le tue sveglie potrebbero non suonare se l\'app è chiusa. Toca qui per aprire l\'app.';
 }
 
 // Path: onboarding1
@@ -165,6 +173,14 @@ extension on TranslationsIt {
 			case 'startRecording': return 'Registra';
 			case 'voiceRecordings': return 'Registrazioni';
 			case 'continueButton': return 'Continua';
+			case 'manageAppPermissions': return 'Gestisci permessi dell\'app';
+			case 'notificationAndMicrophone': return 'Notifiche e microfono';
+			case 'renameRecording': return 'Rinomina registrazione';
+			case 'newName': return 'Nuovo nome';
+			case 'recordingNameCannotBeEmpty': return 'Il nome della registrazione non può essere vuoto';
+			case 'aRecordingWithThisNameAlreadyExists': return 'Una registrazione con questo nome esiste già';
+			case 'save': return 'Salva';
+			case 'warningNotificationOnKillDescription': return 'Le tue sveglie potrebbero non suonare se l\'app è chiusa. Toca qui per aprire l\'app.';
 			default: return null;
 		}
 	}

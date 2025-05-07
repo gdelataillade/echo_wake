@@ -79,6 +79,14 @@ class TranslationsDe implements Translations {
 	@override String get startRecording => 'Aufnahme starten';
 	@override String get voiceRecordings => 'Sprachaufnahmen';
 	@override String get continueButton => 'Weiter';
+	@override String get manageAppPermissions => 'App-Berechtigungen verwalten';
+	@override String get notificationAndMicrophone => 'Benachrichtigungen und Mikrofon';
+	@override String get renameRecording => 'Aufnahme umbenennen';
+	@override String get newName => 'Neuer Name';
+	@override String get recordingNameCannotBeEmpty => 'Der Name der Aufnahme darf nicht leer sein';
+	@override String get aRecordingWithThisNameAlreadyExists => 'Eine Aufnahme mit diesem Namen existiert bereits';
+	@override String get save => 'Speichern';
+	@override String get warningNotificationOnKillDescription => 'Ihre Wecker können nicht klingeln, wenn die App geschlossen wird. Tippen Sie hier, um die App neu zu öffnen.';
 }
 
 // Path: onboarding1
@@ -165,6 +173,14 @@ extension on TranslationsDe {
 			case 'startRecording': return 'Aufnahme starten';
 			case 'voiceRecordings': return 'Sprachaufnahmen';
 			case 'continueButton': return 'Weiter';
+			case 'manageAppPermissions': return 'App-Berechtigungen verwalten';
+			case 'notificationAndMicrophone': return 'Benachrichtigungen und Mikrofon';
+			case 'renameRecording': return 'Aufnahme umbenennen';
+			case 'newName': return 'Neuer Name';
+			case 'recordingNameCannotBeEmpty': return 'Der Name der Aufnahme darf nicht leer sein';
+			case 'aRecordingWithThisNameAlreadyExists': return 'Eine Aufnahme mit diesem Namen existiert bereits';
+			case 'save': return 'Speichern';
+			case 'warningNotificationOnKillDescription': return 'Ihre Wecker können nicht klingeln, wenn die App geschlossen wird. Tippen Sie hier, um die App neu zu öffnen.';
 			default: return null;
 		}
 	}

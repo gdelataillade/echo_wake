@@ -1,4 +1,5 @@
 import 'package:alarm/model/volume_settings.dart';
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,6 +14,11 @@ class AlarmCubit extends Cubit<AlarmState> {
     // Listen to alarm updates
     Alarm.scheduled.listen((_) => loadAlarms());
     Alarm.ringing.listen((_) => loadAlarms());
+
+    Alarm.setWarningNotificationOnKill(
+      'Echo Wake',
+      t.warningNotificationOnKillDescription,
+    );
   }
 
   Future<void> loadAlarms() async {
@@ -47,12 +53,17 @@ class AlarmCubit extends Cubit<AlarmState> {
       }
       debugPrint('Audio file exists at path: $fullPath');
 
+      final now = DateTime.now();
+      final dt =
+          dateTime.isBefore(now) ? dateTime.add(Duration(days: 1)) : dateTime;
+
       final alarmSettings = AlarmSettings(
-        id: DateTime.now().millisecondsSinceEpoch ~/ 100000,
-        dateTime: dateTime,
+        id: now.millisecondsSinceEpoch ~/ 1000,
+        dateTime: dt,
         assetAudioPath: recordingPath.split('Documents/').last,
         loopAudio: loopAudio,
         vibrate: false,
+        warningNotificationOnKill: Platform.isIOS,
         notificationSettings: NotificationSettings(
           title: 'Echo Wake',
           body: '🎙️ $recordingName',
@@ -64,7 +75,6 @@ class AlarmCubit extends Cubit<AlarmState> {
 
       debugPrint('Setting alarm with settings: ${alarmSettings.toJson()}');
       await Alarm.set(alarmSettings: alarmSettings);
-      debugPrint('Alarm set successfully');
       loadAlarms();
     } catch (e) {
       emit(AlarmError(e.toString()));

@@ -50,5 +50,13 @@
   "openSettings": "Abrir configurações",
   "startRecording": "Gravar",
   "voiceRecordings": "Gravações de voz",
-  "continueButton": "Continuar"
+  "continueButton": "Continuar",
+  "manageAppPermissions": "Gerenciar permissões da app",
+  "notificationAndMicrophone": "Notificações e microfone",
+  "renameRecording": "Renomear gravação",
+  "newName": "Novo nome",
+  "recordingNameCannotBeEmpty": "O nome da gravação não pode estar vazio",
+  "aRecordingWithThisNameAlreadyExists": "Já existe uma gravação com este nome",
+  "save": "Salvar",
+  "warningNotificationOnKillDescription": "Seu alarme pode não tocar se a app for fechada. Clique aqui para abrir a app."
 } 

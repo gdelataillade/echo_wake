@@ -50,5 +50,13 @@
   "openSettings": "Apri impostazioni",
   "startRecording": "Registra",
   "voiceRecordings": "Registrazioni",
-  "continueButton": "Continua"
+  "continueButton": "Continua",
+  "manageAppPermissions": "Gestisci permessi dell'app",
+  "notificationAndMicrophone": "Notifiche e microfono",
+  "renameRecording": "Rinomina registrazione",
+  "newName": "Nuovo nome",
+  "recordingNameCannotBeEmpty": "Il nome della registrazione non può essere vuoto",
+  "aRecordingWithThisNameAlreadyExists": "Una registrazione con questo nome esiste già",
+  "save": "Salva",
+  "warningNotificationOnKillDescription": "Le tue sveglie potrebbero non suonare se l'app è chiusa. Toca qui per aprire l'app."
 } 

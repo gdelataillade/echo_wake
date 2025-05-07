@@ -16,10 +16,16 @@ class Recording {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is Recording && runtimeType == other.runtimeType && id == other.id;
+      other is Recording &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          name == other.name &&
+          filename == other.filename &&
+          duration == other.duration;
 
   @override
-  int get hashCode => id.hashCode;
+  int get hashCode =>
+      id.hashCode ^ name.hashCode ^ filename.hashCode ^ duration.hashCode;
 
   Future<String> getFullPath() async {
     final appDir = await getApplicationDocumentsDirectory();

@@ -50,5 +50,13 @@
   "openSettings": "Einstellungen öffnen",
   "startRecording": "Aufnahme starten",
   "voiceRecordings": "Sprachaufnahmen",
-  "continueButton": "Weiter"
+  "continueButton": "Weiter",
+  "manageAppPermissions": "App-Berechtigungen verwalten",
+  "notificationAndMicrophone": "Benachrichtigungen und Mikrofon",
+  "renameRecording": "Aufnahme umbenennen",
+  "newName": "Neuer Name",
+  "recordingNameCannotBeEmpty": "Der Name der Aufnahme darf nicht leer sein",
+  "aRecordingWithThisNameAlreadyExists": "Eine Aufnahme mit diesem Namen existiert bereits",
+  "save": "Speichern",
+  "warningNotificationOnKillDescription": "Ihre Wecker können nicht klingeln, wenn die App geschlossen wird. Tippen Sie hier, um die App neu zu öffnen."
 }

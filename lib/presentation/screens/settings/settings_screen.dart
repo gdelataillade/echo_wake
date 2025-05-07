@@ -106,8 +106,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     ),
                     const SizedBox(height: 24),
                     ListTile(
-                      title: Text('Manage app permissions'),
-                      subtitle: Text('Notification and microphone'),
+                      title: Text(context.t.manageAppPermissions),
+                      subtitle: Text(context.t.notificationAndMicrophone),
                       trailing: const Icon(Icons.app_settings_alt),
                       onTap: () => openAppSettings(),
                     ),

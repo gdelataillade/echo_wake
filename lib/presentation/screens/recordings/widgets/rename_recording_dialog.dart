@@ -1,5 +1,6 @@
 import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/data/models/recording.dart';
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,16 +20,14 @@ class RenameRecordingDialog extends StatelessWidget {
     final nameController = TextEditingController(text: recording.name);
 
     return AlertDialog(
-      title: const Text('Rename Recording'),
+      title: Text(t.renameRecording),
       content: TextField(
         autofocus: true,
         controller: nameController,
         decoration: InputDecoration(
-          labelText: 'New Name',
+          labelText: t.newName,
           suffix: GestureDetector(
-            onTap: () {
-              nameController.clear();
-            },
+            onTap: () => nameController.clear(),
             child: const Icon(Icons.clear, size: 22),
           ),
         ),
@@ -36,7 +35,7 @@ class RenameRecordingDialog extends StatelessWidget {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(t.cancel),
         ),
         TextButton(
           onPressed: () async {
@@ -47,8 +46,8 @@ class RenameRecordingDialog extends StatelessWidget {
             if (newName.isEmpty) {
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Recording name cannot be empty'),
+                  SnackBar(
+                    content: Text(t.recordingNameCannotBeEmpty),
                     backgroundColor: Colors.red,
                   ),
                 );
@@ -63,8 +62,8 @@ class RenameRecordingDialog extends StatelessWidget {
             if (isDuplicate) {
               if (context.mounted) {
                 ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('A recording with this name already exists'),
+                  SnackBar(
+                    content: Text(t.aRecordingWithThisNameAlreadyExists),
                     backgroundColor: Colors.red,
                   ),
                 );
@@ -81,7 +80,7 @@ class RenameRecordingDialog extends StatelessWidget {
               Navigator.pop(context);
             }
           },
-          child: const Text('Save'),
+          child: Text(t.save),
         ),
       ],
     );

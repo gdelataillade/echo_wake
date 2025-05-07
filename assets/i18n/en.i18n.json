@@ -50,5 +50,13 @@
   "openSettings": "Open Settings",
   "startRecording": "Start Recording",
   "voiceRecordings": "Voice Recordings",
-  "continueButton": "Continue"
+  "continueButton": "Continue",
+  "manageAppPermissions": "Manage app permissions",
+  "notificationAndMicrophone": "Notification and microphone",
+  "renameRecording": "Rename Recording",
+  "newName": "New Name",
+  "recordingNameCannotBeEmpty": "Recording name cannot be empty",
+  "aRecordingWithThisNameAlreadyExists": "A recording with this name already exists",
+  "save": "Save",
+  "warningNotificationOnKillDescription": "Your alarms may not ring if the app is killed. Tap here to reopen the app."
 }
