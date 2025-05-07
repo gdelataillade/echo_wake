@@ -40,5 +40,15 @@
     "description": "Starten Sie Ihren Tag mit Ihren eigenen Worten."
   },
   "skip": "Überspringen",
-  "getStarted": "Los geht's"
+  "getStarted": "Los geht's",
+  "allowNotifications": "Benachrichtigungen erlauben",
+  "allowNotificationsDescription": "Um sicherzustellen, dass Ihr Wecker zuverlässig funktioniert, benötigt Echo Wake Ihre Erlaubnis, Ihnen Benachrichtigungen zu senden. Dies ist essentiell, damit Sie Ihren Wecker nie verpassen.\n\nWir verwenden nur Benachrichtigungen, um Sie darauf hinzuweisen, wenn Ihr Wecker klingelt. Kein Spam, versprochen.",
+  "allow": "Erlauben",
+  "microphonePermission": "Mikrofon-Berechtigung",
+  "microphonePermissionDescription": "In order to be able to record audio, Echo Wake needs permission to access your microphone. Please continue to the settings to grant permission.",
+  "ignore": "Ignorieren",
+  "openSettings": "Einstellungen öffnen",
+  "startRecording": "Aufnahme starten",
+  "voiceRecordings": "Sprachaufnahmen",
+  "continueButton": "Weiter"
 }

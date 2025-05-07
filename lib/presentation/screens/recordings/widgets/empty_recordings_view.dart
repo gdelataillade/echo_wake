@@ -1,3 +1,4 @@
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:flutter/material.dart';
 
 class EmptyRecordingsView extends StatelessWidget {
@@ -16,7 +17,7 @@ class EmptyRecordingsView extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'No recordings yet',
+            t.noRecordingsYet,
             style: Theme.of(context).textTheme.titleMedium?.copyWith(
               color: Theme.of(context).colorScheme.outline,
             ),

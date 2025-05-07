@@ -40,5 +40,15 @@
     "description": "Commencez votre journée avec vos propres mots."
   },
   "skip": "Passer",
-  "getStarted": "Commencer"
+  "getStarted": "Commencer",
+  "allowNotifications": "Autoriser les notifications",
+  "allowNotificationsDescription": "Pour s'assurer que votre réveil fonctionne de manière fiable, Echo Wake a besoin de votre permission pour vous envoyer des notifications. C'est essentiel pour vous assurer de ne pas manquer votre réveil !\n\nNous utilisons uniquement les notifications pour vous informer lorsque votre réveil sonne. Pas de spam, promis.",
+  "allow": "Autoriser",
+  "microphonePermission": "Permission du microphone",
+  "microphonePermissionDescription": "Pour enregistrer de l'audio, Echo Wake a besoin de votre permission pour accéder à votre microphone. Veuillez continuer aux paramètres pour accorder la permission.",
+  "ignore": "Ignorer",
+  "openSettings": "Ouvrir les paramètres",
+  "startRecording": "Enregistrer",
+  "voiceRecordings": "Enregistrements",
+  "continueButton": "Continuer"
 }

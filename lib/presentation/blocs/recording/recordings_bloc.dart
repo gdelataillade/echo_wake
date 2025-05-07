@@ -70,6 +70,13 @@ class RecordingsCubit extends Cubit<RecordingsState> {
           recordingDuration: Duration.zero,
         ),
       );
+    } else {
+      emit(
+        state.copyWith(
+          status: RecordingStatus.error,
+          errorMessage: 'Missing microphone permission',
+        ),
+      );
     }
   }
 
@@ -206,13 +213,6 @@ class RecordingsCubit extends Cubit<RecordingsState> {
         duration: duration,
       );
       await saveRecording(recording);
-    } else {
-      emit(
-        state.copyWith(
-          status: RecordingStatus.error,
-          errorMessage: 'No file selected',
-        ),
-      );
     }
   }
 

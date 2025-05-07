@@ -7,10 +7,13 @@ import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/empty.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/alarm_recording_list.dart';
+import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/notification_permission_sheet.dart';
+import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/open_notification_settings_sheet.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/widgets/time_picker.dart';
 import 'package:echo_wake/services/audio_player_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AlarmSheet extends StatefulWidget {
   final AlarmSettings? existingAlarm;
@@ -48,12 +51,35 @@ class _AlarmSheetState extends State<AlarmSheet> {
     }
   }
 
-  Future<void> submit() async {
+  Future<void> _submit() async {
     Helper.hapticFeedback();
 
-    setState(() {
-      isLoading = true;
-    });
+    PermissionStatus status = await Permission.notification.status;
+
+    if (status != PermissionStatus.granted) {
+      if (status == PermissionStatus.denied) {
+        if (!mounted) return;
+        await showModalBottomSheet<void>(
+          context: context,
+          isScrollControlled: true,
+          builder: (context) => const AlarmNotificationPermissionSheet(),
+        );
+        status = await Permission.notification.status;
+      }
+
+      if (status.isDeniedOrPermanentlyDenied) {
+        if (!mounted) return;
+        final ignored = await showModalBottomSheet<bool>(
+          context: context,
+          isScrollControlled: true,
+          builder: (context) => const OpenNotificationSettingsSheet(),
+        );
+
+        if (ignored ?? true) return;
+      }
+    }
+
+    setState(() => isLoading = true);
 
     final now = DateTime.now();
     final dateTime = DateTime(
@@ -68,6 +94,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
       dateTime.add(const Duration(days: 1));
     }
 
+    if (!mounted) return;
     await context.read<AlarmCubit>().createAlarm(
       dateTime: dateTime,
       recordingId: selectedRecording!.id,
@@ -221,7 +248,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                     ),
                     const SizedBox(width: 8),
                     FilledButton(
-                      onPressed: selectedRecording == null ? null : submit,
+                      onPressed: selectedRecording == null ? null : _submit,
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

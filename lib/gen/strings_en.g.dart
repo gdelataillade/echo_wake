@@ -72,6 +72,16 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	late final TranslationsOnboarding3En onboarding3 = TranslationsOnboarding3En._(_root);
 	String get skip => 'Skip';
 	String get getStarted => 'Get Started';
+	String get allowNotifications => 'Allow Notifications';
+	String get allowNotificationsDescription => 'To make sure your alarm works reliably, Echo Wake needs permission to send you notifications. This is essential so you never miss your wake-up call!\n\nWe only use notifications to alert you when your alarm goes off. No spam, ever.';
+	String get allow => 'Allow';
+	String get microphonePermission => 'Microphone Permission';
+	String get microphonePermissionDescription => 'In order to be able to record audio, Echo Wake needs permission to access your microphone. Please continue to the settings to grant permission.';
+	String get ignore => 'Ignore';
+	String get openSettings => 'Open Settings';
+	String get startRecording => 'Start Recording';
+	String get voiceRecordings => 'Voice Recordings';
+	String get continueButton => 'Continue';
 }
 
 // Path: onboarding1
@@ -148,6 +158,16 @@ extension on Translations {
 			case 'onboarding3.description': return 'Start your day with your own words.';
 			case 'skip': return 'Skip';
 			case 'getStarted': return 'Get Started';
+			case 'allowNotifications': return 'Allow Notifications';
+			case 'allowNotificationsDescription': return 'To make sure your alarm works reliably, Echo Wake needs permission to send you notifications. This is essential so you never miss your wake-up call!\n\nWe only use notifications to alert you when your alarm goes off. No spam, ever.';
+			case 'allow': return 'Allow';
+			case 'microphonePermission': return 'Microphone Permission';
+			case 'microphonePermissionDescription': return 'In order to be able to record audio, Echo Wake needs permission to access your microphone. Please continue to the settings to grant permission.';
+			case 'ignore': return 'Ignore';
+			case 'openSettings': return 'Open Settings';
+			case 'startRecording': return 'Start Recording';
+			case 'voiceRecordings': return 'Voice Recordings';
+			case 'continueButton': return 'Continue';
 			default: return null;
 		}
 	}

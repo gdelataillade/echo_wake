@@ -36,7 +36,7 @@ class _AlarmSheetEmptyState extends State<AlarmSheetEmpty> {
                 ),
               );
             },
-            icon: const Icon(Icons.mic),
+            icon: const Icon(Icons.mic_rounded),
             label: Text(t.recordASound),
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/presentation/screens/settings/widgets/footer.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../domain/services/storage.dart';
 import '../../../gen/strings.g.dart';
@@ -102,6 +103,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       title: Text(context.t.hapticFeedback),
                       subtitle: Text(context.t.hapticFeedbackDescription),
                       secondary: const Icon(Icons.vibration),
+                    ),
+                    const SizedBox(height: 24),
+                    ListTile(
+                      title: Text('Manage app permissions'),
+                      subtitle: Text('Notification and microphone'),
+                      trailing: const Icon(Icons.app_settings_alt),
+                      onTap: () => openAppSettings(),
                     ),
                     const SizedBox(height: 32),
                     Text(context.t.privacy, style: textTheme.titleMedium),

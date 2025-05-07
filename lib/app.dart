@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()),
             );
           }
-          final shouldShowOnboarding = snapshot.data != false;
+          final shouldShowOnboarding = snapshot.data == false;
           if (shouldShowOnboarding) {
             return const OnboardingScreen();
           }

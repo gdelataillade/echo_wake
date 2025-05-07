@@ -1,3 +1,4 @@
+import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/gen/strings.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_onboarding_slider/flutter_onboarding_slider.dart';
@@ -8,6 +9,8 @@ class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   Future<void> _completeOnboarding(BuildContext context) async {
+    Helper.hapticFeedback();
+
     final storage = await StorageService.getInstance();
     await storage.setBool('hasSeenOnboarding', true);
     if (!context.mounted) return;

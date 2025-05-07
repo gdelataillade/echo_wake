@@ -1,3 +1,4 @@
+import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
 import 'package:echo_wake/presentation/screens/recordings/widgets/empty_recordings_view.dart';
@@ -30,7 +31,7 @@ class RecordingsView extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Voice Recordings'),
+            title: Text(t.recordings),
             elevation: 0,
             backgroundColor: Theme.of(context).colorScheme.surface,
             centerTitle: true,

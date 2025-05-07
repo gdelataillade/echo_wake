@@ -69,6 +69,16 @@ class TranslationsPt implements Translations {
 	@override late final _TranslationsOnboarding3Pt onboarding3 = _TranslationsOnboarding3Pt._(_root);
 	@override String get skip => 'Pular';
 	@override String get getStarted => 'Começar';
+	@override String get allowNotifications => 'Permitir notificações';
+	@override String get allowNotificationsDescription => 'Para garantir que seu alarme funcione de forma confiável, o Echo Wake precisa de sua permissão para enviar notificações. Isso é essencial para garantir que você nunca perca sua chamada de alarme!\n\nUsamos apenas notificações para alertá-lo quando o seu alarme toca. Não há spam, prometido.';
+	@override String get allow => 'Permitir';
+	@override String get microphonePermission => 'Permissão de microfone';
+	@override String get microphonePermissionDescription => 'Para gravar áudio, o Echo Wake precisa de sua permissão para acessar o seu microfone. Por favor, continue para as configurações para conceder a permissão.';
+	@override String get ignore => 'Ignorar';
+	@override String get openSettings => 'Abrir configurações';
+	@override String get startRecording => 'Gravar';
+	@override String get voiceRecordings => 'Gravações de voz';
+	@override String get continueButton => 'Continuar';
 }
 
 // Path: onboarding1
@@ -145,6 +155,16 @@ extension on TranslationsPt {
 			case 'onboarding3.description': return 'Comece o dia com as suas próprias palavras.';
 			case 'skip': return 'Pular';
 			case 'getStarted': return 'Começar';
+			case 'allowNotifications': return 'Permitir notificações';
+			case 'allowNotificationsDescription': return 'Para garantir que seu alarme funcione de forma confiável, o Echo Wake precisa de sua permissão para enviar notificações. Isso é essencial para garantir que você nunca perca sua chamada de alarme!\n\nUsamos apenas notificações para alertá-lo quando o seu alarme toca. Não há spam, prometido.';
+			case 'allow': return 'Permitir';
+			case 'microphonePermission': return 'Permissão de microfone';
+			case 'microphonePermissionDescription': return 'Para gravar áudio, o Echo Wake precisa de sua permissão para acessar o seu microfone. Por favor, continue para as configurações para conceder a permissão.';
+			case 'ignore': return 'Ignorar';
+			case 'openSettings': return 'Abrir configurações';
+			case 'startRecording': return 'Gravar';
+			case 'voiceRecordings': return 'Gravações de voz';
+			case 'continueButton': return 'Continuar';
 			default: return null;
 		}
 	}

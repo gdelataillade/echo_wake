@@ -67,7 +67,7 @@ class _HomeScreenState extends State<HomeScreen> {
             items: [
               BottomNavigationBarItem(icon: Icon(Icons.alarm), label: t.alarms),
               BottomNavigationBarItem(
-                icon: Icon(Icons.mic),
+                icon: Icon(Icons.mic_rounded),
                 label: t.recordings,
               ),
             ],

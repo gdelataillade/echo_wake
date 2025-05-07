@@ -40,5 +40,15 @@
     "description": "Empieza el día con tus propias palabras."
   },
   "skip": "Omitir",
-  "getStarted": "Comenzar"
+  "getStarted": "Comenzar",
+  "allowNotifications": "Permitir notificaciones",
+  "allowNotificationsDescription": "Para asegurarse de que tu alarma funcione de manera confiable, Echo Wake necesita tu permiso para enviarte notificaciones. Esto es esencial para que nunca pierdas tu llamada de alarma.\n\nSolo usamos notificaciones para alertarte cuando suena tu alarma. No hay spam, prometido.",
+  "allow": "Permitir",
+  "microphonePermission": "Permiso de micrófono",
+  "microphonePermissionDescription": "Para poder grabar audio, Echo Wake necesita tu permiso para acceder a tu micrófono. Por favor, continúa a las configuraciones para conceder el permiso.",
+  "ignore": "Ignorar",
+  "openSettings": "Abrir configuraciones",
+  "startRecording": "Iniciar grabación",
+  "voiceRecordings": "Grabaciones",
+  "continueButton": "Continuar"
 }

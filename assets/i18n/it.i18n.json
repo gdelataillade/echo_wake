@@ -40,5 +40,15 @@
     "description": "Inizia la giornata con le tue parole."
   },
   "skip": "Salta",
-  "getStarted": "Inizia"
+  "getStarted": "Inizia",
+  "allowNotifications": "Consenti notifiche",
+  "allowNotificationsDescription": "Per assicurarti che la tua sveglia funzioni in modo affidabile, Echo Wake ha bisogno del tuo consenso per inviarti notifiche. È essenziale per assicurarti di non mancare la tua chiamata di sveglia!\n\nUtilizziamo solo le notifiche per informarti quando la tua sveglia suona. Nessun spam, promesso.",
+  "allow": "Consenti",
+  "microphonePermission": "Permesso microfono",
+  "microphonePermissionDescription": "Per poter registrare audio, Echo Wake ha bisogno del tuo consenso per accedere al tuo microfono. Per favore, continua alle impostazioni per concedere il permesso.",
+  "ignore": "Ignora",
+  "openSettings": "Apri impostazioni",
+  "startRecording": "Registra",
+  "voiceRecordings": "Registrazioni",
+  "continueButton": "Continua"
 } 

@@ -20,7 +20,7 @@ class RecordingIndicator extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                Icons.mic,
+                Icons.mic_rounded,
                 color: Theme.of(context).colorScheme.onErrorContainer,
               ),
               const SizedBox(width: 8),

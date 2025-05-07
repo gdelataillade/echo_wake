@@ -5,7 +5,6 @@ import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:alarm/alarm.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../../../domain/services/storage.dart';
 import '../../../presentation/blocs/navigation/navigation_bloc.dart';
 import '../../../presentation/blocs/recording/recordings_bloc.dart';
@@ -22,7 +21,6 @@ void main() async {
   }
 
   await Helper.init();
-  await Permission.notification.request();
   await Alarm.init();
 
   runApp(
