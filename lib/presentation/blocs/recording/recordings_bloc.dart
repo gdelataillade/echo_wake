@@ -85,24 +85,42 @@ class RecordingsCubit extends Cubit<RecordingsState> {
       _durationTimer?.cancel();
       final path = await _recorder.stop();
       if (path != null && !cancel) {
-        // Extract timestamp from the path
-        final timestamp = path.split('recording_').last.split('.wav').first;
-        // If not canceling, save the recording
-        saveRecording(
-          Recording(
-            id: timestamp,
-            name: DateTime.now().toString().split('.')[0],
-            filename: 'recording_$timestamp.wav',
-            duration: state.recordingDuration,
+        if (state.recordingDuration < const Duration(seconds: 1)) {
+          emit(
+            state.copyWith(
+              status: RecordingStatus.error,
+              errorMessage:
+                  'Recording is too short. Please record at least 1 second.',
+              recordingDuration: Duration.zero,
+            ),
+          );
+        } else {
+          // Extract timestamp from the path
+          final timestamp = path.split('recording_').last.split('.wav').first;
+          // If not canceling, save the recording
+          saveRecording(
+            Recording(
+              id: timestamp,
+              name: DateTime.now().toString().split('.')[0],
+              filename: 'recording_$timestamp.wav',
+              duration: state.recordingDuration,
+            ),
+          );
+          emit(
+            state.copyWith(
+              status: RecordingStatus.stopped,
+              recordingDuration: Duration.zero,
+            ),
+          );
+        }
+      } else {
+        emit(
+          state.copyWith(
+            status: RecordingStatus.stopped,
+            recordingDuration: Duration.zero,
           ),
         );
       }
-      emit(
-        state.copyWith(
-          status: RecordingStatus.stopped,
-          recordingDuration: Duration.zero,
-        ),
-      );
     } catch (e) {
       emit(
         state.copyWith(
