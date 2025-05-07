@@ -1,7 +1,7 @@
 import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_bloc.dart';
 import 'package:echo_wake/presentation/blocs/recording/recordings_state.dart';
-import 'package:echo_wake/presentation/screens/recordings/widgets/empty_recordings_view.dart';
+import 'package:echo_wake/presentation/screens/recordings/widgets/empty.dart';
 import 'package:echo_wake/presentation/screens/recordings/widgets/record_button.dart';
 import 'package:echo_wake/presentation/screens/recordings/widgets/recording_indicator.dart';
 import 'package:echo_wake/presentation/screens/recordings/widgets/recordings_list.dart';
@@ -11,19 +11,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RecordingScreen extends StatelessWidget {
   final bool selectionMode;
+  final void Function() needRebuild;
 
-  const RecordingScreen({super.key, this.selectionMode = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return RecordingsView(selectionMode: selectionMode);
-  }
-}
-
-class RecordingsView extends StatelessWidget {
-  final bool selectionMode;
-
-  const RecordingsView({super.key, this.selectionMode = false});
+  const RecordingScreen({
+    super.key,
+    this.selectionMode = false,
+    required this.needRebuild,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -37,13 +31,14 @@ class RecordingsView extends StatelessWidget {
             centerTitle: true,
             actions: [
               IconButton(
-                onPressed: () {
-                  Navigator.push(
+                onPressed: () async {
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => const SettingsScreen(),
                     ),
                   );
+                  needRebuild();
                 },
                 icon: const Icon(Icons.settings_rounded),
               ),
@@ -57,7 +52,7 @@ class RecordingsView extends StatelessWidget {
                 Expanded(
                   child:
                       state.recordings.isEmpty
-                          ? const EmptyRecordingsView()
+                          ? EmptyRecordingsView()
                           : Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: RecordingsList(
@@ -78,7 +73,7 @@ class RecordingsView extends StatelessWidget {
                         ),
                       ],
                     ),
-                    child: const RecordButton(),
+                    child: RecordButton(),
                   ),
               ],
             ),

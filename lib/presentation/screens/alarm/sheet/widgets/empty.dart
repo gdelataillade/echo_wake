@@ -32,7 +32,9 @@ class _AlarmSheetEmptyState extends State<AlarmSheetEmpty> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const RecordingScreen(),
+                  builder:
+                      (context) =>
+                          RecordingScreen(needRebuild: () => setState(() {})),
                 ),
               );
             },

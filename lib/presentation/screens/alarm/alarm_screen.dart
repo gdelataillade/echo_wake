@@ -12,7 +12,9 @@ import '../../blocs/alarm/alarm_cubit.dart';
 import 'package:intl/intl.dart';
 
 class AlarmScreen extends StatelessWidget {
-  const AlarmScreen({super.key});
+  final void Function() needRebuild;
+
+  const AlarmScreen({super.key, required this.needRebuild});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +29,12 @@ class AlarmScreen extends StatelessWidget {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              await Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const SettingsScreen()),
               );
+              needRebuild();
             },
             icon: const Icon(Icons.settings_rounded),
           ),

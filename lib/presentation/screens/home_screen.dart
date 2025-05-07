@@ -57,7 +57,10 @@ class _HomeScreenState extends State<HomeScreen> {
       builder: (context, state) {
         return Scaffold(
           body:
-              [const AlarmScreen(), const RecordingScreen()][state.selectedTab],
+              [
+                AlarmScreen(needRebuild: () => setState(() {})),
+                RecordingScreen(needRebuild: () => setState(() {})),
+              ][state.selectedTab],
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.selectedTab,
             onTap: (index) {
