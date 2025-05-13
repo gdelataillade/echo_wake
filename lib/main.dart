@@ -2,6 +2,7 @@ import 'package:echo_wake/app.dart';
 import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_cubit.dart';
+import 'package:echo_wake/presentation/blocs/theme/theme_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:alarm/alarm.dart';
@@ -27,6 +28,7 @@ void main() async {
     TranslationProvider(
       child: MultiBlocProvider(
         providers: [
+          BlocProvider(create: (context) => ThemeCubit()),
           BlocProvider(create: (context) => NavigationCubit(storage: storage)),
           BlocProvider(create: (context) => AlarmCubit()),
           BlocProvider(create: (context) => RecordingsCubit(storage: storage)),

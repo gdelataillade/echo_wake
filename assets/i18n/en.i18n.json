@@ -58,5 +58,10 @@
   "recordingNameCannotBeEmpty": "Recording name cannot be empty",
   "aRecordingWithThisNameAlreadyExists": "A recording with this name already exists",
   "save": "Save",
-  "warningNotificationOnKillDescription": "Your alarms may not ring if the app is killed. Tap here to reopen the app."
+  "warningNotificationOnKillDescription": "Your alarms may not ring if the app is killed. Tap here to reopen the app.",
+  "theme": "Theme",
+  "selectTheThemeForTheApp": "Select the theme for the app",
+  "system": "System",
+  "light": "Light",
+  "dark": "Dark"
 }

@@ -58,5 +58,10 @@
   "recordingNameCannotBeEmpty": "Der Name der Aufnahme darf nicht leer sein",
   "aRecordingWithThisNameAlreadyExists": "Eine Aufnahme mit diesem Namen existiert bereits",
   "save": "Speichern",
-  "warningNotificationOnKillDescription": "Ihre Wecker können nicht klingeln, wenn die App geschlossen wird. Tippen Sie hier, um die App neu zu öffnen."
+  "warningNotificationOnKillDescription": "Ihre Wecker können nicht klingeln, wenn die App geschlossen wird. Tippen Sie hier, um die App neu zu öffnen.",
+  "theme": "Thema",
+  "selectTheThemeForTheApp": "Wählen Sie das Thema für die App",
+  "system": "System",
+  "light": "Hell",
+  "dark": "Dunkel"
 }

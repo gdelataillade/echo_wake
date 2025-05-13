@@ -1,5 +1,6 @@
 import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/presentation/screens/settings/widgets/footer.dart';
+import 'package:echo_wake/presentation/screens/settings/widgets/theme_switch.dart';
 import 'package:flutter/material.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -87,59 +88,67 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ? const Center(child: CircularProgressIndicator())
               : Padding(
                 padding: const EdgeInsets.all(16),
-                child: Column(
-                  children: [
-                    Text(context.t.language, style: textTheme.titleMedium),
-                    const SizedBox(height: 8),
-                    LanguageSettings(
-                      selectedLanguage: _selectedLanguage,
-                      languages: _languages,
-                      onLanguageChanged: _onLanguageChanged,
-                    ),
-                    const SizedBox(height: 24),
-                    SwitchListTile.adaptive(
-                      value: _hapticEnabled,
-                      onChanged: _onHapticChanged,
-                      title: Text(context.t.hapticFeedback),
-                      subtitle: Text(context.t.hapticFeedbackDescription),
-                      secondary: const Icon(Icons.vibration),
-                    ),
-                    const SizedBox(height: 24),
-                    ListTile(
-                      title: Text(context.t.manageAppPermissions),
-                      subtitle: Text(context.t.notificationAndMicrophone),
-                      trailing: const Icon(Icons.app_settings_alt),
-                      onTap: () => openAppSettings(),
-                    ),
-                    const SizedBox(height: 32),
-                    Text(context.t.privacy, style: textTheme.titleMedium),
-                    const SizedBox(height: 8),
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.withValues(alpha: 0.2),
-                        borderRadius: BorderRadius.circular(16),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(context.t.language, style: textTheme.titleMedium),
+                      const SizedBox(height: 8),
+                      LanguageSettings(
+                        selectedLanguage: _selectedLanguage,
+                        languages: _languages,
+                        onLanguageChanged: _onLanguageChanged,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Text(
-                          context.t.privacyDescription,
-                          style: textTheme.bodyMedium,
+                      const SizedBox(height: 24),
+                      SwitchListTile.adaptive(
+                        value: _hapticEnabled,
+                        onChanged: _onHapticChanged,
+                        title: Text(context.t.hapticFeedback),
+                        subtitle: Text(context.t.hapticFeedbackDescription),
+                        secondary: const Icon(Icons.vibration),
+                      ),
+                      const SizedBox(height: 24),
+                      const SettingsThemeSwitch(),
+                      const SizedBox(height: 24),
+                      ListTile(
+                        title: Text(context.t.manageAppPermissions),
+                        subtitle: Text(context.t.notificationAndMicrophone),
+                        trailing: const Icon(Icons.app_settings_alt),
+                        onTap: () => openAppSettings(),
+                      ),
+                      const SizedBox(height: 32),
+                      Text(context.t.privacy, style: textTheme.titleMedium),
+                      const SizedBox(height: 8),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withValues(alpha: 0.2),
+                          borderRadius: BorderRadius.circular(16),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Text(
+                            context.t.privacyDescription,
+                            style: textTheme.bodyMedium,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(height: 32),
-                    ElevatedButton.icon(
-                      onPressed: _launchEmail,
-                      icon: const Icon(Icons.bug_report_outlined),
-                      label: Text(context.t.reportBugOrFeature),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: colorScheme.primary,
-                        foregroundColor: colorScheme.onPrimary,
+                      const SizedBox(height: 32),
+                      ElevatedButton.icon(
+                        onPressed: _launchEmail,
+                        icon: const Icon(Icons.bug_report_outlined),
+                        label: Text(
+                          context.t.reportBugOrFeature,
+                          textAlign: TextAlign.center,
+                        ),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: colorScheme.primary,
+                          foregroundColor: colorScheme.onPrimary,
+                        ),
                       ),
-                    ),
-                    const Spacer(),
-                    const SettingsFooter(),
-                  ],
+                      const SizedBox(height: 16),
+                      const SettingsFooter(),
+                    ],
+                  ),
                 ),
               ),
     );

@@ -90,6 +90,11 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get aRecordingWithThisNameAlreadyExists => 'A recording with this name already exists';
 	String get save => 'Save';
 	String get warningNotificationOnKillDescription => 'Your alarms may not ring if the app is killed. Tap here to reopen the app.';
+	String get theme => 'Theme';
+	String get selectTheThemeForTheApp => 'Select the theme for the app';
+	String get system => 'System';
+	String get light => 'Light';
+	String get dark => 'Dark';
 }
 
 // Path: onboarding1
@@ -184,6 +189,11 @@ extension on Translations {
 			case 'aRecordingWithThisNameAlreadyExists': return 'A recording with this name already exists';
 			case 'save': return 'Save';
 			case 'warningNotificationOnKillDescription': return 'Your alarms may not ring if the app is killed. Tap here to reopen the app.';
+			case 'theme': return 'Theme';
+			case 'selectTheThemeForTheApp': return 'Select the theme for the app';
+			case 'system': return 'System';
+			case 'light': return 'Light';
+			case 'dark': return 'Dark';
 			default: return null;
 		}
 	}

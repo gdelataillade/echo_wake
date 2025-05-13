@@ -87,6 +87,11 @@ class TranslationsDe implements Translations {
 	@override String get aRecordingWithThisNameAlreadyExists => 'Eine Aufnahme mit diesem Namen existiert bereits';
 	@override String get save => 'Speichern';
 	@override String get warningNotificationOnKillDescription => 'Ihre Wecker können nicht klingeln, wenn die App geschlossen wird. Tippen Sie hier, um die App neu zu öffnen.';
+	@override String get theme => 'Thema';
+	@override String get selectTheThemeForTheApp => 'Wählen Sie das Thema für die App';
+	@override String get system => 'System';
+	@override String get light => 'Hell';
+	@override String get dark => 'Dunkel';
 }
 
 // Path: onboarding1
@@ -181,6 +186,11 @@ extension on TranslationsDe {
 			case 'aRecordingWithThisNameAlreadyExists': return 'Eine Aufnahme mit diesem Namen existiert bereits';
 			case 'save': return 'Speichern';
 			case 'warningNotificationOnKillDescription': return 'Ihre Wecker können nicht klingeln, wenn die App geschlossen wird. Tippen Sie hier, um die App neu zu öffnen.';
+			case 'theme': return 'Thema';
+			case 'selectTheThemeForTheApp': return 'Wählen Sie das Thema für die App';
+			case 'system': return 'System';
+			case 'light': return 'Hell';
+			case 'dark': return 'Dunkel';
 			default: return null;
 		}
 	}

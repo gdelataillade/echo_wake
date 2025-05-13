@@ -58,5 +58,10 @@
   "recordingNameCannotBeEmpty": "Il nome della registrazione non può essere vuoto",
   "aRecordingWithThisNameAlreadyExists": "Una registrazione con questo nome esiste già",
   "save": "Salva",
-  "warningNotificationOnKillDescription": "Le tue sveglie potrebbero non suonare se l'app è chiusa. Toca qui per aprire l'app."
+  "warningNotificationOnKillDescription": "Le tue sveglie potrebbero non suonare se l'app è chiusa. Toca qui per aprire l'app.",
+  "theme": "Tema",
+  "selectTheThemeForTheApp": "Seleziona il tema per l'app",
+  "system": "Sistema",
+  "light": "Chiaro",
+  "dark": "Scuro"
 } 

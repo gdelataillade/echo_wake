@@ -87,6 +87,11 @@ class TranslationsEs implements Translations {
 	@override String get aRecordingWithThisNameAlreadyExists => 'Ya existe una grabación con este nombre';
 	@override String get save => 'Guardar';
 	@override String get warningNotificationOnKillDescription => 'Tus alarmes pueden no sonar si la app está cerrada. Toca aquí para abrir la app.';
+	@override String get theme => 'Tema';
+	@override String get selectTheThemeForTheApp => 'Selecciona el tema para la app';
+	@override String get system => 'Sistema';
+	@override String get light => 'Claro';
+	@override String get dark => 'Oscuro';
 }
 
 // Path: onboarding1
@@ -181,6 +186,11 @@ extension on TranslationsEs {
 			case 'aRecordingWithThisNameAlreadyExists': return 'Ya existe una grabación con este nombre';
 			case 'save': return 'Guardar';
 			case 'warningNotificationOnKillDescription': return 'Tus alarmes pueden no sonar si la app está cerrada. Toca aquí para abrir la app.';
+			case 'theme': return 'Tema';
+			case 'selectTheThemeForTheApp': return 'Selecciona el tema para la app';
+			case 'system': return 'Sistema';
+			case 'light': return 'Claro';
+			case 'dark': return 'Oscuro';
 			default: return null;
 		}
 	}

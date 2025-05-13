@@ -58,5 +58,10 @@
   "recordingNameCannotBeEmpty": "El nombre de la grabación no puede estar vacío",
   "aRecordingWithThisNameAlreadyExists": "Ya existe una grabación con este nombre",
   "save": "Guardar",
-  "warningNotificationOnKillDescription": "Tus alarmes pueden no sonar si la app está cerrada. Toca aquí para abrir la app."
+  "warningNotificationOnKillDescription": "Tus alarmes pueden no sonar si la app está cerrada. Toca aquí para abrir la app.",
+  "theme": "Tema",
+  "selectTheThemeForTheApp": "Selecciona el tema para la app",
+  "system": "Sistema",
+  "light": "Claro",
+  "dark": "Oscuro"
 }
