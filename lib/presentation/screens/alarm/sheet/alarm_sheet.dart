@@ -127,148 +127,155 @@ class _AlarmSheetState extends State<AlarmSheet> {
           }
         }
 
-        return Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: Container(
-            height: MediaQuery.of(context).size.height * 0.85,
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        return SafeArea(
+          top: false,
+          child: Padding(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      isEditMode ? t.editAlarm : t.setAlarmTime,
-                      style: Theme.of(context).textTheme.titleLarge,
-                    ),
-                    if (isEditMode)
-                      IconButton(
-                        onPressed: () {
-                          context.read<AlarmCubit>().stopAlarm(
-                            widget.existingAlarm!.id,
-                          );
-                          Navigator.pop(context);
-                        },
-                        icon: Icon(
-                          Icons.delete_outline,
-                          color: Theme.of(context).colorScheme.error,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          isEditMode ? t.editAlarm : t.setAlarmTime,
+                          style: Theme.of(context).textTheme.titleLarge,
                         ),
-                      ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                InkWell(
-                  onTap: () async {
-                    Helper.hapticFeedback();
-
-                    final time = await showTimePicker(
-                      context: context,
-                      initialTime: selectedTime,
-                      initialEntryMode: TimePickerEntryMode.dialOnly,
-                    );
-                    if (time != null) {
-                      setState(() => selectedTime = time);
-                    }
-                  },
-                  child: AlarmSheetTimePicker(selectedTime: selectedTime),
-                ),
-                const SizedBox(height: 16),
-                Text(
-                  t.selectAlarmSound,
-                  style: Theme.of(context).textTheme.titleMedium,
-                ),
-                const SizedBox(height: 8),
-                Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                    color:
-                        Theme.of(context).colorScheme.surfaceContainerHighest,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child:
-                      state.recordings.isEmpty
-                          ? const AlarmSheetEmpty()
-                          : AlarmSheetRecordingList(
-                            recordings: state.recordings,
-                            selectedRecording: selectedRecording,
-                            audioPlayerService: AudioPlayerService(),
-                            onSelected: (recording) {
-                              setState(() => selectedRecording = recording);
+                        if (isEditMode)
+                          IconButton(
+                            onPressed: () {
+                              context.read<AlarmCubit>().stopAlarm(
+                                widget.existingAlarm!.id,
+                              );
+                              Navigator.pop(context);
                             },
+                            icon: Icon(
+                              Icons.delete_outline,
+                              color: Theme.of(context).colorScheme.error,
+                            ),
                           ),
-                ),
-                const SizedBox(height: 16),
-                SwitchListTile(
-                  title: Text(t.loopSound),
-                  subtitle: Text(t.playSoundRepeatedlyUntilAlarmStopped),
-                  value: isLoopEnabled,
-                  onChanged: (value) {
-                    setState(() {
-                      isLoopEnabled = value;
-                    });
-                  },
-                ),
-                const SizedBox(height: 16),
-                SwitchListTile(
-                  title: Text(t.customVolume),
-                  subtitle: Text(t.setSpecificVolumeForThisAlarm),
-                  value: isCustomVolumeEnabled,
-                  onChanged: (value) {
-                    Helper.hapticFeedback();
-                    setState(() {
-                      isCustomVolumeEnabled = value;
-                    });
-                  },
-                ),
-                if (isCustomVolumeEnabled) ...[
-                  const SizedBox(height: 8),
-                  Slider(
-                    value: alarmVolume,
-                    onChanged: (value) {
-                      Helper.hapticFeedback();
-                      setState(() {
-                        alarmVolume = value;
-                      });
-                    },
-                    divisions: 10,
-                    label: '${(alarmVolume * 100).round()}%',
-                  ),
-                ],
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: Text(t.cancel),
+                      ],
                     ),
-                    const SizedBox(width: 8),
-                    FilledButton(
-                      onPressed: selectedRecording == null ? null : _submit,
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          if (isLoading)
-                            SizedBox(
-                              width: 24,
-                              height: 24,
-                              child: CircularProgressIndicator(
-                                color: Theme.of(context).colorScheme.onPrimary,
-                              ),
-                            )
-                          else
-                            Text(isEditMode ? t.saveChanges : t.setAlarm),
-                        ],
+                    const SizedBox(height: 24),
+                    InkWell(
+                      onTap: () async {
+                        Helper.hapticFeedback();
+
+                        final time = await showTimePicker(
+                          context: context,
+                          initialTime: selectedTime,
+                          initialEntryMode: TimePickerEntryMode.dialOnly,
+                        );
+                        if (time != null) {
+                          setState(() => selectedTime = time);
+                        }
+                      },
+                      child: AlarmSheetTimePicker(selectedTime: selectedTime),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(
+                      t.selectAlarmSound,
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: 8),
+                    Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color:
+                            Theme.of(
+                              context,
+                            ).colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(12),
                       ),
+                      child:
+                          state.recordings.isEmpty
+                              ? const AlarmSheetEmpty()
+                              : AlarmSheetRecordingList(
+                                recordings: state.recordings,
+                                selectedRecording: selectedRecording,
+                                audioPlayerService: AudioPlayerService(),
+                                onSelected: (recording) {
+                                  setState(() => selectedRecording = recording);
+                                },
+                              ),
                     ),
+                    const SizedBox(height: 16),
+                    SwitchListTile(
+                      title: Text(t.loopSound),
+                      subtitle: Text(t.playSoundRepeatedlyUntilAlarmStopped),
+                      value: isLoopEnabled,
+                      onChanged: (value) {
+                        setState(() {
+                          isLoopEnabled = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    SwitchListTile(
+                      title: Text(t.customVolume),
+                      subtitle: Text(t.setSpecificVolumeForThisAlarm),
+                      value: isCustomVolumeEnabled,
+                      onChanged: (value) {
+                        Helper.hapticFeedback();
+                        setState(() {
+                          isCustomVolumeEnabled = value;
+                        });
+                      },
+                    ),
+                    if (isCustomVolumeEnabled) ...[
+                      const SizedBox(height: 8),
+                      Slider(
+                        value: alarmVolume,
+                        onChanged: (value) {
+                          Helper.hapticFeedback();
+                          setState(() {
+                            alarmVolume = value;
+                          });
+                        },
+                        divisions: 10,
+                        label: '${(alarmVolume * 100).round()}%',
+                      ),
+                    ],
+                    const SizedBox(height: 24),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        TextButton(
+                          onPressed: () => Navigator.pop(context),
+                          child: Text(t.cancel),
+                        ),
+                        const SizedBox(width: 8),
+                        FilledButton(
+                          onPressed: selectedRecording == null ? null : _submit,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (isLoading)
+                                SizedBox(
+                                  width: 24,
+                                  height: 24,
+                                  child: CircularProgressIndicator(
+                                    color:
+                                        Theme.of(context).colorScheme.onPrimary,
+                                  ),
+                                )
+                              else
+                                Text(isEditMode ? t.saveChanges : t.setAlarm),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
                   ],
                 ),
-                const SizedBox(height: 16),
-              ],
+              ),
             ),
           ),
         );
