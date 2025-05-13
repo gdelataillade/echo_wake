@@ -1,12 +1,14 @@
-import 'package:echo_wake/core/utils/helper.dart';
+import 'package:echo_wake/presentation/screens/settings/widgets/app_settings.dart';
 import 'package:echo_wake/presentation/screens/settings/widgets/footer.dart';
+import 'package:echo_wake/presentation/screens/settings/widgets/privacy.dart';
+import 'package:echo_wake/presentation/screens/settings/widgets/report.dart';
+import 'package:echo_wake/presentation/screens/settings/widgets/snooze_picker.dart';
 import 'package:echo_wake/presentation/screens/settings/widgets/theme_switch.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../domain/services/storage.dart';
 import '../../../gen/strings.g.dart';
 import 'widgets/language_settings.dart';
+import 'widgets/haptic_switch.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -17,21 +19,10 @@ class SettingsScreen extends StatefulWidget {
 
 class _SettingsScreenState extends State<SettingsScreen> {
   static const String languageKey = 'settingsLanguage';
-  static const String hapticKey = 'settingsHapticFeedback';
 
   late StorageService _storage;
   String _selectedLanguage = 'en';
-  bool _hapticEnabled = true;
   bool _loading = true;
-
-  final List<LanguageOption> _languages = [
-    LanguageOption('de', 'Deutsch', 'DE'),
-    LanguageOption('en', 'English', 'GB'),
-    LanguageOption('es', 'Español', 'ES'),
-    LanguageOption('fr', 'Français', 'FR'),
-    LanguageOption('it', 'Italiano', 'IT'),
-    LanguageOption('pt', 'Português', 'PT'),
-  ];
 
   @override
   void initState() {
@@ -43,7 +34,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
     _storage = await StorageService.getInstance();
     setState(() {
       _selectedLanguage = _storage.getString(languageKey) ?? 'en';
-      _hapticEnabled = _storage.getBool(hapticKey) ?? true;
       _loading = false;
     });
   }
@@ -57,95 +47,32 @@ class _SettingsScreenState extends State<SettingsScreen> {
     await LocaleSettings.setLocaleRaw(code);
   }
 
-  Future<void> _onHapticChanged(bool value) async {
-    setState(() {
-      _hapticEnabled = value;
-    });
-    await _storage.setBool(hapticKey, value);
-    Helper.hapticEnabled = value;
-    Helper.hapticFeedback();
-  }
-
-  Future<void> _launchEmail() async {
-    final uri = Uri(
-      scheme: 'mailto',
-      path: 'gautier2406@gmail.com',
-      query: 'subject=Echo Wake Feedback',
-    );
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(uri);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       appBar: AppBar(title: Text(context.t.settings)),
       body:
           _loading
               ? const Center(child: CircularProgressIndicator())
               : Padding(
-                padding: const EdgeInsets.all(16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: SingleChildScrollView(
                   child: Column(
+                    spacing: 16,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(context.t.language, style: textTheme.titleMedium),
-                      const SizedBox(height: 8),
+                      const SizedBox(),
                       LanguageSettings(
                         selectedLanguage: _selectedLanguage,
-                        languages: _languages,
                         onLanguageChanged: _onLanguageChanged,
                       ),
-                      const SizedBox(height: 24),
-                      SwitchListTile.adaptive(
-                        value: _hapticEnabled,
-                        onChanged: _onHapticChanged,
-                        title: Text(context.t.hapticFeedback),
-                        subtitle: Text(context.t.hapticFeedbackDescription),
-                        secondary: const Icon(Icons.vibration),
-                      ),
-                      const SizedBox(height: 24),
-                      const SettingsThemeSwitch(),
-                      const SizedBox(height: 24),
-                      ListTile(
-                        title: Text(context.t.manageAppPermissions),
-                        subtitle: Text(context.t.notificationAndMicrophone),
-                        trailing: const Icon(Icons.app_settings_alt),
-                        onTap: () => openAppSettings(),
-                      ),
-                      const SizedBox(height: 32),
-                      Text(context.t.privacy, style: textTheme.titleMedium),
                       const SizedBox(height: 8),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withValues(alpha: 0.2),
-                          borderRadius: BorderRadius.circular(16),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16),
-                          child: Text(
-                            context.t.privacyDescription,
-                            style: textTheme.bodyMedium,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 32),
-                      ElevatedButton.icon(
-                        onPressed: _launchEmail,
-                        icon: const Icon(Icons.bug_report_outlined),
-                        label: Text(
-                          context.t.reportBugOrFeature,
-                          textAlign: TextAlign.center,
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: colorScheme.primary,
-                          foregroundColor: colorScheme.onPrimary,
-                        ),
-                      ),
-                      const SizedBox(height: 16),
+                      const HapticSwitch(),
+                      const SettingsSnoozePicker(),
+                      const SettingsThemeSwitch(),
+                      const SettingsAppSettings(),
+                      const SettingsPrivacySection(),
+                      const SettingsReportButton(),
                       const SettingsFooter(),
                     ],
                   ),

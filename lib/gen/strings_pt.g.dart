@@ -59,7 +59,7 @@ class TranslationsPt implements Translations {
 	@override String get settings => 'Configurações';
 	@override String get language => 'Idioma';
 	@override String get reportBugOrFeature => 'Reportar um bug ou solicitar uma funcionalidade';
-	@override String get privacyDescription => 'Nenhuma informação é coletada. Tudo fica no seu dispositivo. Nenhum servidor. 100% offline.';
+	@override String get privacyDescription => 'Nenhuma informação é coletada. Tudo fica no seu dispositivo.';
 	@override String get builtWithLove => 'Feito com ❤️ por Gautier de Lataillade';
 	@override String get hapticFeedback => 'Haptic feedback';
 	@override String get hapticFeedbackDescription => 'Leve vibração ao tocar nos botões';
@@ -92,6 +92,11 @@ class TranslationsPt implements Translations {
 	@override String get system => 'Sistema';
 	@override String get light => 'Claro';
 	@override String get dark => 'Escuro';
+	@override String get snooze => 'Snooze';
+	@override String get snoozeDuration => 'Duração do snooze';
+	@override String get snoozeDurationPicker => 'Selecionar a duração do snooze';
+	@override String get snoozeDurationPickerDescription => 'Minutos antes que o alarme toque novamente';
+	@override String get minutes => 'minutos';
 }
 
 // Path: onboarding1
@@ -155,7 +160,7 @@ extension on TranslationsPt {
 			case 'settings': return 'Configurações';
 			case 'language': return 'Idioma';
 			case 'reportBugOrFeature': return 'Reportar um bug ou solicitar uma funcionalidade';
-			case 'privacyDescription': return 'Nenhuma informação é coletada. Tudo fica no seu dispositivo. Nenhum servidor. 100% offline.';
+			case 'privacyDescription': return 'Nenhuma informação é coletada. Tudo fica no seu dispositivo.';
 			case 'builtWithLove': return 'Feito com ❤️ por Gautier de Lataillade';
 			case 'hapticFeedback': return 'Haptic feedback';
 			case 'hapticFeedbackDescription': return 'Leve vibração ao tocar nos botões';
@@ -191,6 +196,11 @@ extension on TranslationsPt {
 			case 'system': return 'Sistema';
 			case 'light': return 'Claro';
 			case 'dark': return 'Escuro';
+			case 'snooze': return 'Snooze';
+			case 'snoozeDuration': return 'Duração do snooze';
+			case 'snoozeDurationPicker': return 'Selecionar a duração do snooze';
+			case 'snoozeDurationPickerDescription': return 'Minutos antes que o alarme toque novamente';
+			case 'minutes': return 'minutos';
 			default: return null;
 		}
 	}

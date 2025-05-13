@@ -62,7 +62,7 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get settings => 'Settings';
 	String get language => 'Language';
 	String get reportBugOrFeature => 'Report a bug or ask for a feature';
-	String get privacyDescription => 'No data is collected. Everything absolutely stays on your device. No back-end. 100% offline.';
+	String get privacyDescription => 'No data is collected. Everything stays on your device.';
 	String get builtWithLove => 'Built with ❤️ by Gautier de Lataillade';
 	String get hapticFeedback => 'Haptic feedback';
 	String get hapticFeedbackDescription => 'Light vibration when tapping on buttons';
@@ -95,6 +95,11 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get system => 'System';
 	String get light => 'Light';
 	String get dark => 'Dark';
+	String get snooze => 'Snooze';
+	String get snoozeDuration => 'Snooze duration';
+	String get snoozeDurationPicker => 'Select snooze duration';
+	String get snoozeDurationPickerDescription => 'Number of minutes before the alarm rings again';
+	String get minutes => 'minutes';
 }
 
 // Path: onboarding1
@@ -158,7 +163,7 @@ extension on Translations {
 			case 'settings': return 'Settings';
 			case 'language': return 'Language';
 			case 'reportBugOrFeature': return 'Report a bug or ask for a feature';
-			case 'privacyDescription': return 'No data is collected. Everything absolutely stays on your device. No back-end. 100% offline.';
+			case 'privacyDescription': return 'No data is collected. Everything stays on your device.';
 			case 'builtWithLove': return 'Built with ❤️ by Gautier de Lataillade';
 			case 'hapticFeedback': return 'Haptic feedback';
 			case 'hapticFeedbackDescription': return 'Light vibration when tapping on buttons';
@@ -194,6 +199,11 @@ extension on Translations {
 			case 'system': return 'System';
 			case 'light': return 'Light';
 			case 'dark': return 'Dark';
+			case 'snooze': return 'Snooze';
+			case 'snoozeDuration': return 'Snooze duration';
+			case 'snoozeDurationPicker': return 'Select snooze duration';
+			case 'snoozeDurationPickerDescription': return 'Number of minutes before the alarm rings again';
+			case 'minutes': return 'minutes';
 			default: return null;
 		}
 	}

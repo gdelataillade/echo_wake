@@ -22,7 +22,7 @@
   "settings": "Einstellungen",
   "language": "Sprache",
   "reportBugOrFeature": "Fehler melden oder Funktion anfragen",
-  "privacyDescription": "Keine Daten werden gesammelt. Alles bleibt auf Ihrem Gerät. Kein Backend. 100% offline.",
+  "privacyDescription": "Keine Daten werden gesammelt. Alles bleibt auf Ihrem Gerät.",
   "builtWithLove": "Mit ❤️ von Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Leichte Vibration beim Tippen auf Schaltflächen",
@@ -63,5 +63,10 @@
   "selectTheThemeForTheApp": "Wählen Sie das Thema für die App",
   "system": "System",
   "light": "Hell",
-  "dark": "Dunkel"
+  "dark": "Dunkel",
+  "snooze": "Snooze",
+  "snoozeDuration": "Snooze-Dauer",
+  "snoozeDurationPicker": "Snooze-Dauer auswählen",
+  "snoozeDurationPickerDescription": "Minuten vor dem nächsten Wecker",
+  "minutes": "Minuten"
 }

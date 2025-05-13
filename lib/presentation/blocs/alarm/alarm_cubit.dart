@@ -1,4 +1,5 @@
 import 'package:alarm/model/volume_settings.dart';
+import 'package:echo_wake/domain/services/storage.dart';
 import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_state.dart';
 import 'package:flutter/material.dart';
@@ -85,6 +86,30 @@ class AlarmCubit extends Cubit<AlarmState> {
     try {
       emit(AlarmLoading());
       await Alarm.stop(id);
+      loadAlarms();
+    } catch (e) {
+      emit(AlarmError(e.toString()));
+    }
+  }
+
+  Future<void> snoozeAlarm(int id) async {
+    try {
+      emit(AlarmLoading());
+      final alarm = await Alarm.getAlarm(id);
+      if (alarm == null) {
+        emit(AlarmError('Alarm not found'));
+        return;
+      }
+
+      final storage = await StorageService.getInstance();
+      final snoozeDuration = storage.getInt('settingsSnoozeDuration') ?? 10;
+
+      await Alarm.set(
+        alarmSettings: alarm.copyWith(
+          dateTime: DateTime.now().add(Duration(minutes: snoozeDuration)),
+        ),
+      );
+
       loadAlarms();
     } catch (e) {
       emit(AlarmError(e.toString()));

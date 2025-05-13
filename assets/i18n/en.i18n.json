@@ -22,7 +22,7 @@
   "settings": "Settings",
   "language": "Language",
   "reportBugOrFeature": "Report a bug or ask for a feature",
-  "privacyDescription": "No data is collected. Everything absolutely stays on your device. No back-end. 100% offline.",
+  "privacyDescription": "No data is collected. Everything stays on your device.",
   "builtWithLove": "Built with ❤️ by Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Light vibration when tapping on buttons",
@@ -63,5 +63,10 @@
   "selectTheThemeForTheApp": "Select the theme for the app",
   "system": "System",
   "light": "Light",
-  "dark": "Dark"
+  "dark": "Dark",
+  "snooze": "Snooze",
+  "snoozeDuration": "Snooze duration",
+  "snoozeDurationPicker": "Select snooze duration",
+  "snoozeDurationPickerDescription": "Number of minutes before the alarm rings again",
+  "minutes": "minutes"
 }

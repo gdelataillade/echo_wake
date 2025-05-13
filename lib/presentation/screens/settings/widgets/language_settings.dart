@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:country_flags/country_flags.dart';
 
+const List<LanguageOption> languages = [
+  LanguageOption('en', 'English', 'GB'),
+  LanguageOption('fr', 'Français', 'FR'),
+  LanguageOption('es', 'Español', 'ES'),
+  LanguageOption('de', 'Deutsch', 'DE'),
+  LanguageOption('it', 'Italiano', 'IT'),
+  LanguageOption('pt', 'Português', 'PT'),
+];
+
 class LanguageSettings extends StatelessWidget {
   final String selectedLanguage;
-  final List<LanguageOption> languages;
   final ValueChanged<String> onLanguageChanged;
 
   const LanguageSettings({
     super.key,
     required this.selectedLanguage,
-    required this.languages,
     required this.onLanguageChanged,
   });
 
@@ -21,26 +28,23 @@ class LanguageSettings extends StatelessWidget {
       children:
           languages.map((lang) {
             final selected = lang.code == selectedLanguage;
-            return ChoiceChip(
-              label: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  CountryFlag.fromCountryCode(
-                    lang.flagCode,
-                    shape: const RoundedRectangle(3),
-                    height: 20,
-                    width: 28,
+            return GestureDetector(
+              onTap: () => onLanguageChanged(lang.code),
+              child: Container(
+                decoration: BoxDecoration(
+                  // borderRadius: BorderRadius.circular(20),
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    width: 3,
+                    color: selected ? colorScheme.primary : Colors.transparent,
                   ),
-                  const SizedBox(width: 8),
-                  Text(lang.label),
-                ],
-              ),
-              selected: selected,
-              onSelected: (v) => onLanguageChanged(lang.code),
-              selectedColor: colorScheme.primary.withValues(alpha: 0.2),
-              labelStyle: TextStyle(
-                color: selected ? colorScheme.primary : colorScheme.onSurface,
-                fontWeight: selected ? FontWeight.bold : FontWeight.normal,
+                ),
+                child: CountryFlag.fromCountryCode(
+                  lang.flagCode,
+                  shape: const RoundedRectangle(20),
+                  height: 40,
+                  width: 40,
+                ),
               ),
             );
           }).toList(),

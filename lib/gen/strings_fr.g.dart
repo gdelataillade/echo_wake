@@ -59,7 +59,7 @@ class TranslationsFr implements Translations {
 	@override String get settings => 'Paramètres';
 	@override String get language => 'Langue';
 	@override String get reportBugOrFeature => 'Signaler un bug ou demander une fonctionnalité';
-	@override String get privacyDescription => 'Aucune donnée collectée, tout reste sur votre appareil. 100% hors ligne.';
+	@override String get privacyDescription => 'Aucune donnée collectée, tout reste sur votre appareil.';
 	@override String get builtWithLove => 'Fait avec ❤️ par Gautier de Lataillade';
 	@override String get hapticFeedback => 'Haptic feedback';
 	@override String get hapticFeedbackDescription => 'Légère vibration lors de l\'appui sur les boutons';
@@ -92,6 +92,11 @@ class TranslationsFr implements Translations {
 	@override String get system => 'Système';
 	@override String get light => 'Clair';
 	@override String get dark => 'Sombre';
+	@override String get snooze => 'Snooze';
+	@override String get snoozeDuration => 'Durée du snooze';
+	@override String get snoozeDurationPicker => 'Sélectionner la durée du snooze';
+	@override String get snoozeDurationPickerDescription => 'Minutes avant que le réveil sonne à nouveau';
+	@override String get minutes => 'minutes';
 }
 
 // Path: onboarding1
@@ -155,7 +160,7 @@ extension on TranslationsFr {
 			case 'settings': return 'Paramètres';
 			case 'language': return 'Langue';
 			case 'reportBugOrFeature': return 'Signaler un bug ou demander une fonctionnalité';
-			case 'privacyDescription': return 'Aucune donnée collectée, tout reste sur votre appareil. 100% hors ligne.';
+			case 'privacyDescription': return 'Aucune donnée collectée, tout reste sur votre appareil.';
 			case 'builtWithLove': return 'Fait avec ❤️ par Gautier de Lataillade';
 			case 'hapticFeedback': return 'Haptic feedback';
 			case 'hapticFeedbackDescription': return 'Légère vibration lors de l\'appui sur les boutons';
@@ -191,6 +196,11 @@ extension on TranslationsFr {
 			case 'system': return 'Système';
 			case 'light': return 'Clair';
 			case 'dark': return 'Sombre';
+			case 'snooze': return 'Snooze';
+			case 'snoozeDuration': return 'Durée du snooze';
+			case 'snoozeDurationPicker': return 'Sélectionner la durée du snooze';
+			case 'snoozeDurationPickerDescription': return 'Minutes avant que le réveil sonne à nouveau';
+			case 'minutes': return 'minutes';
 			default: return null;
 		}
 	}

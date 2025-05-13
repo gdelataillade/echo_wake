@@ -22,7 +22,7 @@
   "settings": "Configuración",
   "language": "Idioma",
   "reportBugOrFeature": "Reportar un bug o solicitar una funcionalidad",
-  "privacyDescription": "No se recopilan datos. Todo permanece en tu dispositivo. No hay servidor. 100% offline.",
+  "privacyDescription": "No se recopilan datos. Todo permanece en tu dispositivo.",
   "builtWithLove": "Hecho con ❤️ por Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Leve vibración al tocar los botones",
@@ -63,5 +63,10 @@
   "selectTheThemeForTheApp": "Selecciona el tema para la app",
   "system": "Sistema",
   "light": "Claro",
-  "dark": "Oscuro"
+  "dark": "Oscuro",
+  "snooze": "Snooze",
+  "snoozeDuration": "Duración del snooze",
+  "snoozeDurationPicker": "Seleccionar la duración del snooze",
+  "snoozeDurationPickerDescription": "Minutos antes de que suene la alarma de nuevo",
+  "minutes": "minutos"
 }

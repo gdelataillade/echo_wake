@@ -22,7 +22,7 @@
   "settings": "Paramètres",
   "language": "Langue",
   "reportBugOrFeature": "Signaler un bug ou demander une fonctionnalité",
-  "privacyDescription": "Aucune donnée collectée, tout reste sur votre appareil. 100% hors ligne.",
+  "privacyDescription": "Aucune donnée collectée, tout reste sur votre appareil.",
   "builtWithLove": "Fait avec ❤️ par Gautier de Lataillade",
   "hapticFeedback": "Haptic feedback",
   "hapticFeedbackDescription": "Légère vibration lors de l'appui sur les boutons",
@@ -63,5 +63,10 @@
   "selectTheThemeForTheApp": "Sélectionnez le thème de l'app",
   "system": "Système",
   "light": "Clair",
-  "dark": "Sombre"
+  "dark": "Sombre",
+  "snooze": "Snooze",
+  "snoozeDuration": "Durée du snooze",
+  "snoozeDurationPicker": "Sélectionner la durée du snooze",
+  "snoozeDurationPickerDescription": "Minutes avant que le réveil sonne à nouveau",
+  "minutes": "minutes"
 }

@@ -115,6 +115,35 @@ class _RingScreenState extends State<RingScreen>
                     ),
                   ),
                 ),
+                const SizedBox(height: 16),
+                OutlinedButton.icon(
+                  onPressed: () async {
+                    await context.read<AlarmCubit>().snoozeAlarm(
+                      widget.alarm.id,
+                    );
+                    if (context.mounted) Navigator.of(context).pop();
+                  },
+                  icon: Icon(
+                    Icons.snooze_rounded,
+                    size: 24,
+                    color: colorScheme.primary,
+                  ),
+                  label: Text(
+                    'Snooze',
+                    style: TextStyle(color: colorScheme.primary),
+                  ),
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: colorScheme.surface,
+                    side: BorderSide(color: colorScheme.primary, width: 2),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 16,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
