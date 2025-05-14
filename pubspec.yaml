@@ -2,7 +2,7 @@ name: echo_wake
 description: "Personal alarm and timer app where your own voice becomes the wake-up call."
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.1+3
 
 environment:
   sdk: ^3.7.0

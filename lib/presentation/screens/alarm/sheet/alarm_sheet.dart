@@ -14,6 +14,8 @@ import 'package:echo_wake/services/audio_player_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 
 class AlarmSheet extends StatefulWidget {
   final AlarmSettings? existingAlarm;
@@ -107,6 +109,65 @@ class _AlarmSheetState extends State<AlarmSheet> {
     if (mounted) Navigator.pop(context);
   }
 
+  Future<TimeOfDay?> pickTime(
+    BuildContext context,
+    TimeOfDay initialTime,
+  ) async {
+    if (Platform.isIOS) {
+      TimeOfDay? pickedTime;
+      await showCupertinoModalPopup<void>(
+        context: context,
+        builder: (BuildContext context) {
+          DateTime now = DateTime.now();
+          DateTime initialDateTime = DateTime(
+            now.year,
+            now.month,
+            now.day,
+            initialTime.hour,
+            initialTime.minute,
+          );
+          DateTime tempPicked = initialDateTime;
+          return Container(
+            height: 300,
+            color: CupertinoColors.systemBackground.resolveFrom(context),
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 216,
+                  child: CupertinoDatePicker(
+                    mode: CupertinoDatePickerMode.time,
+                    initialDateTime: initialDateTime,
+                    use24hFormat: MediaQuery.of(context).alwaysUse24HourFormat,
+                    onDateTimeChanged: (DateTime newDateTime) {
+                      tempPicked = newDateTime;
+                    },
+                  ),
+                ),
+                CupertinoButton(
+                  child: Text('OK'),
+                  onPressed: () {
+                    pickedTime = TimeOfDay(
+                      hour: tempPicked.hour,
+                      minute: tempPicked.minute,
+                    );
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            ),
+          );
+        },
+      );
+      return pickedTime;
+    } else {
+      return showTimePicker(
+        context: context,
+        initialTime: initialTime,
+        initialEntryMode: TimePickerEntryMode.dialOnly,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final bool isEditMode = widget.existingAlarm != null;
@@ -167,11 +228,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                       onTap: () async {
                         Helper.hapticFeedback();
 
-                        final time = await showTimePicker(
-                          context: context,
-                          initialTime: selectedTime,
-                          initialEntryMode: TimePickerEntryMode.dialOnly,
-                        );
+                        final time = await pickTime(context, selectedTime);
                         if (time != null) {
                           setState(() => selectedTime = time);
                         }
