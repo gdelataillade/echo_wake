@@ -97,6 +97,8 @@ class TranslationsDe implements Translations {
 	@override String get snoozeDurationPicker => 'Snooze-Dauer auswählen';
 	@override String get snoozeDurationPickerDescription => 'Minuten vor dem nächsten Wecker';
 	@override String get minutes => 'Minuten';
+	@override String get recordingDeleted => 'Aufnahme gelöscht';
+	@override String get cannotDeleteRecordingLinkedToAlarm => 'Kann nicht löschen: Diese Aufnahme ist mit einem Wecker verknüpft. Entfernen Sie zuerst den Wecker.';
 }
 
 // Path: onboarding1
@@ -201,6 +203,8 @@ extension on TranslationsDe {
 			case 'snoozeDurationPicker': return 'Snooze-Dauer auswählen';
 			case 'snoozeDurationPickerDescription': return 'Minuten vor dem nächsten Wecker';
 			case 'minutes': return 'Minuten';
+			case 'recordingDeleted': return 'Aufnahme gelöscht';
+			case 'cannotDeleteRecordingLinkedToAlarm': return 'Kann nicht löschen: Diese Aufnahme ist mit einem Wecker verknüpft. Entfernen Sie zuerst den Wecker.';
 			default: return null;
 		}
 	}

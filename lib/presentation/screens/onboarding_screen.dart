@@ -9,7 +9,7 @@ class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
 
   Future<void> _completeOnboarding(BuildContext context) async {
-    Helper.hapticFeedback();
+    Helper.lightHapticFeedback();
 
     final storage = await StorageService.getInstance();
     await storage.setBool('hasSeenOnboarding', true);

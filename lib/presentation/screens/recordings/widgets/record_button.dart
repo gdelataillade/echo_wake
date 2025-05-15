@@ -10,7 +10,7 @@ class RecordButton extends StatelessWidget {
   const RecordButton({super.key});
 
   Future<void> _onPressRecord(BuildContext context) async {
-    Helper.hapticFeedback();
+    Helper.lightHapticFeedback();
 
     PermissionStatus status = await Permission.microphone.request();
 
@@ -59,7 +59,7 @@ class RecordButton extends StatelessWidget {
                 foregroundColor: Theme.of(context).colorScheme.onPrimary,
               ),
               onPressed: () {
-                Helper.hapticFeedback();
+                Helper.lightHapticFeedback();
                 context.read<RecordingsCubit>().importAudioFile();
               },
               icon: const Icon(Icons.upload_file_outlined),

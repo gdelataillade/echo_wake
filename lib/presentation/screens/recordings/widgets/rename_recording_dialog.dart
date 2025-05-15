@@ -39,7 +39,7 @@ class RenameRecordingDialog extends StatelessWidget {
         ),
         TextButton(
           onPressed: () async {
-            Helper.hapticFeedback();
+            Helper.lightHapticFeedback();
 
             final newName = nameController.text.trim();
 

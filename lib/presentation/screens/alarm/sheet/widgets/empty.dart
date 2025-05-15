@@ -1,5 +1,4 @@
 import 'package:echo_wake/gen/strings.g.dart';
-import 'package:echo_wake/presentation/screens/recordings/recording_screen.dart';
 import 'package:flutter/material.dart';
 
 class AlarmSheetEmpty extends StatefulWidget {
@@ -28,16 +27,7 @@ class _AlarmSheetEmptyState extends State<AlarmSheetEmpty> {
           ),
           const SizedBox(height: 8),
           TextButton.icon(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder:
-                      (context) =>
-                          RecordingScreen(needRebuild: () => setState(() {})),
-                ),
-              );
-            },
+            onPressed: () => Navigator.pop(context, true),
             icon: const Icon(Icons.mic_rounded),
             label: Text(t.recordASound),
           ),

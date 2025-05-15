@@ -11,10 +11,16 @@ class Helper {
     hapticEnabled = storage.getBool(hapticKey) ?? true;
   }
 
-  static void hapticFeedback() async {
-    if (hapticEnabled) {
-      HapticFeedback.lightImpact();
-    }
+  static void lightHapticFeedback() async {
+    if (hapticEnabled) HapticFeedback.lightImpact();
+  }
+
+  static void mediumHapticFeedback() async {
+    if (hapticEnabled) HapticFeedback.mediumImpact();
+  }
+
+  static void vibrateHapticFeedback() async {
+    if (hapticEnabled) HapticFeedback.vibrate();
   }
 
   static Future<bool> requestNotificationPermission() async {

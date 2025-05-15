@@ -47,7 +47,7 @@ class RecordingIndicator extends StatelessWidget {
             children: [
               FilledButton.icon(
                 onPressed: () {
-                  Helper.hapticFeedback();
+                  Helper.lightHapticFeedback();
                   context.read<RecordingsCubit>().stopRecording(cancel: true);
                 },
                 icon: const Icon(Icons.close),
@@ -59,7 +59,7 @@ class RecordingIndicator extends StatelessWidget {
               ),
               FilledButton.icon(
                 onPressed: () {
-                  Helper.hapticFeedback();
+                  Helper.lightHapticFeedback();
                   context.read<RecordingsCubit>().stopRecording(cancel: false);
                 },
                 icon: const Icon(Icons.stop),

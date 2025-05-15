@@ -68,5 +68,7 @@
   "snoozeDuration": "Durée du snooze",
   "snoozeDurationPicker": "Sélectionner la durée du snooze",
   "snoozeDurationPickerDescription": "Minutes avant que le réveil sonne à nouveau",
-  "minutes": "minutes"
+  "minutes": "minutes",
+  "recordingDeleted": "Enregistrement supprimé",
+  "cannotDeleteRecordingLinkedToAlarm": "Impossible de supprimer: cet enregistrement est lié à un réveil. Supprimez d'abord le réveil."
 }

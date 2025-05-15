@@ -68,5 +68,7 @@
   "snoozeDuration": "Snooze duration",
   "snoozeDurationPicker": "Select snooze duration",
   "snoozeDurationPickerDescription": "Number of minutes before the alarm rings again",
-  "minutes": "minutes"
+  "minutes": "minutes",
+  "recordingDeleted": "Recording deleted",
+  "cannotDeleteRecordingLinkedToAlarm": "Cannot delete: This recording is linked to an alarm. Remove the alarm first."
 }

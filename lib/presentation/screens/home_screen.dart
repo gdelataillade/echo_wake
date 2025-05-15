@@ -64,13 +64,24 @@ class _HomeScreenState extends State<HomeScreen> {
           bottomNavigationBar: BottomNavigationBar(
             currentIndex: state.selectedTab,
             onTap: (index) {
-              Helper.hapticFeedback();
+              Helper.lightHapticFeedback();
               context.read<NavigationCubit>().updateSelectedTab(index);
             },
             items: [
-              BottomNavigationBarItem(icon: Icon(Icons.alarm), label: t.alarms),
               BottomNavigationBarItem(
-                icon: Icon(Icons.mic_rounded),
+                icon: Icon(
+                  Icons.alarm,
+                  size: state.selectedTab == 0 ? 32 : 24,
+                  weight: state.selectedTab == 0 ? 800 : 400,
+                ),
+                label: t.alarms,
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.mic_rounded,
+                  size: state.selectedTab == 1 ? 32 : 24,
+                  weight: state.selectedTab == 1 ? 800 : 400,
+                ),
                 label: t.recordings,
               ),
             ],

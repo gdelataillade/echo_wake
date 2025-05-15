@@ -68,5 +68,7 @@
   "snoozeDuration": "Durata del snooze",
   "snoozeDurationPicker": "Seleziona la durata del snooze",
   "snoozeDurationPickerDescription": "Minuti prima che la sveglia suoni di nuovo",
-  "minutes": "minuti"
+  "minutes": "minuti",
+  "recordingDeleted": "Registrazione eliminata",
+  "cannotDeleteRecordingLinkedToAlarm": "Impossibile eliminare: questa registrazione è collegata a un allarme. Rimuovi prima l'allarme."
 } 

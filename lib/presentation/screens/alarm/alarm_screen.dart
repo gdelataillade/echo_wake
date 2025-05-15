@@ -2,6 +2,7 @@ import 'package:alarm/model/alarm_settings.dart';
 import 'package:echo_wake/core/utils/helper.dart';
 import 'package:echo_wake/gen/strings.g.dart';
 import 'package:echo_wake/presentation/blocs/alarm/alarm_state.dart';
+import 'package:echo_wake/presentation/blocs/navigation/navigation_bloc.dart';
 import 'package:echo_wake/presentation/screens/alarm/widgets/alarm_error.dart';
 import 'package:echo_wake/presentation/screens/alarm/sheet/alarm_sheet.dart';
 import 'package:echo_wake/presentation/screens/settings/settings_screen.dart';
@@ -109,7 +110,7 @@ class AlarmScreen extends StatelessWidget {
                   direction: DismissDirection.endToStart,
                   onDismissed: (direction) {
                     context.read<AlarmCubit>().stopAlarm(alarmSettings.id);
-                    HapticFeedback.mediumImpact();
+                    Helper.vibrateHapticFeedback();
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(t.alarmDeleted),
@@ -205,18 +206,22 @@ class AlarmScreen extends StatelessWidget {
     );
   }
 
-  void _showAddAlarmSheet(BuildContext context) {
-    Helper.hapticFeedback();
+  Future<void> _showAddAlarmSheet(BuildContext context) async {
+    Helper.lightHapticFeedback();
 
-    showModalBottomSheet(
+    final res = await showModalBottomSheet<bool>(
       context: context,
       isScrollControlled: true,
       builder: (context) => AlarmSheet(),
     );
+
+    if (context.mounted && res != null && res == true) {
+      context.read<NavigationCubit>().updateSelectedTab(1);
+    }
   }
 
   void _showEditAlarmSheet(BuildContext context, AlarmSettings alarm) {
-    Helper.hapticFeedback();
+    Helper.lightHapticFeedback();
 
     showModalBottomSheet(
       context: context,

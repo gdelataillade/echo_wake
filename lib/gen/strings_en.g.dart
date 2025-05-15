@@ -100,6 +100,8 @@ class Translations implements BaseTranslations<AppLocale, Translations> {
 	String get snoozeDurationPicker => 'Select snooze duration';
 	String get snoozeDurationPickerDescription => 'Number of minutes before the alarm rings again';
 	String get minutes => 'minutes';
+	String get recordingDeleted => 'Recording deleted';
+	String get cannotDeleteRecordingLinkedToAlarm => 'Cannot delete: This recording is linked to an alarm. Remove the alarm first.';
 }
 
 // Path: onboarding1
@@ -204,6 +206,8 @@ extension on Translations {
 			case 'snoozeDurationPicker': return 'Select snooze duration';
 			case 'snoozeDurationPickerDescription': return 'Number of minutes before the alarm rings again';
 			case 'minutes': return 'minutes';
+			case 'recordingDeleted': return 'Recording deleted';
+			case 'cannotDeleteRecordingLinkedToAlarm': return 'Cannot delete: This recording is linked to an alarm. Remove the alarm first.';
 			default: return null;
 		}
 	}

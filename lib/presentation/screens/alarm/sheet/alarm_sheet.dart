@@ -29,7 +29,7 @@ class AlarmSheet extends StatefulWidget {
 class _AlarmSheetState extends State<AlarmSheet> {
   late TimeOfDay selectedTime;
   Recording? selectedRecording;
-  bool isLoopEnabled = false;
+  bool isLoopEnabled = true;
   bool isCustomVolumeEnabled = false;
   double alarmVolume = 1.0;
   bool isLoading = false;
@@ -54,7 +54,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
   }
 
   Future<void> _submit() async {
-    Helper.hapticFeedback();
+    Helper.lightHapticFeedback();
 
     PermissionStatus status = await Permission.notification.status;
 
@@ -174,17 +174,19 @@ class _AlarmSheetState extends State<AlarmSheet> {
 
     return BlocBuilder<RecordingsCubit, RecordingsState>(
       builder: (context, state) {
-        if (isEditMode &&
-            selectedRecording == null &&
-            state.recordings.isNotEmpty) {
-          try {
-            selectedRecording = state.recordings.firstWhere(
-              (recording) => recording.filename.contains(
-                widget.existingAlarm!.assetAudioPath,
-              ),
-            );
-          } catch (e) {
-            selectedRecording = null;
+        if (selectedRecording == null && state.recordings.isNotEmpty) {
+          if (isEditMode) {
+            try {
+              selectedRecording = state.recordings.firstWhere(
+                (recording) => recording.filename.contains(
+                  widget.existingAlarm!.assetAudioPath,
+                ),
+              );
+            } catch (e) {
+              selectedRecording = state.recordings.first;
+            }
+          } else {
+            selectedRecording = state.recordings.first;
           }
         }
 
@@ -226,7 +228,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                     const SizedBox(height: 24),
                     InkWell(
                       onTap: () async {
-                        Helper.hapticFeedback();
+                        Helper.lightHapticFeedback();
 
                         final time = await pickTime(context, selectedTime);
                         if (time != null) {
@@ -279,7 +281,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                       subtitle: Text(t.setSpecificVolumeForThisAlarm),
                       value: isCustomVolumeEnabled,
                       onChanged: (value) {
-                        Helper.hapticFeedback();
+                        Helper.lightHapticFeedback();
                         setState(() {
                           isCustomVolumeEnabled = value;
                         });
@@ -290,7 +292,7 @@ class _AlarmSheetState extends State<AlarmSheet> {
                       Slider(
                         value: alarmVolume,
                         onChanged: (value) {
-                          Helper.hapticFeedback();
+                          Helper.lightHapticFeedback();
                           setState(() {
                             alarmVolume = value;
                           });

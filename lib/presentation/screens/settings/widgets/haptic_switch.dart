@@ -39,7 +39,7 @@ class _HapticSwitchState extends State<HapticSwitch> {
     });
     await _storage.setBool(hapticKey, value);
     Helper.hapticEnabled = value;
-    Helper.hapticFeedback();
+    Helper.lightHapticFeedback();
     widget.onChanged?.call(value);
   }
 

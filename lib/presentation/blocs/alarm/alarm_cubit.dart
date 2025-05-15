@@ -115,4 +115,9 @@ class AlarmCubit extends Cubit<AlarmState> {
       emit(AlarmError(e.toString()));
     }
   }
+
+  Future<List<AlarmSettings>> getAlarms() async {
+    final alarms = await Alarm.getAlarms();
+    return alarms;
+  }
 }

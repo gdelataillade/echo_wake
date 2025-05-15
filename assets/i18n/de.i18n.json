@@ -68,5 +68,7 @@
   "snoozeDuration": "Snooze-Dauer",
   "snoozeDurationPicker": "Snooze-Dauer auswählen",
   "snoozeDurationPickerDescription": "Minuten vor dem nächsten Wecker",
-  "minutes": "Minuten"
+  "minutes": "Minuten",
+  "recordingDeleted": "Aufnahme gelöscht",
+  "cannotDeleteRecordingLinkedToAlarm": "Kann nicht löschen: Diese Aufnahme ist mit einem Wecker verknüpft. Entfernen Sie zuerst den Wecker."
 }

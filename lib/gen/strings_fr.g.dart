@@ -97,6 +97,8 @@ class TranslationsFr implements Translations {
 	@override String get snoozeDurationPicker => 'Sélectionner la durée du snooze';
 	@override String get snoozeDurationPickerDescription => 'Minutes avant que le réveil sonne à nouveau';
 	@override String get minutes => 'minutes';
+	@override String get recordingDeleted => 'Enregistrement supprimé';
+	@override String get cannotDeleteRecordingLinkedToAlarm => 'Impossible de supprimer: cet enregistrement est lié à un réveil. Supprimez d\'abord le réveil.';
 }
 
 // Path: onboarding1
@@ -201,6 +203,8 @@ extension on TranslationsFr {
 			case 'snoozeDurationPicker': return 'Sélectionner la durée du snooze';
 			case 'snoozeDurationPickerDescription': return 'Minutes avant que le réveil sonne à nouveau';
 			case 'minutes': return 'minutes';
+			case 'recordingDeleted': return 'Enregistrement supprimé';
+			case 'cannotDeleteRecordingLinkedToAlarm': return 'Impossible de supprimer: cet enregistrement est lié à un réveil. Supprimez d\'abord le réveil.';
 			default: return null;
 		}
 	}

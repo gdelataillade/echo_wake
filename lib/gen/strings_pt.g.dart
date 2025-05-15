@@ -97,6 +97,8 @@ class TranslationsPt implements Translations {
 	@override String get snoozeDurationPicker => 'Selecionar a duração do snooze';
 	@override String get snoozeDurationPickerDescription => 'Minutos antes que o alarme toque novamente';
 	@override String get minutes => 'minutos';
+	@override String get recordingDeleted => 'Gravação excluída';
+	@override String get cannotDeleteRecordingLinkedToAlarm => 'Não é possível excluir: esta gravação está associada a um alarme. Exclua o alarme primeiro.';
 }
 
 // Path: onboarding1
@@ -201,6 +203,8 @@ extension on TranslationsPt {
 			case 'snoozeDurationPicker': return 'Selecionar a duração do snooze';
 			case 'snoozeDurationPickerDescription': return 'Minutos antes que o alarme toque novamente';
 			case 'minutes': return 'minutos';
+			case 'recordingDeleted': return 'Gravação excluída';
+			case 'cannotDeleteRecordingLinkedToAlarm': return 'Não é possível excluir: esta gravação está associada a um alarme. Exclua o alarme primeiro.';
 			default: return null;
 		}
 	}

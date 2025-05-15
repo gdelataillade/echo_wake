@@ -45,7 +45,7 @@ class _AlarmSheetRecordingListState extends State<AlarmSheetRecordingList> {
 
         return GestureDetector(
           onTap: () {
-            Helper.hapticFeedback();
+            Helper.lightHapticFeedback();
             widget.onSelected(recording);
           },
           child: Container(

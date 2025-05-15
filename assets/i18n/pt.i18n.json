@@ -68,5 +68,7 @@
   "snoozeDuration": "Duração do snooze",
   "snoozeDurationPicker": "Selecionar a duração do snooze",
   "snoozeDurationPickerDescription": "Minutos antes que o alarme toque novamente",
-  "minutes": "minutos"
+  "minutes": "minutos",
+  "recordingDeleted": "Gravação excluída",
+  "cannotDeleteRecordingLinkedToAlarm": "Não é possível excluir: esta gravação está associada a um alarme. Exclua o alarme primeiro."
 } 
