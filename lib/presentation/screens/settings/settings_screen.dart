@@ -27,13 +27,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   void initState() {
     super.initState();
-    _initSettings();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initSettings();
+    });
   }
 
   Future<void> _initSettings() async {
     _storage = await StorageService.getInstance();
+    String? storedLanguage = _storage.getString(languageKey);
+
+    if (!mounted) return;
+    if (storedLanguage == null) {
+      final deviceLocale = Localizations.localeOf(context).languageCode;
+      final supportedCodes = languages.map((l) => l.code).toList();
+      storedLanguage =
+          supportedCodes.contains(deviceLocale) ? deviceLocale : 'en';
+    }
+
     setState(() {
-      _selectedLanguage = _storage.getString(languageKey) ?? 'en';
+      _selectedLanguage = storedLanguage!;
       _loading = false;
     });
   }

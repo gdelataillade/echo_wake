@@ -28,22 +28,35 @@ class LanguageSettings extends StatelessWidget {
       children:
           languages.map((lang) {
             final selected = lang.code == selectedLanguage;
-            return GestureDetector(
-              onTap: () => onLanguageChanged(lang.code),
-              child: Container(
-                decoration: BoxDecoration(
-                  // borderRadius: BorderRadius.circular(20),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    width: 3,
-                    color: selected ? colorScheme.primary : Colors.transparent,
+            return Semantics(
+              label:
+                  TextSpan(
+                    text: lang.label,
+                    locale: Locale(lang.code),
+                  ).toPlainText(),
+              selected: selected,
+              button: true,
+              hint:
+                  selected
+                      ? 'Currently selected'
+                      : 'Double tap to switch to ${lang.label}',
+              child: GestureDetector(
+                onTap: () => onLanguageChanged(lang.code),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      width: 3,
+                      color:
+                          selected ? colorScheme.primary : Colors.transparent,
+                    ),
                   ),
-                ),
-                child: CountryFlag.fromCountryCode(
-                  lang.flagCode,
-                  shape: const RoundedRectangle(20),
-                  height: 40,
-                  width: 40,
+                  child: CountryFlag.fromCountryCode(
+                    lang.flagCode,
+                    shape: const RoundedRectangle(20),
+                    height: 40,
+                    width: 40,
+                  ),
                 ),
               ),
             );
