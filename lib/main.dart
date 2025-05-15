@@ -28,7 +28,7 @@ void main() async {
     TranslationProvider(
       child: MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context) => ThemeCubit()),
+          BlocProvider(create: (context) => ThemeCubit(storage: storage)),
           BlocProvider(create: (context) => NavigationCubit(storage: storage)),
           BlocProvider(create: (context) => AlarmCubit()),
           BlocProvider(create: (context) => RecordingsCubit(storage: storage)),
