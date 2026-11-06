@@ -24,6 +24,13 @@ debugging. Open `ios/Runner.xcworkspace` when working in Xcode.
 Flutter also adds analyzer exclusions for build output and native platform
 directories automatically; app Dart code and tests remain analyzed.
 
+The app uses Flutter's single-scene lifecycle, required for launch on iOS 27
+when built with Xcode 27. Plugin registration runs in the implicit engine
+callback; alarm background-task registration and notification delegation stay
+in the app launch callback. The standard `FlutterSceneDelegate` handles the UI
+lifecycle without an app-specific scene delegate. See the
+[Flutter migration guide](https://docs.flutter.dev/release/breaking-changes/uiscenedelegate).
+
 ```sh
 flutter pub get --enforce-lockfile
 dart format --output=none --set-exit-if-changed lib/presentation/screens/settings/widgets/snooze_picker.dart test/presentation/screens/settings/widgets/snooze_picker_test.dart
