@@ -41,30 +41,32 @@ class _SettingsSnoozePickerState extends State<SettingsSnoozePicker> {
     final int? picked = await showModalBottomSheet<int>(
       context: context,
       builder: (context) {
-        return Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const SizedBox(height: 16),
-            Text(
-              context.t.snoozeDurationPicker,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-
-            ...snoozeOptions.map(
-              (option) => RadioListTile<int>(
-                value: option,
-                groupValue: _selectedSnooze,
-                title: Text('$option ${context.t.minutes}'),
-                onChanged: (value) {
-                  if (value != null) {
-                    Navigator.of(context).pop(value);
-                  }
-                },
+        return RadioGroup<int>(
+          groupValue: _selectedSnooze,
+          onChanged: (value) {
+            if (value != null) {
+              Navigator.of(context).pop(value);
+            }
+          },
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const SizedBox(height: 16),
+              Text(
+                context.t.snoozeDurationPicker,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-            ),
-            const SizedBox(height: 16),
-          ],
+              const SizedBox(height: 8),
+
+              ...snoozeOptions.map(
+                (option) => RadioListTile<int>(
+                  value: option,
+                  title: Text('$option ${context.t.minutes}'),
+                ),
+              ),
+              const SizedBox(height: 16),
+            ],
+          ),
         );
       },
     );
